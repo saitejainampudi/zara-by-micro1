@@ -12,32 +12,32 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <span className="text-2xl font-bold bg-gradient-to-r from-zara-purple-dark to-zara-purple bg-clip-text text-transparent">
+            <span className="text-2xl font-bold bg-gradient-accent bg-clip-text text-transparent">
               Zara
             </span>
-            <span className="ml-1 text-sm text-zara-gray bg-zara-purple-light px-2 py-0.5 rounded-md">
+            <span className="ml-1 text-xs text-zara-panel bg-zara-primary px-2 py-0.5 rounded-md">
               by Micro1
             </span>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
-            <Link to="/how-it-works" className="text-gray-700 hover:text-zara-purple transition-colors">
+            <Link to="/how-it-works" className="text-zara-text-primary hover:text-zara-primary transition-colors">
               How it Works
             </Link>
-            <Link to="/pricing" className="text-gray-700 hover:text-zara-purple transition-colors">
+            <Link to="/pricing" className="text-zara-text-primary hover:text-zara-primary transition-colors">
               Pricing
             </Link>
-            <Link to="/success-stories" className="text-gray-700 hover:text-zara-purple transition-colors">
+            <Link to="/success-stories" className="text-zara-text-primary hover:text-zara-primary transition-colors">
               Success Stories
             </Link>
             <Link to="/dashboard">
-              <Button variant="outline" className="border-zara-purple text-zara-purple hover:bg-zara-purple-light">
+              <Button variant="outline" className="border-zara-primary text-zara-primary hover:bg-zara-background">
                 Sign In
               </Button>
             </Link>
             <Link to="/job-upload">
-              <Button className="bg-zara-purple hover:bg-zara-purple-dark text-white">
+              <Button className="bg-zara-primary hover:bg-zara-purple-dark text-white">
                 Start Interviewing
               </Button>
             </Link>
@@ -47,7 +47,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               type="button"
-              className="text-gray-500 hover:text-gray-700 focus:outline-none"
+              className="text-zara-text-primary hover:text-zara-primary focus:outline-none"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? (
@@ -65,35 +65,35 @@ const Navbar = () => {
             <div className="flex flex-col space-y-3">
               <Link
                 to="/how-it-works"
-                className="text-gray-700 hover:text-zara-purple px-2 py-1 block"
+                className="text-zara-text-primary hover:text-zara-primary px-2 py-1 block"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 How it Works
               </Link>
               <Link
                 to="/pricing"
-                className="text-gray-700 hover:text-zara-purple px-2 py-1 block"
+                className="text-zara-text-primary hover:text-zara-primary px-2 py-1 block"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Pricing
               </Link>
               <Link
                 to="/success-stories"
-                className="text-gray-700 hover:text-zara-purple px-2 py-1 block"
+                className="text-zara-text-primary hover:text-zara-primary px-2 py-1 block"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Success Stories
               </Link>
               <Link
                 to="/dashboard"
-                className="text-gray-700 hover:text-zara-purple px-2 py-1 block"
+                className="text-zara-text-primary hover:text-zara-primary px-2 py-1 block"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Sign In
               </Link>
               <Link
                 to="/job-upload"
-                className="bg-zara-purple text-white px-4 py-2 rounded-md text-center"
+                className="bg-zara-primary text-white px-4 py-2 rounded-md text-center"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Start Interviewing

@@ -63,21 +63,39 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Custom colors for Zara
+				// New Zara design system colors
 				zara: {
+					primary: '#3E51FF', // Indigo Blue - Primary Accent
+					secondary: {
+						from: '#7B61FF', // Violet-Purple Gradient start
+						to: '#58C0FF', // Violet-Purple Gradient end
+					},
+					background: '#F6F8FE', // Light Lavender - Soft Background
+					panel: '#FFFFFF', // Soft White - UI Elements/Panels
+					text: {
+						primary: '#2E2E2E', // Charcoal - Typography
+						muted: '#8C8C8C', // Grey - Muted Text
+					},
+					success: '#34C759', // Success Green
+					alert: '#FF3B30', // Alert Red
+					timeBadge: '#D2E6FF', // Light Blue - Time Badge
 					purple: {
 						light: '#E5DEFF',
-						DEFAULT: '#9b87f5',
-						dark: '#6E59A5',
+						DEFAULT: '#3E51FF', // Updated to match Indigo Blue
+						dark: '#3545E6', // Slightly darker shade for hover states
 						darkest: '#1A1F2C',
 					},
 					gray: {
-						lightest: '#F1F0FB',
-						light: '#F6F6F7',
-						DEFAULT: '#8E9196',
-						dark: '#403E43',
-					},
+						lightest: '#F6F8FE', // Updated to match Light Lavender
+						light: '#F6F6F7', 
+						DEFAULT: '#8C8C8C', // Updated to match Muted Text Grey
+						dark: '#2E2E2E', // Updated to match Charcoal
+					}
 				}
+			},
+			fontFamily: {
+				sans: ['Inter', 'SF Pro Display', 'system-ui', 'sans-serif'],
+				inter: ['Inter', 'SF Pro Display', 'system-ui', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -108,6 +126,11 @@ export default {
 				'slide-up': {
 					'0%': { transform: 'translateY(20px)', opacity: '0' },
 					'100%': { transform: 'translateY(0)', opacity: '1' },
+				},
+				'pulse-ring': {
+					'0%': { transform: 'scale(0.8)', opacity: '0.8' },
+					'50%': { transform: 'scale(1)', opacity: '0.5' },
+					'100%': { transform: 'scale(0.8)', opacity: '0.8' }
 				}
 			},
 			animation: {
@@ -115,6 +138,10 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.5s ease-out',
 				'slide-up': 'slide-up 0.5s ease-out',
+				'pulse-ring': 'pulse-ring 2s infinite'
+			},
+			backgroundImage: {
+				'gradient-accent': 'linear-gradient(to right, #7B61FF, #58C0FF)'
 			}
 		}
 	},
