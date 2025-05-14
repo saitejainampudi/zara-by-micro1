@@ -71,6 +71,7 @@ export default {
 						to: '#58C0FF', // Violet-Purple Gradient end
 					},
 					background: '#F6F8FE', // Light Lavender - Soft Background
+					'background-alt': '#DBDAF5', // New alternative background
 					panel: '#FFFFFF', // Soft White - UI Elements/Panels
 					text: {
 						primary: '#2E2E2E', // Charcoal - Typography
