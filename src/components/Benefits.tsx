@@ -30,52 +30,52 @@ const Benefits = () => {
     <div className="py-20 px-6 md:px-10 bg-white">
       <div className="container mx-auto">
         <div className="text-center mb-16">
-          <h2 className="font-bold mb-4">Why Recruiters Love Zara</h2>
-          <p className="text-lg text-zara-text-muted max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Recruiters Love Zara</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Zara transforms your technical hiring process from slow and subjective to fast and data-driven.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {benefits.map((benefit, index) => (
-            <Card key={index} className="border border-gray-200 hover:shadow-md transition-shadow duration-300 bg-zara-panel">
+            <Card key={index} className="border border-gray-200 hover:shadow-md transition-shadow duration-300">
               <CardHeader className="pb-2">
-                <div className="w-12 h-12 rounded-full bg-zara-background flex items-center justify-center text-2xl mb-4">
+                <div className="w-12 h-12 rounded-full bg-zara-purple-light flex items-center justify-center text-2xl mb-4">
                   {benefit.icon}
                 </div>
                 <CardTitle className="text-xl font-bold">{benefit.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-zara-text-muted">{benefit.description}</p>
+                <p className="text-gray-600">{benefit.description}</p>
               </CardContent>
             </Card>
           ))}
         </div>
 
-        <div className="mt-16 bg-zara-background rounded-xl p-8 border border-gray-200">
+        <div className="mt-16 bg-zara-gray-lightest rounded-xl p-8 border border-gray-200">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="mb-6 md:mb-0 md:mr-8">
-              <h3 className="font-bold mb-3">The Numbers Speak</h3>
-              <p className="text-zara-text-muted mb-0">
+              <h3 className="text-2xl font-bold mb-3">The Numbers Speak</h3>
+              <p className="text-gray-600 mb-0">
                 Our AI-powered platform delivers measurable improvements to your hiring process.
               </p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               <div className="text-center">
-                <div className="text-3xl font-bold text-zara-primary mb-1">400K+</div>
-                <div className="text-sm text-zara-text-muted">Interviews Conducted</div>
+                <div className="text-3xl font-bold text-zara-purple mb-1">400K+</div>
+                <div className="text-sm text-gray-500">Interviews Conducted</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-zara-primary mb-1">86%</div>
-                <div className="text-sm text-zara-text-muted">Time Saved</div>
+                <div className="text-3xl font-bold text-zara-purple mb-1">86%</div>
+                <div className="text-sm text-gray-500">Time Saved</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-zara-primary mb-1">92%</div>
-                <div className="text-sm text-zara-text-muted">Hiring Accuracy</div>
+                <div className="text-3xl font-bold text-zara-purple mb-1">92%</div>
+                <div className="text-sm text-gray-500">Hiring Accuracy</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-zara-primary mb-1">24/7</div>
-                <div className="text-sm text-zara-text-muted">Interviewing Capability</div>
+                <div className="text-3xl font-bold text-zara-purple mb-1">24/7</div>
+                <div className="text-sm text-gray-500">Interviewing Capability</div>
               </div>
             </div>
           </div>

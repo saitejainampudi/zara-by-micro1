@@ -1,47 +1,53 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 228 100% 98%; /* #F6F8FE */
-    --foreground: 0 0% 18%; /* #2E2E2E */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 18%;
+    --card-foreground: 222.2 84% 4.9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 18%;
+    --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 230 100% 62%; /* #3E51FF */
-    --primary-foreground: 0 0% 100%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 240 100% 69%; /* #7B61FF */
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
 
-    --muted: 0 0% 97%;
-    --muted-foreground: 0 0% 55%; /* #8C8C8C */
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 230 100% 95%; /* Lighter version of primary */
-    --accent-foreground: 230 100% 62%; /* #3E51FF */
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 
-    --destructive: 357 100% 59%; /* #FF3B30 */
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 230 100% 62%; /* #3E51FF */
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
 
-    --radius: 0.6rem;
+    --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
+
     --sidebar-foreground: 240 5.3% 26.1%;
+
     --sidebar-primary: 240 5.9% 10%;
+
     --sidebar-primary-foreground: 0 0% 98%;
+
     --sidebar-accent: 240 4.8% 95.9%;
+
     --sidebar-accent-foreground: 240 5.9% 10%;
+
     --sidebar-border: 220 13% 91%;
+
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -89,79 +95,7 @@
     @apply border-border;
   }
 
-  html {
-    font-family: 'Inter', 'SF Pro Display', system-ui, sans-serif;
-  }
-
   body {
-    @apply bg-zara-background text-zara-text-primary;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-bold tracking-tight;
-  }
-
-  h1 {
-    @apply text-3xl md:text-4xl lg:text-5xl;
-  }
-
-  h2 {
-    @apply text-2xl md:text-3xl lg:text-4xl;
-  }
-
-  h3 {
-    @apply text-xl md:text-2xl;
-  }
-
-  h4 {
-    @apply text-lg md:text-xl;
-  }
-
-  p, li, div {
-    @apply text-base leading-relaxed;
-  }
-
-  .label, .badge {
-    @apply text-xs font-semibold;
-  }
-}
-
-@layer components {
-  .btn-primary {
-    @apply bg-zara-primary text-white rounded-md px-4 py-2 hover:bg-zara-purple-dark transition-colors duration-300;
-  }
-
-  .card-panel {
-    @apply bg-zara-panel rounded-xl shadow-md p-6;
-  }
-
-  .badge {
-    @apply inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold;
-  }
-
-  .badge-time {
-    @apply bg-zara-timeBadge text-zara-primary;
-  }
-
-  .badge-skill {
-    @apply bg-zara-background text-zara-text-primary;
-  }
-
-  .badge-success {
-    @apply bg-zara-success text-white;
-  }
-
-  .badge-alert {
-    @apply bg-zara-alert text-white;
-  }
-
-  .candidate-card {
-    @apply bg-white rounded-xl border border-gray-200 shadow-sm p-4 transition-shadow hover:shadow-md;
-  }
-
-  .pulse-ring {
-    @apply rounded-full absolute animate-pulse-ring;
-    background: linear-gradient(to right, #7B61FF, #58C0FF);
+    @apply bg-background text-foreground;
   }
 }
