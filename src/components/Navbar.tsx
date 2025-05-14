@@ -31,12 +31,12 @@ const Navbar = () => {
             <Link to="/success-stories" className="text-gray-700 hover:text-zara-purple transition-colors">
               Success Stories
             </Link>
-            <Link to="/dashboard">
+            <Link to="/signin">
               <Button variant="outline" className="border-zara-purple text-zara-purple hover:bg-zara-purple-light">
                 Sign In
               </Button>
             </Link>
-            <Link to="/job-upload">
+            <Link to="/start-interviewing">
               <Button className="bg-zara-purple hover:bg-zara-purple-dark text-white">
                 Start Interviewing
               </Button>
@@ -85,14 +85,14 @@ const Navbar = () => {
                 Success Stories
               </Link>
               <Link
-                to="/dashboard"
+                to="/signin"
                 className="text-gray-700 hover:text-zara-purple px-2 py-1 block"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Sign In
               </Link>
               <Link
-                to="/job-upload"
+                to="/start-interviewing"
                 className="bg-zara-purple text-white px-4 py-2 rounded-md text-center"
                 onClick={() => setMobileMenuOpen(false)}
               >

@@ -77,6 +77,8 @@ export default {
 						DEFAULT: '#8E9196',
 						dark: '#403E43',
 					},
+					// Add our new background color
+					lavender: '#DBDAF5',
 				}
 			},
 			borderRadius: {

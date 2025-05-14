@@ -8,6 +8,11 @@ import Index from "./pages/Index";
 import JobUpload from "./pages/JobUpload";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import HowItWorksPage from "./pages/HowItWorksPage";
+import PricingPage from "./pages/PricingPage";
+import SuccessStoriesPage from "./pages/SuccessStoriesPage";
+import SignInPage from "./pages/SignInPage";
+import StartInterviewing from "./pages/StartInterviewing";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +26,11 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/job-upload" element={<JobUpload />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/how-it-works" element={<HowItWorksPage />} />
+          <Route path="/pricing" element={<PricingPage />} />
+          <Route path="/success-stories" element={<SuccessStoriesPage />} />
+          <Route path="/signin" element={<SignInPage />} />
+          <Route path="/start-interviewing" element={<StartInterviewing />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
