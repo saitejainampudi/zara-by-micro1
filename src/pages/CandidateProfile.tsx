@@ -22,7 +22,7 @@ const candidatesData = [
     name: "Alex Johnson",
     photo: "AJ",
     role: "Senior Frontend Developer",
-    experience: "7 years",
+    yearsOfExperience: "7 years",
     location: "San Francisco, CA",
     email: "alex.johnson@example.com",
     phone: "+1 (555) 123-4567",
@@ -38,7 +38,7 @@ const candidatesData = [
     rating: 87,
     interviewDate: "May 12, 2023",
     about: "Passionate frontend developer with 7+ years of experience building scalable web applications. Specialized in React ecosystem and modern JavaScript. I've led teams of up to 8 developers and mentored junior engineers. My focus is on creating exceptional user experiences with clean, maintainable code.",
-    experience: [
+    workExperience: [
       {
         company: "EndlessLabs AI",
         role: "Senior Frontend Engineer",
@@ -75,7 +75,7 @@ const candidatesData = [
     name: "Maya Rodriguez",
     photo: "MR",
     role: "Machine Learning Engineer",
-    experience: "4 years",
+    yearsOfExperience: "4 years",
     location: "Austin, TX",
     email: "maya.rodriguez@example.com",
     phone: "+1 (555) 234-5678",
@@ -91,7 +91,7 @@ const candidatesData = [
     rating: 92,
     interviewDate: "May 15, 2023",
     about: "Machine learning engineer with a PhD from MIT and 4 years of industry experience. Published researcher in neural networks with 2 patents. Passionate about solving real-world problems through applied AI and optimizing algorithmic efficiency.",
-    experience: [
+    workExperience: [
       {
         company: "AI Solutions Inc.",
         role: "Senior ML Engineer",
@@ -126,7 +126,7 @@ const candidatesData = [
     name: "David Kim",
     photo: "DK",
     role: "Full Stack Developer",
-    experience: "5 years",
+    yearsOfExperience: "5 years",
     location: "New York, NY",
     email: "david.kim@example.com",
     phone: "+1 (555) 345-6789",
@@ -142,7 +142,7 @@ const candidatesData = [
     rating: 81,
     interviewDate: "May 14, 2023",
     about: "Full stack developer with a special focus on financial technology solutions. Experienced in building secure, scalable applications with modern tech stacks. Passionate about clean code architecture and microservices design.",
-    experience: [
+    workExperience: [
       {
         company: "FinTech Now",
         role: "Senior Full Stack Developer",
@@ -179,7 +179,7 @@ const candidatesData = [
     name: "Sophia Chang",
     photo: "SC",
     role: "UI/UX Designer & Developer",
-    experience: "6 years",
+    yearsOfExperience: "6 years",
     location: "Seattle, WA",
     email: "sophia.chang@example.com",
     phone: "+1 (555) 456-7890",
@@ -195,7 +195,7 @@ const candidatesData = [
     rating: 89,
     interviewDate: "May 10, 2023",
     about: "UI/UX designer and developer with expertise in creating intuitive, accessible digital experiences. My background combines formal design education with frontend development skills, allowing me to bridge the gap between design and implementation.",
-    experience: [
+    workExperience: [
       {
         company: "HealthTech Innovations",
         role: "Senior UI/UX Designer",
@@ -232,7 +232,7 @@ const candidatesData = [
     name: "Rajiv Patel",
     photo: "RP",
     role: "Backend Engineer",
-    experience: "8 years",
+    yearsOfExperience: "8 years",
     location: "Remote (India)",
     email: "rajiv.patel@example.com",
     phone: "+91 98765 43210",
@@ -248,7 +248,7 @@ const candidatesData = [
     rating: 85,
     interviewDate: "May 16, 2023",
     about: "Experienced backend engineer specialized in high-scale distributed systems. Expert in Java/Spring ecosystem with strong focus on cloud-native architectures. I enjoy solving complex performance challenges and building robust, scalable services.",
-    experience: [
+    workExperience: [
       {
         company: "Global Tech Solutions",
         role: "Senior Backend Engineer",
@@ -285,7 +285,7 @@ const candidatesData = [
     name: "Emma Wilson",
     photo: "EW",
     role: "DevOps Engineer",
-    experience: "4 years",
+    yearsOfExperience: "4 years",
     location: "Chicago, IL",
     email: "emma.wilson@example.com",
     phone: "+1 (555) 567-8901",
@@ -301,7 +301,7 @@ const candidatesData = [
     rating: 83,
     interviewDate: "May 18, 2023",
     about: "DevOps engineer focused on automation, infrastructure as code, and CI/CD pipelines. I'm passionate about building reliable systems that enable developer productivity while maintaining security and cost-efficiency.",
-    experience: [
+    workExperience: [
       {
         company: "Cloud Tech Inc.",
         role: "Senior DevOps Engineer",
@@ -367,7 +367,7 @@ const CandidateProfile = () => {
                       <h1 className="text-2xl md:text-3xl font-bold">{candidate.name}</h1>
                       <p className="text-zara-purple font-medium text-lg">{candidate.role}</p>
                       <div className="flex items-center mt-1 text-gray-600">
-                        <span>{candidate.experience}</span>
+                        <span>{candidate.yearsOfExperience}</span>
                         <span className="mx-2">•</span>
                         <span>{candidate.location}</span>
                       </div>
@@ -539,7 +539,7 @@ const CandidateProfile = () => {
                   <CardTitle>Experience</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {candidate.experience.map((exp, index) => (
+                  {candidate.workExperience.map((exp, index) => (
                     <div key={index} className={`${index > 0 ? 'mt-6 pt-6 border-t border-gray-200' : ''}`}>
                       <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                         <div>
