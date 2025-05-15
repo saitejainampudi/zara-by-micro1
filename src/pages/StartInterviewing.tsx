@@ -10,7 +10,6 @@ import { toast } from "@/hooks/use-toast";
 
 const StartInterviewing = () => {
   const [step, setStep] = useState(1);
-  const [hiringType, setHiringType] = useState('general');
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -20,8 +19,7 @@ const StartInterviewing = () => {
     teamSize: '',
     companySize: '',
     hearAboutUs: '',
-    description: '',
-    hiringGoals: '',
+    description: ''
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -45,10 +43,6 @@ const StartInterviewing = () => {
     console.log('Submitted form data:', formData);
   };
 
-  const handleHiringTypeChange = (type: string) => {
-    setHiringType(type);
-  };
-
   return (
     <div className="min-h-screen bg-zara-lavender">
       <Navbar />
@@ -60,43 +54,8 @@ const StartInterviewing = () => {
               <div className="text-center mb-8">
                 <h1 className="text-2xl md:text-3xl font-bold mb-2">Start Interviewing with Zara</h1>
                 <p className="text-gray-600 max-w-xl mx-auto">
-                  Set up your account and start conducting AI-powered interviews in minutes.
+                  Set up your account and start conducting AI-powered technical interviews in minutes.
                 </p>
-              </div>
-              
-              {/* Hiring Type Selection */}
-              <div className="mb-10">
-                <div className="text-center mb-6">
-                  <h2 className="text-xl font-bold">What type of hiring do you need?</h2>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div 
-                    className={`p-6 border rounded-lg cursor-pointer transition-all ${
-                      hiringType === 'technical' 
-                        ? 'border-zara-purple bg-zara-purple-light' 
-                        : 'border-gray-200 hover:border-zara-purple'
-                    }`}
-                    onClick={() => handleHiringTypeChange('technical')}
-                  >
-                    <h3 className="font-bold text-lg mb-2">Technical Hiring</h3>
-                    <p className="text-gray-600">
-                      For engineering, development, and other technical roles requiring specific skills assessment.
-                    </p>
-                  </div>
-                  <div 
-                    className={`p-6 border rounded-lg cursor-pointer transition-all ${
-                      hiringType === 'general' 
-                        ? 'border-zara-purple bg-zara-purple-light' 
-                        : 'border-gray-200 hover:border-zara-purple'
-                    }`}
-                    onClick={() => handleHiringTypeChange('general')}
-                  >
-                    <h3 className="font-bold text-lg mb-2">General Hiring</h3>
-                    <p className="text-gray-600">
-                      For all other roles including management, marketing, sales, and customer support.
-                    </p>
-                  </div>
-                </div>
               </div>
               
               {/* Progress Steps */}
@@ -331,23 +290,6 @@ const StartInterviewing = () => {
                       </p>
                     </div>
                     
-                    {hiringType === 'technical' && (
-                      <div className="space-y-2">
-                        <label htmlFor="hiringGoals" className="block text-sm font-medium text-gray-700">
-                          Technical Hiring Goals
-                        </label>
-                        <textarea
-                          id="hiringGoals"
-                          name="hiringGoals"
-                          rows={4}
-                          value={formData.hiringGoals}
-                          onChange={handleChange}
-                          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zara-purple focus:border-zara-purple sm:text-sm"
-                          placeholder="What technical skills and experience are you looking for? E.g., programming languages, frameworks, years of experience..."
-                        ></textarea>
-                      </div>
-                    )}
-                    
                     <div className="bg-zara-purple-light p-6 rounded-lg">
                       <h3 className="font-bold text-zara-purple-dark mb-3">What You'll Get:</h3>
                       <ul className="space-y-3">
@@ -383,7 +325,7 @@ const StartInterviewing = () => {
                         type="submit"
                         className="bg-zara-purple hover:bg-zara-purple-dark"
                       >
-                        {hiringType === 'technical' ? 'Start Technical Hiring Now' : 'Create Account'}
+                        Create Account
                       </Button>
                     </div>
                   </div>

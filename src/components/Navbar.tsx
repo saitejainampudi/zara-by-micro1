@@ -34,9 +34,6 @@ const Navbar = () => {
             <Link to="/candidates" className="text-gray-700 hover:text-zara-purple transition-colors">
               Candidates
             </Link>
-            <Link to="/ai-interview" className="text-gray-700 hover:text-zara-purple transition-colors">
-              AI Interview
-            </Link>
             <Link to="/signin">
               <Button variant="outline" className="border-zara-purple text-zara-purple hover:bg-zara-purple-light">
                 Sign In
@@ -96,13 +93,6 @@ const Navbar = () => {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Candidates
-              </Link>
-              <Link
-                to="/ai-interview"
-                className="text-gray-700 hover:text-zara-purple px-2 py-1 block"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                AI Interview
               </Link>
               <Link
                 to="/signin"
