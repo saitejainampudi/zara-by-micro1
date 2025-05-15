@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -156,6 +155,146 @@ const candidatesData = [
     highlights: ["Team Leadership", "Budget Management"],
     rating: 90,
     interviewDate: "2023-05-20"
+  },
+  {
+    id: 8,
+    name: "Akash Sharma",
+    photo: "AS",
+    role: "iOS Developer",
+    experience: "6 years",
+    location: "Remote (India)",
+    locationType: "Remote",
+    skills: ["Swift", "SwiftUI", "Objective-C", "Mobile Architecture"],
+    category: "Technical",
+    salary: {
+      monthly: "$10,000",
+      hourly: "$58"
+    },
+    note: "Created top-rated finance app with 4.8/5 rating. Bachelor's in Mobile Computing.",
+    education: "Delhi Technological University",
+    highlights: ["Mobile Development", "App Store Success"],
+    rating: 88,
+    interviewDate: "2023-05-22"
+  },
+  {
+    id: 9,
+    name: "Miguel Gonzalez",
+    photo: "MG",
+    role: "Data Scientist",
+    experience: "5 years",
+    location: "Remote (Spain)",
+    locationType: "Remote",
+    skills: ["Python", "R", "Machine Learning", "Statistical Analysis"],
+    category: "Technical",
+    salary: {
+      monthly: "$11,500",
+      hourly: "$66"
+    },
+    note: "Implemented predictive models that increased conversion rates by 42%. PhD in Statistics.",
+    education: "University of Barcelona",
+    highlights: ["Predictive Modeling", "NLP Specialist"],
+    rating: 91,
+    interviewDate: "2023-05-25"
+  },
+  {
+    id: 10,
+    name: "Priya Desai",
+    photo: "PD",
+    role: "Product Manager",
+    experience: "7 years",
+    location: "London, UK",
+    locationType: "Hybrid",
+    skills: ["Product Strategy", "User Research", "Agile", "Roadmap Planning"],
+    category: "Non-Technical",
+    salary: {
+      monthly: "$13,800",
+      hourly: "$80"
+    },
+    note: "Led product teams at two successful fintech startups. MBA from London Business School.",
+    education: "London Business School",
+    highlights: ["Product Strategy", "Fintech Expertise"],
+    rating: 89,
+    interviewDate: "2023-05-27"
+  },
+  {
+    id: 11,
+    name: "Jamal Williams",
+    photo: "JW",
+    role: "Security Engineer",
+    experience: "8 years",
+    location: "Austin, TX",
+    locationType: "On-site",
+    skills: ["Penetration Testing", "Security Auditing", "Encryption", "Compliance"],
+    category: "Technical",
+    salary: {
+      monthly: "$14,500",
+      hourly: "$84"
+    },
+    note: "Protected enterprise systems from advanced threats. CISSP certified.",
+    education: "Georgia Tech",
+    highlights: ["Security Specialist", "Compliance Expert"],
+    rating: 94,
+    interviewDate: "2023-06-01"
+  },
+  {
+    id: 12,
+    name: "Olivia Chen",
+    photo: "OC",
+    role: "Android Developer",
+    experience: "4 years",
+    location: "Toronto, Canada",
+    locationType: "Remote",
+    skills: ["Kotlin", "Java", "Android SDK", "Material Design"],
+    category: "Technical",
+    salary: {
+      monthly: "$10,800",
+      hourly: "$62"
+    },
+    note: "Rebuilt legacy app, increasing user retention by 65%. Master's in Computer Engineering.",
+    education: "University of Toronto",
+    highlights: ["Android Expert", "Performance Optimization"],
+    rating: 86,
+    interviewDate: "2023-06-03"
+  },
+  {
+    id: 13,
+    name: "Lars Nielsen",
+    photo: "LN",
+    role: "Cloud Architect",
+    experience: "9 years",
+    location: "Copenhagen, Denmark",
+    locationType: "Remote",
+    skills: ["AWS", "Azure", "GCP", "Serverless Architecture"],
+    category: "Technical",
+    salary: {
+      monthly: "$15,200",
+      hourly: "$88"
+    },
+    note: "Designed cloud infrastructure that reduced costs by 40%. Multiple AWS certifications.",
+    education: "Technical University of Denmark",
+    highlights: ["Multi-cloud Expert", "Cost Optimization"],
+    rating: 93,
+    interviewDate: "2023-06-05"
+  },
+  {
+    id: 14,
+    name: "Neha Kapoor",
+    photo: "NK",
+    role: "QA Automation Engineer",
+    experience: "6 years",
+    location: "Bangalore, India",
+    locationType: "Remote",
+    skills: ["Selenium", "Cypress", "Testing Frameworks", "CI/CD"],
+    category: "Technical",
+    salary: {
+      monthly: "$8,800",
+      hourly: "$51"
+    },
+    note: "Implemented test automation that reduced QA time by 70%. Bachelor's in Computer Science.",
+    education: "Bangalore Institute of Technology",
+    highlights: ["Test Automation", "Quality Processes"],
+    rating: 84,
+    interviewDate: "2023-06-07"
   }
 ];
 
