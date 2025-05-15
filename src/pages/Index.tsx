@@ -8,6 +8,7 @@ import Testimonials from '../components/Testimonials';
 import Footer from '../components/Footer';
 import ChatAssistant from '../components/ChatAssistant';
 import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 
 const FeatureSection = () => {
   return (
@@ -59,45 +60,17 @@ const FeatureSection = () => {
           </div>
         </div>
 
-        <div className="mt-20">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Trusted by innovative teams worldwide</h2>
-          </div>
-          
-          <div className="grid grid-cols-3 md:grid-cols-7 gap-6">
-            {["Jump", "FlowFi", "Monday", "Wired", "Intellux", "RunPod", "ZS", "DocDraft"].map((company) => (
-              <div key={company} className="flex items-center justify-center">
-                <div className="text-xl md:text-2xl font-bold text-gray-500">{company}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-20">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Zara integrates with your ATS</h2>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {["Workday", "Lever", "Greenhouse", "Workable", "Ashby", 
-              "SAP SuccessFactors", "SmartRecruiters", "Recruitee", 
-              "Teamtailor", "Onlyfy", "Personio", "Breezy HR"].map((ats) => (
-              <div key={ats} className="bg-[#DBDAF5] p-4 text-center rounded-lg">
-                <p className="font-medium">{ats}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-        
         <div className="mt-16 text-center flex flex-col md:flex-row justify-center gap-4">
-          <Link to="/candidates">
-            <button className="bg-zara-purple hover:bg-zara-purple-dark text-white px-8 py-3 rounded-md font-medium text-lg transition-colors w-full md:w-auto mb-4 md:mb-0">
+          <Link to="/candidates" className="w-full md:w-auto mb-4 md:mb-0">
+            <button className="bg-zara-purple hover:bg-zara-purple-dark text-white px-8 py-3 rounded-md font-medium text-lg transition-colors w-full md:w-auto">
               View Available Candidates
             </button>
           </Link>
-          <Link to="/ai-interview">
-            <button className="bg-zara-purple hover:bg-zara-purple-dark text-white px-8 py-3 rounded-md font-medium text-lg transition-colors w-full md:w-auto">
-              Try AI Interviews
+          <Link to="/ai-interview" className="w-full md:w-auto group">
+            <button className="relative bg-gradient-to-r from-zara-purple to-zara-purple-dark text-white px-8 py-3 rounded-md font-medium text-lg transition-all w-full md:w-auto flex items-center justify-center gap-2 overflow-hidden group-hover:shadow-lg">
+              <span>Try AI Interviews</span>
+              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              <div className="absolute -bottom-2 left-0 w-full h-1 bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
             </button>
           </Link>
         </div>

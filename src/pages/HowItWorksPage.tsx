@@ -283,7 +283,7 @@ const HowItWorksPage = () => {
                 </Button>
               </Link>
               <Link to="/pricing">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-zara-purple-dark">
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-zara-purple-dark bg-gradient-to-r from-[#7E69AB] to-[#6E59A5]">
                   View Pricing
                 </Button>
               </Link>
