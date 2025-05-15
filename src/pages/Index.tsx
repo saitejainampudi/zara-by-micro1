@@ -51,28 +51,6 @@ const Index = () => {
         <Benefits />
         <HowItWorks />
         <Testimonials />
-        
-        {/* ATS Integration Section - Moved to bottom */}
-        <div className="py-16 px-6 md:px-10 bg-white">
-          <div className="container mx-auto">
-            <div className="bg-white rounded-xl shadow-md p-8 border border-gray-200">
-              <div className="text-center mb-8">
-                <h2 className="text-2xl md:text-3xl font-bold mb-4">Zara integrates with your ATS</h2>
-                <p className="text-gray-600 max-w-2xl mx-auto">
-                  Seamlessly connect Zara to your existing recruitment workflow with our native integrations.
-                </p>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                {["Workday", "Lever", "Greenhouse", "Workable", "Ashby", "SAP SuccessFactors", 
-                  "SmartRecruiters", "Recruitee", "Teamtailor", "Onlyfy", "Personio", "Breezy HR"].map((ats, index) => (
-                  <div key={index} className="bg-gray-50 p-4 rounded-lg flex items-center justify-center h-16 border border-gray-200">
-                    <span className="font-medium text-gray-700">{ats}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
       </main>
       <Footer />
       <ChatAssistant />
