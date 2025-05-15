@@ -89,10 +89,15 @@ const FeatureSection = () => {
           </div>
         </div>
         
-        <div className="mt-16 text-center">
+        <div className="mt-16 text-center flex flex-col md:flex-row justify-center gap-4">
           <Link to="/candidates">
-            <button className="bg-zara-purple hover:bg-zara-purple-dark text-white px-8 py-3 rounded-md font-medium text-lg transition-colors">
+            <button className="bg-zara-purple hover:bg-zara-purple-dark text-white px-8 py-3 rounded-md font-medium text-lg transition-colors w-full md:w-auto mb-4 md:mb-0">
               View Available Candidates
+            </button>
+          </Link>
+          <Link to="/ai-interview">
+            <button className="bg-zara-purple hover:bg-zara-purple-dark text-white px-8 py-3 rounded-md font-medium text-lg transition-colors w-full md:w-auto">
+              Try AI Interviews
             </button>
           </Link>
         </div>

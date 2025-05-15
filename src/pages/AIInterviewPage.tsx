@@ -346,13 +346,14 @@ const AIInterviewPage = () => {
           </Tabs>
           
           <div className="mt-12">
-            <h2 className="text-2xl font-bold mb-6 text-center">Supported Languages</h2>
+            <h2 className="text-2xl font-bold mb-6 text-center">Zara Speaks 15+ Languages</h2>
             <div className="bg-white p-6 rounded-xl shadow-sm">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              <p className="text-center mb-6 text-gray-600">Conduct interviews in any of these languages to accommodate candidates globally</p>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {[
                   "English", "Hindi", "Tamil", "Telugu", "Kannada", "Malayalam", 
                   "Bengali", "Marathi", "Gujarati", "Punjabi", "Urdu", "Odia",
-                  "Spanish", "French", "German", "Japanese"
+                  "Spanish", "French", "German", "Japanese", "Chinese", "Russian", "Arabic"
                 ].map((language) => (
                   <div key={language} className="bg-[#DBDAF5] p-3 rounded-lg text-center">
                     <p className="font-medium">{language}</p>
