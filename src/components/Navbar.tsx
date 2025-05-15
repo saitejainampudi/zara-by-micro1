@@ -31,6 +31,9 @@ const Navbar = () => {
             <Link to="/success-stories" className="text-gray-700 hover:text-zara-purple transition-colors">
               Success Stories
             </Link>
+            <Link to="/candidates" className="text-gray-700 hover:text-zara-purple transition-colors">
+              Candidates
+            </Link>
             <Link to="/signin">
               <Button variant="outline" className="border-zara-purple text-zara-purple hover:bg-zara-purple-light">
                 Sign In
@@ -83,6 +86,13 @@ const Navbar = () => {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Success Stories
+              </Link>
+              <Link
+                to="/candidates"
+                className="text-gray-700 hover:text-zara-purple px-2 py-1 block"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Candidates
               </Link>
               <Link
                 to="/signin"
