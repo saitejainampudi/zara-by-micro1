@@ -6,7 +6,14 @@ import { Link } from 'react-router-dom';
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { Search, Filter, ChevronDown } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 // Mock candidate data
 const candidatesData = [
@@ -17,7 +24,9 @@ const candidatesData = [
     role: "Senior Frontend Developer",
     experience: "7 years",
     location: "San Francisco, CA",
+    locationType: "On-site",
     skills: ["React", "TypeScript", "Redux", "People Management"],
+    category: "Technical",
     salary: {
       monthly: "$12,500",
       hourly: "$72"
@@ -34,8 +43,10 @@ const candidatesData = [
     photo: "MR",
     role: "Machine Learning Engineer",
     experience: "4 years",
-    location: "Austin, TX",
+    location: "Remote",
+    locationType: "Remote",
     skills: ["Python", "TensorFlow", "Data Structures", "Algorithm Optimization"],
+    category: "Technical",
     salary: {
       monthly: "$14,200",
       hourly: "$82"
@@ -53,7 +64,9 @@ const candidatesData = [
     role: "Full Stack Developer",
     experience: "5 years",
     location: "New York, NY",
+    locationType: "Hybrid",
     skills: ["JavaScript", "Node.js", "React", "MongoDB"],
+    category: "Technical",
     salary: {
       monthly: "$11,800",
       hourly: "$68"
@@ -71,7 +84,9 @@ const candidatesData = [
     role: "UI/UX Designer & Developer",
     experience: "6 years",
     location: "Seattle, WA",
+    locationType: "On-site",
     skills: ["UI Design", "User Research", "React Native", "Adobe Suite"],
+    category: "Technical",
     salary: {
       monthly: "$10,500",
       hourly: "$61"
@@ -89,7 +104,9 @@ const candidatesData = [
     role: "Backend Engineer",
     experience: "8 years",
     location: "Remote (India)",
+    locationType: "Remote",
     skills: ["Java", "Spring Boot", "AWS", "Microservices"],
+    category: "Technical",
     salary: {
       monthly: "$9,200",
       hourly: "$53"
@@ -107,7 +124,9 @@ const candidatesData = [
     role: "DevOps Engineer",
     experience: "4 years",
     location: "Chicago, IL",
+    locationType: "Hybrid",
     skills: ["Docker", "Kubernetes", "CI/CD", "Terraform"],
+    category: "Technical",
     salary: {
       monthly: "$11,000",
       hourly: "$63"
@@ -117,36 +136,141 @@ const candidatesData = [
     highlights: ["Infrastructure Optimization", "Cost Reduction"],
     rating: 83,
     interviewDate: "2023-05-18"
+  },
+  {
+    id: 7,
+    name: "Sarah Miller",
+    photo: "SM",
+    role: "Technical Project Manager",
+    experience: "9 years",
+    location: "Boston, MA",
+    locationType: "On-site",
+    skills: ["Agile", "Scrum", "Project Planning", "Team Leadership"],
+    category: "Non-Technical",
+    salary: {
+      monthly: "$12,800",
+      hourly: "$74"
+    },
+    note: "Successfully delivered 25+ enterprise projects with average 15% under budget.",
+    education: "Boston University",
+    highlights: ["Team Leadership", "Budget Management"],
+    rating: 90,
+    interviewDate: "2023-05-20"
   }
 ];
 
 const CandidatesList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredCandidates, setFilteredCandidates] = useState(candidatesData);
+  const [filters, setFilters] = useState({
+    location: {
+      remote: false,
+      onsite: false,
+      hybrid: false
+    },
+    category: {
+      technical: false,
+      nonTechnical: false
+    },
+    experience: {
+      junior: false,
+      mid: false,
+      senior: false
+    }
+  });
 
   useEffect(() => {
-    if (!searchQuery.trim()) {
-      setFilteredCandidates(candidatesData);
-      return;
+    filterCandidates();
+  }, [searchQuery, filters]);
+
+  const filterCandidates = () => {
+    let results = candidatesData;
+    
+    // Apply search query
+    if (searchQuery.trim()) {
+      const lowercaseQuery = searchQuery.toLowerCase();
+      results = results.filter(candidate => {
+        return (
+          candidate.name.toLowerCase().includes(lowercaseQuery) ||
+          candidate.role.toLowerCase().includes(lowercaseQuery) ||
+          candidate.experience.toLowerCase().includes(lowercaseQuery) ||
+          candidate.location.toLowerCase().includes(lowercaseQuery) ||
+          candidate.skills.some(skill => skill.toLowerCase().includes(lowercaseQuery)) ||
+          candidate.note.toLowerCase().includes(lowercaseQuery)
+        );
+      });
     }
+    
+    // Apply location filters
+    if (filters.location.remote || filters.location.onsite || filters.location.hybrid) {
+      results = results.filter(candidate => {
+        if (filters.location.remote && candidate.locationType === "Remote") return true;
+        if (filters.location.onsite && candidate.locationType === "On-site") return true;
+        if (filters.location.hybrid && candidate.locationType === "Hybrid") return true;
+        return false;
+      });
+    }
+    
+    // Apply category filters
+    if (filters.category.technical || filters.category.nonTechnical) {
+      results = results.filter(candidate => {
+        if (filters.category.technical && candidate.category === "Technical") return true;
+        if (filters.category.nonTechnical && candidate.category === "Non-Technical") return true;
+        return false;
+      });
+    }
+    
+    // Apply experience filters
+    if (filters.experience.junior || filters.experience.mid || filters.experience.senior) {
+      results = results.filter(candidate => {
+        const years = parseInt(candidate.experience);
+        if (filters.experience.junior && years < 3) return true;
+        if (filters.experience.mid && years >= 3 && years < 6) return true;
+        if (filters.experience.senior && years >= 6) return true;
+        return false;
+      });
+    }
+    
+    setFilteredCandidates(results);
+  };
 
-    const lowercaseQuery = searchQuery.toLowerCase();
-    const filtered = candidatesData.filter(candidate => {
-      return (
-        candidate.name.toLowerCase().includes(lowercaseQuery) ||
-        candidate.role.toLowerCase().includes(lowercaseQuery) ||
-        candidate.experience.toLowerCase().includes(lowercaseQuery) ||
-        candidate.location.toLowerCase().includes(lowercaseQuery) ||
-        candidate.skills.some(skill => skill.toLowerCase().includes(lowercaseQuery)) ||
-        candidate.note.toLowerCase().includes(lowercaseQuery)
-      );
+  const handleFilterChange = (category, key) => {
+    setFilters(prev => ({
+      ...prev,
+      [category]: {
+        ...prev[category],
+        [key]: !prev[category][key]
+      }
+    }));
+  };
+
+  const clearFilters = () => {
+    setFilters({
+      location: {
+        remote: false,
+        onsite: false,
+        hybrid: false
+      },
+      category: {
+        technical: false,
+        nonTechnical: false
+      },
+      experience: {
+        junior: false,
+        mid: false,
+        senior: false
+      }
     });
+  };
 
-    setFilteredCandidates(filtered);
-  }, [searchQuery]);
+  const isAnyFilterActive = () => {
+    return Object.values(filters).some(category => 
+      Object.values(category).some(value => value === true)
+    );
+  };
 
   return (
-    <div className="min-h-screen bg-zara-lavender">
+    <div className="min-h-screen bg-[#DBDAF5]">
       <Navbar />
       
       <main className="pt-28 pb-20 px-6 md:px-10">
@@ -163,9 +287,9 @@ const CandidatesList = () => {
             </div>
           </div>
           
-          {/* Search Bar */}
-          <div className="mb-8">
-            <div className="relative">
+          {/* Search and Filter Bar */}
+          <div className="mb-8 flex flex-col md:flex-row gap-4">
+            <div className="relative flex-grow">
               <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
                 <Search className="text-gray-400" />
               </div>
@@ -176,7 +300,149 @@ const CandidatesList = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
+            
+            <div className="flex items-center">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="outline" className="flex items-center space-x-2 bg-white">
+                    <Filter size={16} />
+                    <span>Filter</span>
+                    <ChevronDown size={16} />
+                    {isAnyFilterActive() && (
+                      <Badge className="ml-1 bg-zara-purple py-0 px-1.5 text-xs">
+                        {Object.values(filters).reduce((acc, category) => 
+                          acc + Object.values(category).filter(Boolean).length, 0
+                        )}
+                      </Badge>
+                    )}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-80 p-4">
+                  <div className="space-y-4">
+                    <div>
+                      <h3 className="font-medium mb-2">Location Type</h3>
+                      <div className="space-y-2">
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="remote" 
+                            checked={filters.location.remote} 
+                            onCheckedChange={() => handleFilterChange('location', 'remote')} 
+                          />
+                          <Label htmlFor="remote">Remote</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="onsite" 
+                            checked={filters.location.onsite} 
+                            onCheckedChange={() => handleFilterChange('location', 'onsite')} 
+                          />
+                          <Label htmlFor="onsite">On-site</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="hybrid" 
+                            checked={filters.location.hybrid} 
+                            onCheckedChange={() => handleFilterChange('location', 'hybrid')} 
+                          />
+                          <Label htmlFor="hybrid">Hybrid</Label>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <h3 className="font-medium mb-2">Category</h3>
+                      <div className="space-y-2">
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="technical" 
+                            checked={filters.category.technical} 
+                            onCheckedChange={() => handleFilterChange('category', 'technical')} 
+                          />
+                          <Label htmlFor="technical">Technical</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="non-technical" 
+                            checked={filters.category.nonTechnical} 
+                            onCheckedChange={() => handleFilterChange('category', 'nonTechnical')} 
+                          />
+                          <Label htmlFor="non-technical">Non-Technical</Label>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <h3 className="font-medium mb-2">Experience Level</h3>
+                      <div className="space-y-2">
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="junior" 
+                            checked={filters.experience.junior} 
+                            onCheckedChange={() => handleFilterChange('experience', 'junior')} 
+                          />
+                          <Label htmlFor="junior">Junior (0-2 years)</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="mid" 
+                            checked={filters.experience.mid} 
+                            onCheckedChange={() => handleFilterChange('experience', 'mid')} 
+                          />
+                          <Label htmlFor="mid">Mid-level (3-5 years)</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="senior" 
+                            checked={filters.experience.senior} 
+                            onCheckedChange={() => handleFilterChange('experience', 'senior')} 
+                          />
+                          <Label htmlFor="senior">Senior (6+ years)</Label>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="pt-2 border-t">
+                      <Button variant="outline" className="w-full" onClick={clearFilters}>
+                        Clear Filters
+                      </Button>
+                    </div>
+                  </div>
+                </PopoverContent>
+              </Popover>
+            </div>
           </div>
+          
+          {/* Active Filters Display */}
+          {isAnyFilterActive() && (
+            <div className="mb-6 flex flex-wrap gap-2">
+              {Object.entries(filters).map(([category, values]) => 
+                Object.entries(values).map(([key, isActive]) => 
+                  isActive && (
+                    <Badge 
+                      key={`${category}-${key}`} 
+                      variant="secondary" 
+                      className="px-3 py-1 flex items-center gap-1 bg-white"
+                    >
+                      {key === 'nonTechnical' ? 'Non-Technical' : key.charAt(0).toUpperCase() + key.slice(1)}
+                      <button 
+                        onClick={() => handleFilterChange(category, key)}
+                        className="ml-1 text-gray-500 hover:text-gray-700"
+                      >
+                        ×
+                      </button>
+                    </Badge>
+                  )
+                )
+              )}
+              <Button 
+                variant="ghost" 
+                className="text-sm h-7 px-2 text-gray-500" 
+                onClick={clearFilters}
+              >
+                Clear all
+              </Button>
+            </div>
+          )}
           
           {/* Candidates Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -254,7 +520,7 @@ const CandidatesList = () => {
           {filteredCandidates.length === 0 && (
             <div className="text-center py-12 bg-white rounded-xl shadow-sm">
               <p className="text-lg text-gray-600">No candidates found matching your search criteria.</p>
-              <p className="mt-2 text-gray-500">Try adjusting your search terms or browse all candidates.</p>
+              <p className="mt-2 text-gray-500">Try adjusting your search terms or filters.</p>
             </div>
           )}
         </div>

@@ -15,6 +15,7 @@ import SignInPage from "./pages/SignInPage";
 import StartInterviewing from "./pages/StartInterviewing";
 import CandidatesList from "./pages/CandidatesList";
 import CandidateProfile from "./pages/CandidateProfile";
+import AIInterviewPage from "./pages/AIInterviewPage";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/start-interviewing" element={<StartInterviewing />} />
           <Route path="/candidates" element={<CandidatesList />} />
           <Route path="/candidate/:id" element={<CandidateProfile />} />
+          <Route path="/ai-interview" element={<AIInterviewPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -11,12 +11,26 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const JobUpload = () => {
   const { toast } = useToast();
   const [uploading, setUploading] = useState(false);
   const [jobTitle, setJobTitle] = useState('');
   const [jobDescription, setJobDescription] = useState('');
+  const [internalNote, setInternalNote] = useState('');
+  const [numberOfHires, setNumberOfHires] = useState(1);
+  const [locationType, setLocationType] = useState('');
+  const [employmentType, setEmploymentType] = useState('');
+  const [showAutoGenerate, setShowAutoGenerate] = useState(false);
+  
   const [techStack, setTechStack] = useState({
     react: false,
     angular: false, 
@@ -132,6 +146,11 @@ Requirements:
         adaptability: false,
         leadership: false
       });
+
+      setInternalNote("We need someone who can hit the ground running with our existing codebase.");
+      setNumberOfHires(1);
+      setLocationType("hybrid");
+      setEmploymentType("full-time");
     } else if (template === 'backend') {
       setJobTitle('Backend Engineer');
       setJobDescription(`We are seeking a Backend Engineer to design, build, and maintain efficient, reusable, and reliable server-side code. You will be responsible for integrating with frontend applications and building scalable API services.
@@ -168,6 +187,11 @@ Requirements:
         adaptability: true,
         leadership: false
       });
+
+      setInternalNote("Looking for strong problem-solving skills and experience with microservices architecture.");
+      setNumberOfHires(2);
+      setLocationType("remote");
+      setEmploymentType("full-time");
     }
     
     toast({
@@ -176,8 +200,60 @@ Requirements:
     });
   };
 
+  const handleAutoGenerate = () => {
+    if (!jobTitle.trim() || !locationType || !employmentType) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in at least job title, location type, and employment type",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setUploading(true);
+    
+    // Get selected tech stack
+    const selectedTech = Object.keys(techStack).filter(key => techStack[key as keyof typeof techStack]);
+    
+    // Get selected soft skills
+    const selectedSkills = Object.keys(softSkills).filter(key => softSkills[key as keyof typeof softSkills]);
+    
+    // Simulate AI generating a job description
+    setTimeout(() => {
+      const generatedDescription = `We are looking for a ${jobTitle} to join our team ${locationType === 'remote' ? 'remotely' : `in our ${locationType} environment`}. This is a ${employmentType} position that requires expertise in ${selectedTech.join(', ')}.
+
+Responsibilities:
+- Design and develop ${selectedTech.includes('react') || selectedTech.includes('angular') || selectedTech.includes('vue') ? 'user interfaces' : 'backend systems'} with a focus on performance and scalability
+- Collaborate with cross-functional teams to define, design, and ship new features
+- Identify and resolve performance bottlenecks
+- Write clean, maintainable, and efficient code
+- Participate in code reviews and provide constructive feedback
+
+Requirements:
+- ${selectedTech.includes('react') || selectedTech.includes('angular') || selectedTech.includes('vue') ? '3+ years of experience with modern frontend frameworks' : '3+ years of experience with server-side programming languages'}
+- Strong understanding of ${selectedTech.join(', ')}
+- Experience with version control systems (Git)
+- ${selectedSkills.includes('problemSolving') ? 'Strong problem-solving abilities' : ''}
+- ${selectedSkills.includes('teamwork') ? 'Excellent team collaboration skills' : ''}
+- ${selectedSkills.includes('communication') ? 'Effective communication skills' : ''}
+- ${selectedSkills.includes('adaptability') ? 'Adaptability to changing requirements' : ''}
+- ${selectedSkills.includes('leadership') ? 'Leadership experience in technical teams' : ''}
+
+We offer competitive compensation, flexible working hours, and opportunities for professional growth. Join us to work on challenging problems in a supportive environment.
+`;
+      
+      setJobDescription(generatedDescription);
+      setUploading(false);
+      
+      toast({
+        title: "Job Description Generated",
+        description: "We've created a customized job description based on your specifications.",
+      });
+    }, 2000);
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-[#DBDAF5] flex flex-col">
       <Navbar />
       
       <main className="flex-grow pt-24 pb-20 px-6 md:px-10">
@@ -191,7 +267,7 @@ Requirements:
           
           <Tabs defaultValue="upload" className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-8">
-              <TabsTrigger value="upload">Upload Job Description</TabsTrigger>
+              <TabsTrigger value="upload">Create Job Description</TabsTrigger>
               <TabsTrigger value="template">Use Template</TabsTrigger>
             </TabsList>
             
@@ -200,7 +276,7 @@ Requirements:
                 <CardContent className="pt-6">
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                      <Label htmlFor="job-title">Job Title</Label>
+                      <Label htmlFor="job-title">Job Title*</Label>
                       <Input 
                         id="job-title" 
                         placeholder="e.g. Senior Frontend Developer" 
@@ -208,15 +284,70 @@ Requirements:
                         onChange={(e) => setJobTitle(e.target.value)}
                       />
                     </div>
-                    
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="location-type">Job Location*</Label>
+                        <Select 
+                          value={locationType} 
+                          onValueChange={setLocationType}
+                        >
+                          <SelectTrigger id="location-type">
+                            <SelectValue placeholder="Select location type" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="remote">Remote</SelectItem>
+                            <SelectItem value="on-site">On-site</SelectItem>
+                            <SelectItem value="hybrid">Hybrid</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div>
+                        <Label htmlFor="employment-type">Employment Type*</Label>
+                        <Select 
+                          value={employmentType} 
+                          onValueChange={setEmploymentType}
+                        >
+                          <SelectTrigger id="employment-type">
+                            <SelectValue placeholder="Select employment type" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="full-time">Full-time</SelectItem>
+                            <SelectItem value="part-time">Part-time</SelectItem>
+                            <SelectItem value="contract">Contract</SelectItem>
+                            <SelectItem value="internship">Internship</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
                     <div>
-                      <Label htmlFor="job-description">Job Description</Label>
+                      <Label htmlFor="number-of-hires">Number of Positions</Label>
+                      <Select 
+                        value={numberOfHires.toString()} 
+                        onValueChange={(value) => setNumberOfHires(parseInt(value))}
+                      >
+                        <SelectTrigger id="number-of-hires">
+                          <SelectValue placeholder="Select number of positions" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
+                            <SelectItem key={num} value={num.toString()}>{num}</SelectItem>
+                          ))}
+                          <SelectItem value="10+">10+</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div>
+                      <Label htmlFor="internal-note">Internal Note (Only visible to your team)</Label>
                       <Textarea 
-                        id="job-description" 
-                        placeholder="Paste your full job description here..." 
-                        className="min-h-[200px]"
-                        value={jobDescription}
-                        onChange={(e) => setJobDescription(e.target.value)}
+                        id="internal-note" 
+                        placeholder="Add any internal notes about this role..." 
+                        className="min-h-[80px]"
+                        value={internalNote}
+                        onChange={(e) => setInternalNote(e.target.value)}
                       />
                     </div>
                     
@@ -254,6 +385,39 @@ Requirements:
                           </div>
                         ))}
                       </div>
+                    </div>
+
+                    <div className="pt-3 border-t border-gray-200 flex items-center justify-between">
+                      <Button 
+                        type="button"
+                        variant="outline" 
+                        className="border-zara-purple text-zara-purple"
+                        onClick={() => setShowAutoGenerate(!showAutoGenerate)}
+                      >
+                        {showAutoGenerate ? 'Hide AI Generator' : 'Auto-generate Job Description'}
+                      </Button>
+
+                      {showAutoGenerate && (
+                        <Button 
+                          type="button"
+                          className="bg-zara-purple hover:bg-zara-purple-dark"
+                          disabled={uploading}
+                          onClick={handleAutoGenerate}
+                        >
+                          {uploading ? 'Generating...' : 'Generate'}
+                        </Button>
+                      )}
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="job-description">Job Description*</Label>
+                      <Textarea 
+                        id="job-description" 
+                        placeholder="Enter or paste your job description here..." 
+                        className="min-h-[200px]"
+                        value={jobDescription}
+                        onChange={(e) => setJobDescription(e.target.value)}
+                      />
                     </div>
                     
                     <Button 
@@ -316,6 +480,14 @@ Requirements:
               <li>Candidates complete the AI interview at their convenience</li>
               <li>You receive detailed reports for each candidate to review</li>
             </ol>
+          </div>
+
+          <div className="mt-8 flex justify-end">
+            <Link to="/candidates">
+              <Button variant="outline" className="text-zara-purple border-zara-purple hover:bg-zara-purple-light">
+                View Qualified Candidates
+              </Button>
+            </Link>
           </div>
         </div>
       </main>
