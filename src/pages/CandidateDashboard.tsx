@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -8,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Play, FileText, MessageSquare, Settings, Clock, CheckCircle, AlertCircle, User, Trophy, Zap, Target, Code, Video, Calendar, Award, Timer, Link as LinkIcon } from 'lucide-react';
+import { Play, FileText, MessageSquare, Settings, Clock, CheckCircle, AlertCircle, User, Trophy, Zap, Target, Code, Video, Calendar, Award, Timer, Link as LinkIcon, TrendingUp } from 'lucide-react';
 
 const CandidateDashboard = () => {
   const [showWizard, setShowWizard] = useState(false);
