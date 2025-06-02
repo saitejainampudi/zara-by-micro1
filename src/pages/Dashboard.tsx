@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -18,7 +19,7 @@ const Dashboard = () => {
       id: 1,
       name: "Alex Johnson",
       role: "Senior Frontend Developer",
-      jobDescription: "Lead frontend development using React and TypeScript. Mentor junior developers and architect scalable solutions for our e-commerce platform.",
+      jobDescription: "Lead frontend development using React and TypeScript. Mentor junior developers and architect scalable solutions for our e-commerce platform. You will work closely with the design team to implement pixel-perfect UIs and optimize performance across all devices.",
       status: "completed",
       score: 87,
       skills: ["React", "TypeScript", "Redux"],
@@ -34,23 +35,23 @@ const Dashboard = () => {
       id: 2,
       name: "Jordan Smith",
       role: "Backend Engineer",
-      jobDescription: "Design and implement robust backend APIs using Node.js and Python. Work with microservices architecture and ensure system scalability.",
+      jobDescription: "Design and implement robust backend APIs using Node.js and Python. Work with microservices architecture and ensure system scalability. You will be responsible for database optimization, API security, and system monitoring.",
       status: "in_progress",
       score: null,
       skills: ["Node.js", "Python", "MongoDB"],
       date: "1 day ago",
       highlight: null,
       aiInterviewRecording: {
-        completed: false,
-        duration: null,
-        recordedAt: null
+        completed: true,
+        duration: "13:45",
+        recordedAt: "1 day ago"
       }
     },
     {
       id: 3,
       name: "Taylor Williams",
       role: "Full Stack Developer",
-      jobDescription: "Build end-to-end web applications with modern technologies. Collaborate with designers and product managers to deliver user-focused solutions.",
+      jobDescription: "Build end-to-end web applications with modern technologies. Collaborate with designers and product managers to deliver user-focused solutions. You will work on both frontend React applications and backend Node.js services.",
       status: "completed",
       score: 92,
       skills: ["React", "Node.js", "PostgreSQL"],
@@ -66,7 +67,7 @@ const Dashboard = () => {
       id: 4,
       name: "Casey Brown",
       role: "Frontend Developer",
-      jobDescription: "Develop responsive user interfaces using Vue.js. Focus on performance optimization and cross-browser compatibility.",
+      jobDescription: "Develop responsive user interfaces using Vue.js. Focus on performance optimization and cross-browser compatibility. You will create reusable components and implement modern CSS frameworks to deliver exceptional user experiences.",
       status: "reviewed",
       score: 78,
       skills: ["Vue.js", "JavaScript", "CSS"],
@@ -82,7 +83,7 @@ const Dashboard = () => {
       id: 5,
       name: "Riley Garcia",
       role: "Backend Engineer",
-      jobDescription: "Maintain and enhance Java-based enterprise applications. Work with Spring framework and implement secure, scalable backend services.",
+      jobDescription: "Maintain and enhance Java-based enterprise applications. Work with Spring framework and implement secure, scalable backend services. You will be involved in system architecture decisions and database design.",
       status: "completed",
       score: 65,
       skills: ["Java", "Spring", "MySQL"],
@@ -98,7 +99,7 @@ const Dashboard = () => {
       id: 6,
       name: "Morgan Davis",
       role: "Product Designer",
-      jobDescription: "Create user-centered designs for web and mobile applications. Conduct user research and create prototypes using Figma and design systems.",
+      jobDescription: "Create user-centered designs for web and mobile applications. Conduct user research and create prototypes using Figma and design systems. You will collaborate with product managers and engineers to translate business requirements into intuitive user experiences.",
       status: "completed",
       score: 89,
       skills: ["Figma", "UX Research", "Prototyping"],
@@ -114,23 +115,23 @@ const Dashboard = () => {
       id: 7,
       name: "Jamie Lee",
       role: "DevOps Engineer",
-      jobDescription: "Manage cloud infrastructure and CI/CD pipelines. Implement monitoring solutions and ensure high availability of production systems.",
+      jobDescription: "Manage cloud infrastructure and CI/CD pipelines. Implement monitoring solutions and ensure high availability of production systems. You will work with containerization technologies and automate deployment processes.",
       status: "in_progress",
       score: null,
       skills: ["Docker", "Kubernetes", "AWS"],
       date: "3 hours ago",
       highlight: null,
       aiInterviewRecording: {
-        completed: false,
-        duration: null,
-        recordedAt: null
+        completed: true,
+        duration: "15:30",
+        recordedAt: "3 hours ago"
       }
     },
     {
       id: 8,
       name: "Avery Thompson",
       role: "Data Scientist",
-      jobDescription: "Build machine learning models to drive business insights. Work with large datasets and implement predictive analytics solutions.",
+      jobDescription: "Build machine learning models to drive business insights. Work with large datasets and implement predictive analytics solutions. You will collaborate with stakeholders to identify data opportunities and create actionable recommendations.",
       status: "completed",
       score: 94,
       skills: ["Python", "Machine Learning", "SQL"],
@@ -181,7 +182,7 @@ const Dashboard = () => {
         <div className="container mx-auto max-w-6xl">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
             <div>
-              <h1 className="text-3xl font-bold">Candidate Dashboard</h1>
+              <h1 className="text-3xl font-bold text-gray-900">Candidate Dashboard</h1>
               <p className="text-gray-600">Manage and review your candidate interviews</p>
             </div>
             <div className="mt-4 md:mt-0">
@@ -190,42 +191,42 @@ const Dashboard = () => {
           </div>
           
           <div className="grid md:grid-cols-4 gap-6 mb-8">
-            <Card className="bg-gradient-to-br from-white to-violet-50">
+            <Card className="bg-gradient-to-br from-white to-violet-50 border border-gray-200 hover:shadow-lg transition-all duration-300">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-gray-500">Total Interviews</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold">32</p>
+                <p className="text-3xl font-bold text-gray-900">32</p>
                 <p className="text-sm text-gray-500">+8 this week</p>
               </CardContent>
             </Card>
             
-            <Card className="bg-gradient-to-br from-white to-violet-50">
+            <Card className="bg-gradient-to-br from-white to-violet-50 border border-gray-200 hover:shadow-lg transition-all duration-300">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-gray-500">In Progress</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold">5</p>
+                <p className="text-3xl font-bold text-gray-900">5</p>
                 <p className="text-sm text-gray-500">2 due today</p>
               </CardContent>
             </Card>
             
-            <Card className="bg-gradient-to-br from-white to-violet-50">
+            <Card className="bg-gradient-to-br from-white to-violet-50 border border-gray-200 hover:shadow-lg transition-all duration-300">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-gray-500">Completed</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold">21</p>
+                <p className="text-3xl font-bold text-gray-900">21</p>
                 <p className="text-sm text-gray-500">Need review</p>
               </CardContent>
             </Card>
             
-            <Card className="bg-gradient-to-br from-white to-violet-50">
+            <Card className="bg-gradient-to-br from-white to-violet-50 border border-gray-200 hover:shadow-lg transition-all duration-300">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-gray-500">Time Saved</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold">64h</p>
+                <p className="text-3xl font-bold text-gray-900">64h</p>
                 <p className="text-sm text-gray-500">This month</p>
               </CardContent>
             </Card>
@@ -235,11 +236,11 @@ const Dashboard = () => {
             <div className="p-6 border-b border-gray-200">
               <div className="flex flex-col md:flex-row justify-between md:items-center space-y-4 md:space-y-0">
                 <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full md:w-auto">
-                  <TabsList>
-                    <TabsTrigger value="all">All Candidates</TabsTrigger>
-                    <TabsTrigger value="in_progress">In Progress</TabsTrigger>
-                    <TabsTrigger value="completed">Completed</TabsTrigger>
-                    <TabsTrigger value="reviewed">Reviewed</TabsTrigger>
+                  <TabsList className="bg-violet-50 border border-gray-200">
+                    <TabsTrigger value="all" className="data-[state=active]:bg-white">All Candidates</TabsTrigger>
+                    <TabsTrigger value="in_progress" className="data-[state=active]:bg-white">In Progress</TabsTrigger>
+                    <TabsTrigger value="completed" className="data-[state=active]:bg-white">Completed</TabsTrigger>
+                    <TabsTrigger value="reviewed" className="data-[state=active]:bg-white">Reviewed</TabsTrigger>
                   </TabsList>
                 </Tabs>
                 
@@ -248,6 +249,7 @@ const Dashboard = () => {
                     placeholder="Search candidates..." 
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
+                    className="border-gray-300 focus:border-zara-purple focus:ring-zara-purple"
                   />
                 </div>
               </div>
@@ -256,7 +258,7 @@ const Dashboard = () => {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="bg-violet-50 text-left">
+                  <tr className="bg-violet-50 text-left border-b border-gray-200">
                     <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Candidate</th>
                     <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Role & Description</th>
                     <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">AI Interview</th>
@@ -266,17 +268,17 @@ const Dashboard = () => {
                     <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="divide-y divide-gray-200 bg-white">
                   {filteredCandidates.length > 0 ? (
                     filteredCandidates.map((candidate) => (
-                      <tr key={candidate.id} className="hover:bg-violet-50">
+                      <tr key={candidate.id} className="hover:bg-violet-50 transition-colors duration-150">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
                             <div className="w-10 h-10 rounded-full bg-zara-purple-light flex items-center justify-center text-zara-purple font-medium mr-3">
                               {candidate.name.split(' ').map(name => name[0]).join('')}
                             </div>
                             <div>
-                              <div className="font-medium">{candidate.name}</div>
+                              <div className="font-medium text-gray-900">{candidate.name}</div>
                               <div className="flex space-x-1 mt-1">
                                 {candidate.skills.slice(0, 2).map((skill, i) => (
                                   <span key={i} className="inline-block bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded">
@@ -294,9 +296,9 @@ const Dashboard = () => {
                         </td>
                         <td className="px-6 py-4">
                           <div>
-                            <div className="font-medium text-sm">{candidate.role}</div>
-                            <div className="text-xs text-gray-600 mt-1 max-w-xs">
-                              {candidate.jobDescription.substring(0, 120)}...
+                            <div className="font-medium text-sm text-gray-900">{candidate.role}</div>
+                            <div className="text-xs text-gray-600 mt-1 max-w-xs line-clamp-3">
+                              {candidate.jobDescription.substring(0, 150)}...
                             </div>
                           </div>
                         </td>
@@ -335,7 +337,7 @@ const Dashboard = () => {
                             <span className="text-gray-500">Pending</span>
                           )}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-gray-500">{candidate.date}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{candidate.date}</td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <Button variant="ghost" size="sm" className="text-zara-purple hover:text-zara-purple-dark hover:bg-zara-purple-light">
                             View Profile
@@ -355,13 +357,13 @@ const Dashboard = () => {
             </div>
             
             <div className="p-4 border-t border-gray-200 bg-violet-50 text-right">
-              <Button variant="outline" size="sm" className="text-gray-600">
+              <Button variant="outline" size="sm" className="text-gray-600 border-gray-300 hover:bg-white">
                 Previous
               </Button>
-              <Button variant="outline" size="sm" className="ml-2 bg-white text-gray-800">
+              <Button variant="outline" size="sm" className="ml-2 bg-white text-gray-800 border-gray-300">
                 1
               </Button>
-              <Button variant="outline" size="sm" className="ml-2 text-gray-600">
+              <Button variant="outline" size="sm" className="ml-2 text-gray-600 border-gray-300 hover:bg-white">
                 Next
               </Button>
             </div>

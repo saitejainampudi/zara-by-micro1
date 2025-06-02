@@ -21,15 +21,16 @@ const RecruiterDashboard = () => {
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [candidateFilter, setCandidateFilter] = useState<'all' | 'shortlisted' | 'interviewed' | 'pending'>('all');
+  const [roleFilter, setRoleFilter] = useState<string>('all');
 
   // Enhanced demo data with more realistic numbers
   const dashboardStats = {
     totalRoles: 12,
     activeRoles: 8,
-    totalCandidates: 156,
-    interviewsCompleted: 98,
-    candidatesShortlisted: 28,
-    hiresThisMonth: 7,
+    totalCandidates: 203,
+    interviewsCompleted: 156,
+    candidatesShortlisted: 42,
+    hiresThisMonth: 11,
     averageScore: 81,
     timeToHire: 12
   };
@@ -182,7 +183,7 @@ const RecruiterDashboard = () => {
     }
   ];
 
-  // Expanded candidates data with diverse profiles and preferences
+  // Expanded candidates data with 20 diverse profiles
   const candidates = [
     {
       id: '1',
@@ -262,22 +263,22 @@ const RecruiterDashboard = () => {
       role: 'DevOps Engineer',
       overallScore: 88,
       preference: '1st' as const,
-      status: 'pending' as const,
+      status: 'interviewed' as const,
       skills: ['Kubernetes', 'Terraform', 'Jenkins', 'Monitoring', 'Security'],
       experience: '4+ years experience',
       scores: {
         coding: 90,
-        interview: 0,
-        softSkills: 0
+        interview: 86,
+        softSkills: 88
       },
-      completedSteps: 1,
+      completedSteps: 3,
       totalSteps: 3,
       submittedAt: '5 hours ago',
       highlights: ['Strong infrastructure knowledge', 'Security-first mindset'],
       aiInterviewRecording: {
-        completed: false,
-        duration: null,
-        recordedAt: null
+        completed: true,
+        duration: '14:16',
+        recordedAt: '5 hours ago'
       }
     },
     {
@@ -326,6 +327,342 @@ const RecruiterDashboard = () => {
         completed: true,
         duration: '16:33',
         recordedAt: '1 day ago'
+      }
+    },
+    {
+      id: '7',
+      name: 'Emma Watson',
+      role: 'Backend Developer',
+      overallScore: 85,
+      preference: '2nd' as const,
+      status: 'interviewed' as const,
+      skills: ['Java', 'Spring Boot', 'MySQL', 'Redis', 'Kafka'],
+      experience: '4+ years experience',
+      scores: {
+        coding: 87,
+        interview: 83,
+        softSkills: 85
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '8 hours ago',
+      highlights: ['Strong backend architecture', 'Database optimization expert'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '13:28',
+        recordedAt: '8 hours ago'
+      }
+    },
+    {
+      id: '8',
+      name: 'David Miller',
+      role: 'QA Engineer',
+      overallScore: 83,
+      preference: '2nd' as const,
+      status: 'shortlisted' as const,
+      skills: ['Selenium', 'Cypress', 'TestNG', 'API Testing', 'Performance Testing'],
+      experience: '3+ years experience',
+      scores: {
+        coding: 80,
+        interview: 85,
+        softSkills: 84
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '10 hours ago',
+      highlights: ['Automation expertise', 'Quality-focused approach'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '11:45',
+        recordedAt: '10 hours ago'
+      }
+    },
+    {
+      id: '9',
+      name: 'Sophia Lee',
+      role: 'Marketing Manager',
+      overallScore: 87,
+      preference: '1st' as const,
+      status: 'interviewed' as const,
+      skills: ['Digital Marketing', 'Analytics', 'SEO', 'Content Strategy', 'Campaign Management'],
+      experience: '5+ years experience',
+      scores: {
+        coding: 0,
+        interview: 89,
+        softSkills: 85
+      },
+      completedSteps: 2,
+      totalSteps: 2,
+      submittedAt: '12 hours ago',
+      highlights: ['ROI-driven campaigns', 'Cross-channel expertise'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '17:22',
+        recordedAt: '12 hours ago'
+      }
+    },
+    {
+      id: '10',
+      name: 'Michael Brown',
+      role: 'Backend Developer',
+      overallScore: 79,
+      preference: '3rd' as const,
+      status: 'interviewed' as const,
+      skills: ['Python', 'Django', 'PostgreSQL', 'Docker', 'AWS'],
+      experience: '3+ years experience',
+      scores: {
+        coding: 82,
+        interview: 76,
+        softSkills: 79
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '14 hours ago',
+      highlights: ['Clean code advocate', 'API design skills'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '12:56',
+        recordedAt: '14 hours ago'
+      }
+    },
+    {
+      id: '11',
+      name: 'Lisa Zhang',
+      role: 'UX Designer',
+      overallScore: 91,
+      preference: '1st' as const,
+      status: 'shortlisted' as const,
+      skills: ['User Research', 'Wireframing', 'Prototyping', 'Usability Testing', 'Adobe Creative Suite'],
+      experience: '6+ years experience',
+      scores: {
+        coding: 0,
+        interview: 93,
+        softSkills: 89
+      },
+      completedSteps: 2,
+      totalSteps: 2,
+      submittedAt: '16 hours ago',
+      highlights: ['User empathy', 'Design thinking expert'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '19:14',
+        recordedAt: '16 hours ago'
+      }
+    },
+    {
+      id: '12',
+      name: 'Ryan Davis',
+      role: 'DevOps Engineer',
+      overallScore: 86,
+      preference: '2nd' as const,
+      status: 'interviewed' as const,
+      skills: ['AWS', 'Docker', 'Kubernetes', 'CI/CD', 'Monitoring'],
+      experience: '4+ years experience',
+      scores: {
+        coding: 88,
+        interview: 84,
+        softSkills: 86
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '18 hours ago',
+      highlights: ['Cloud architecture', 'Automation skills'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '13:41',
+        recordedAt: '18 hours ago'
+      }
+    },
+    {
+      id: '13',
+      name: 'Amanda Wilson',
+      role: 'Product Manager',
+      overallScore: 84,
+      preference: '2nd' as const,
+      status: 'interviewed' as const,
+      skills: ['Product Strategy', 'Agile', 'Analytics', 'User Stories', 'Roadmapping'],
+      experience: '5+ years experience',
+      scores: {
+        coding: 0,
+        interview: 86,
+        softSkills: 82
+      },
+      completedSteps: 2,
+      totalSteps: 2,
+      submittedAt: '20 hours ago',
+      highlights: ['Strategic thinking', 'Stakeholder management'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '16:08',
+        recordedAt: '20 hours ago'
+      }
+    },
+    {
+      id: '14',
+      name: 'Kevin Martinez',
+      role: 'Full Stack Engineer',
+      overallScore: 82,
+      preference: '2nd' as const,
+      status: 'pending' as const,
+      skills: ['React', 'Express', 'MongoDB', 'GraphQL', 'TypeScript'],
+      experience: '3+ years experience',
+      scores: {
+        coding: 84,
+        interview: 80,
+        softSkills: 82
+      },
+      completedSteps: 2,
+      totalSteps: 3,
+      submittedAt: '22 hours ago',
+      highlights: ['Modern tech stack', 'Learning agility'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '11:33',
+        recordedAt: '22 hours ago'
+      }
+    },
+    {
+      id: '15',
+      name: 'Rachel Green',
+      role: 'Data Analyst',
+      overallScore: 88,
+      preference: '1st' as const,
+      status: 'shortlisted' as const,
+      skills: ['SQL', 'Python', 'Tableau', 'Excel', 'Statistics'],
+      experience: '4+ years experience',
+      scores: {
+        coding: 85,
+        interview: 90,
+        softSkills: 89
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '1 day ago',
+      highlights: ['Data storytelling', 'Business insights'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '15:47',
+        recordedAt: '1 day ago'
+      }
+    },
+    {
+      id: '16',
+      name: 'James Thompson',
+      role: 'Senior Frontend Developer',
+      overallScore: 80,
+      preference: '3rd' as const,
+      status: 'pending' as const,
+      skills: ['Angular', 'TypeScript', 'RxJS', 'Jest', 'Webpack'],
+      experience: '4+ years experience',
+      scores: {
+        coding: 83,
+        interview: 77,
+        softSkills: 80
+      },
+      completedSteps: 1,
+      totalSteps: 3,
+      submittedAt: '1 day ago',
+      highlights: ['Angular expertise', 'Testing advocate'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '10:22',
+        recordedAt: '1 day ago'
+      }
+    },
+    {
+      id: '17',
+      name: 'Nicole Anderson',
+      role: 'Security Engineer',
+      overallScore: 90,
+      preference: '1st' as const,
+      status: 'shortlisted' as const,
+      skills: ['Cybersecurity', 'Penetration Testing', 'SIEM', 'Risk Assessment', 'Compliance'],
+      experience: '5+ years experience',
+      scores: {
+        coding: 87,
+        interview: 92,
+        softSkills: 91
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '2 days ago',
+      highlights: ['Security expertise', 'Compliance knowledge'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '18:15',
+        recordedAt: '2 days ago'
+      }
+    },
+    {
+      id: '18',
+      name: 'Carlos Rodriguez',
+      role: 'Mobile Developer',
+      overallScore: 85,
+      preference: '2nd' as const,
+      status: 'interviewed' as const,
+      skills: ['React Native', 'Swift', 'Kotlin', 'Firebase', 'App Store'],
+      experience: '4+ years experience',
+      scores: {
+        coding: 88,
+        interview: 82,
+        softSkills: 85
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '2 days ago',
+      highlights: ['Cross-platform expertise', 'Performance optimization'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '14:28',
+        recordedAt: '2 days ago'
+      }
+    },
+    {
+      id: '19',
+      name: 'Jennifer Clark',
+      role: 'Business Analyst',
+      overallScore: 81,
+      preference: '3rd' as const,
+      status: 'pending' as const,
+      skills: ['Requirements Analysis', 'Process Mapping', 'Stakeholder Management', 'Documentation', 'Agile'],
+      experience: '4+ years experience',
+      scores: {
+        coding: 0,
+        interview: 83,
+        softSkills: 79
+      },
+      completedSteps: 1,
+      totalSteps: 2,
+      submittedAt: '3 days ago',
+      highlights: ['Requirements expertise', 'Process improvement'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '12:04',
+        recordedAt: '3 days ago'
+      }
+    },
+    {
+      id: '20',
+      name: 'Daniel Kim',
+      role: 'Cloud Architect',
+      overallScore: 94,
+      preference: '1st' as const,
+      status: 'shortlisted' as const,
+      skills: ['AWS', 'Azure', 'Terraform', 'Microservices', 'Architecture Design'],
+      experience: '8+ years experience',
+      scores: {
+        coding: 92,
+        interview: 95,
+        softSkills: 95
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '3 days ago',
+      highlights: ['Architecture expertise', 'Cloud migration specialist'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '20:36',
+        recordedAt: '3 days ago'
       }
     }
   ];
@@ -384,11 +721,17 @@ const RecruiterDashboard = () => {
     console.log('Reject candidate:', candidateId);
   };
 
+  const handleViewRoleCandidates = (roleId: string) => {
+    setRoleFilter(roleId);
+    setActiveView('candidates');
+  };
+
   const filteredCandidates = candidates.filter(candidate => {
     const matchesSearch = candidate.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          candidate.role.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesFilter = candidateFilter === 'all' || candidate.status === candidateFilter;
-    return matchesSearch && matchesFilter;
+    const matchesRole = roleFilter === 'all' || roles.find(r => r.id === roleFilter)?.title === candidate.role;
+    return matchesSearch && matchesFilter && matchesRole;
   });
 
   return (
@@ -428,10 +771,10 @@ const RecruiterDashboard = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-8">
             {[
               { title: dashboardStats.totalRoles.toString(), subtitle: "Total Roles", icon: Target, color: "purple", trend: `${dashboardStats.activeRoles} active` },
-              { title: dashboardStats.totalCandidates.toString(), subtitle: "Total Candidates", icon: Users, color: "blue", trend: "+18 this week" },
-              { title: dashboardStats.interviewsCompleted.toString(), subtitle: "Interviews Done", icon: CheckCircle, color: "green", trend: "+12 today" },
+              { title: dashboardStats.totalCandidates.toString(), subtitle: "Total Candidates", icon: Users, color: "blue", trend: "+28 this week" },
+              { title: dashboardStats.interviewsCompleted.toString(), subtitle: "Interviews Done", icon: CheckCircle, color: "green", trend: "+24 today" },
               { title: dashboardStats.candidatesShortlisted.toString(), subtitle: "Shortlisted", icon: Star, color: "yellow", trend: "Ready for hire" },
-              { title: dashboardStats.hiresThisMonth.toString(), subtitle: "Hires This Month", icon: Award, color: "green", trend: "↗️ +40%" },
+              { title: dashboardStats.hiresThisMonth.toString(), subtitle: "Hires This Month", icon: Award, color: "green", trend: "↗️ +57%" },
               { title: `${dashboardStats.averageScore}`, subtitle: "Avg AI Score", icon: TrendingUp, color: "blue", trend: "Above industry" },
               { title: `${dashboardStats.timeToHire}d`, subtitle: "Time to Hire", icon: Clock, color: "orange", trend: "30% faster" },
               { title: "96%", subtitle: "Platform Accuracy", icon: Zap, color: "purple", trend: "AI precision" }
@@ -644,7 +987,10 @@ const RecruiterDashboard = () => {
                           <Eye className="w-4 h-4 mr-2" />
                           View Analytics
                         </Button>
-                        <Button variant="outline">
+                        <Button 
+                          variant="outline"
+                          onClick={() => handleViewRoleCandidates(role.id)}
+                        >
                           <Users className="w-4 h-4 mr-2" />
                           View Candidates ({role.applicants.total})
                         </Button>
@@ -657,7 +1003,12 @@ const RecruiterDashboard = () => {
 
             <TabsContent value="candidates" className="space-y-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold text-gray-900">Candidate Pipeline</h2>
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">Candidate Pipeline</h2>
+                  {roleFilter !== 'all' && (
+                    <p className="text-gray-600">Showing candidates for: {roles.find(r => r.id === roleFilter)?.title}</p>
+                  )}
+                </div>
                 <div className="flex items-center gap-3">
                   <Input
                     placeholder="Search candidates..."
@@ -673,106 +1024,23 @@ const RecruiterDashboard = () => {
                       <TabsTrigger value="pending">Pending</TabsTrigger>
                     </TabsList>
                   </Tabs>
+                  {roleFilter !== 'all' && (
+                    <Button variant="outline" onClick={() => setRoleFilter('all')}>
+                      Show All Roles
+                    </Button>
+                  )}
                 </div>
               </div>
               
               <div className="grid md:grid-cols-2 gap-6">
                 {filteredCandidates.map((candidate) => (
-                  <Card key={candidate.id} className="hover:shadow-lg transition-all duration-300">
-                    <CardHeader>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-full bg-zara-purple-light flex items-center justify-center text-zara-purple font-medium mr-3">
-                            {candidate.name.split(' ').map(name => name[0]).join('')}
-                          </div>
-                          <div>
-                            <CardTitle className="text-lg">{candidate.name}</CardTitle>
-                            <CardDescription>{candidate.role}</CardDescription>
-                          </div>
-                        </div>
-                        <Badge 
-                          variant={candidate.status === 'shortlisted' ? 'default' : 'outline'}
-                          className={
-                            candidate.status === 'shortlisted' ? 'bg-green-100 text-green-700' :
-                            candidate.status === 'interviewed' ? 'bg-blue-100 text-blue-700' :
-                            'bg-yellow-100 text-yellow-700'
-                          }
-                        >
-                          {candidate.status}
-                        </Badge>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <div className="text-center">
-                          <div className="text-2xl font-bold text-zara-purple">{candidate.overallScore}</div>
-                          <div className="text-sm text-gray-600">Overall Score</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-lg font-semibold text-blue-600">{candidate.preference}</div>
-                          <div className="text-sm text-gray-600">Preference</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-lg font-semibold text-green-600">{candidate.completedSteps}/{candidate.totalSteps}</div>
-                          <div className="text-sm text-gray-600">Steps Done</div>
-                        </div>
-                      </div>
-
-                      {/* AI Interview Recording Status */}
-                      <div className="bg-blue-50 p-3 rounded-lg">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <Video className="w-4 h-4 text-blue-600" />
-                            <span className="text-sm font-medium text-blue-900">AI Interview Recording</span>
-                          </div>
-                          {candidate.aiInterviewRecording.completed ? (
-                            <div>
-                              <div className="text-sm font-medium text-green-600">Completed</div>
-                              <div className="text-xs text-gray-500">{candidate.aiInterviewRecording.duration}</div>
-                            </div>
-                          ) : (
-                            <div className="text-sm text-yellow-600">Pending</div>
-                          )}
-                        </div>
-                        {candidate.aiInterviewRecording.completed && (
-                          <div className="text-xs text-gray-600 mt-1">
-                            Recorded {candidate.aiInterviewRecording.recordedAt}
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="flex flex-wrap gap-1">
-                        {candidate.skills.slice(0, 3).map((skill, i) => (
-                          <Badge key={i} variant="outline" className="text-xs">
-                            {skill}
-                          </Badge>
-                        ))}
-                        {candidate.skills.length > 3 && (
-                          <Badge variant="outline" className="text-xs">
-                            +{candidate.skills.length - 3} more
-                          </Badge>
-                        )}
-                      </div>
-                      
-                      <div className="flex gap-2">
-                        <Button 
-                          onClick={() => handleViewCandidateProfile(candidate.id)}
-                          className="flex-1 bg-zara-purple hover:bg-zara-purple-dark"
-                        >
-                          View Profile
-                        </Button>
-                        {candidate.status !== 'shortlisted' && (
-                          <Button 
-                            variant="outline" 
-                            onClick={() => handleShortlistCandidate(candidate.id)}
-                            className="border-green-200 text-green-600 hover:bg-green-50"
-                          >
-                            Shortlist
-                          </Button>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
+                  <CandidateProfileCard
+                    key={candidate.id}
+                    candidate={candidate}
+                    onViewProfile={handleViewCandidateProfile}
+                    onShortlist={handleShortlistCandidate}
+                    onReject={handleRejectCandidate}
+                  />
                 ))}
               </div>
             </TabsContent>
@@ -920,7 +1188,6 @@ const RecruiterDashboard = () => {
       
       <Footer />
       
-      {/* Feedback Widget */}
       <FeedbackWidget context="recruiter-dashboard" userRole="recruiter" />
     </div>
   );
