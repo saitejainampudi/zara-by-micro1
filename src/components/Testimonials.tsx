@@ -81,22 +81,6 @@ const Testimonials = () => {
             </CardContent>
           </Card>
         </div>
-
-        <div className="mt-16 bg-white rounded-xl p-8 shadow-md">
-          <div className="flex flex-col md:flex-row items-center">
-            <div className="w-full md:w-3/4 mb-6 md:mb-0 md:pr-8">
-              <h3 className="text-2xl font-bold mb-3">Ready to transform your technical hiring?</h3>
-              <p className="text-gray-600">
-                Join hundreds of companies using Zara to find the best technical talent faster and more efficiently.
-              </p>
-            </div>
-            <div className="w-full md:w-1/4 flex justify-center md:justify-end">
-              <a href="/job-upload" className="bg-zara-purple hover:bg-zara-purple-dark text-white px-6 py-3 rounded-md font-medium transition-colors duration-300">
-                Start Now
-              </a>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

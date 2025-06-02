@@ -109,7 +109,7 @@ const Index = () => {
               </p>
             </div>
             
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="grid md:grid-cols-2 gap-8">
               <InteractiveRoleCard
                 title="For Recruiters"
                 description="Transform your hiring process with intelligent candidate screening and automated assessments"
@@ -150,26 +150,6 @@ const Index = () => {
                 }}
                 delay="200ms"
               />
-            </div>
-
-            {/* Enhanced Demo CTAs */}
-            <div className="text-center animate-fade-in" style={{ animationDelay: '400ms' }}>
-              <div className="inline-flex flex-col md:flex-row gap-4">
-                <Link to="/candidates" className="group">
-                  <button className="bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-800 px-8 py-3 rounded-lg font-medium transition-all duration-300 hover:shadow-lg group-hover:scale-105 flex items-center gap-2">
-                    <Users className="w-5 h-5" />
-                    View Demo Candidates
-                  </button>
-                </Link>
-                <Link to="/start-interviewing" className="group">
-                  <button className="relative bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 hover:shadow-xl group-hover:scale-105 flex items-center gap-2 overflow-hidden">
-                    <Sparkles className="w-5 h-5 animate-pulse" />
-                    Try Demo Experience
-                    <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                    <div className="absolute inset-0 bg-white/10 rounded-lg opacity-0 group-hover:opacity-20 transition-opacity"></div>
-                  </button>
-                </Link>
-              </div>
             </div>
           </div>
         </section>
