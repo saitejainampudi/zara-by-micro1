@@ -17,8 +17,13 @@ const Navbar = () => {
     <nav className="bg-white shadow-sm border-b border-gray-200 fixed w-full top-0 z-50">
       <div className="container mx-auto px-6 md:px-10">
         <div className="flex justify-between items-center h-20">
-          <Link to="/" className="text-2xl font-bold text-zara-purple hover:text-zara-purple-dark transition-colors">
-            Zara AI
+          <Link to="/" className="flex items-center">
+            <span className="text-xl font-bold bg-gradient-to-r from-zara-purple-dark to-zara-purple bg-clip-text text-transparent">
+              Micro1
+            </span>
+            <span className="ml-1 text-xs text-zara-gray bg-zara-purple-light px-1.5 py-0.5 rounded-md">
+              by Micro1
+            </span>
           </Link>
           
           <div className="hidden md:flex space-x-8">
