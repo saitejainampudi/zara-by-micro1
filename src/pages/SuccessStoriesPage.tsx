@@ -1,11 +1,10 @@
-
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Star, Play, Quote, Award, TrendingUp, Users, Building, Clock } from 'lucide-react';
+import { Star, Play, Quote, Award, TrendingUp, Users, Building, Clock, Video } from 'lucide-react';
 
 const SuccessStoriesPage = () => {
   const successStories = [
