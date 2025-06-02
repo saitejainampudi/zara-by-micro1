@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Link } from 'react-router-dom';
-import { Play, FileText, MessageSquare, Settings, Clock, CheckCircle, AlertCircle } from 'lucide-react';
+import { Play, FileText, MessageSquare, Settings, Clock, CheckCircle, AlertCircle, User } from 'lucide-react';
 
 const CandidateDashboard = () => {
   return (
@@ -91,7 +91,7 @@ const CandidateDashboard = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <MessageSquare className="w-5 h-5 text-blue-600" />
-                  Results & Feedback
+                  My Results
                 </CardTitle>
                 <CardDescription>
                   View your assessment results and AI feedback
@@ -113,8 +113,8 @@ const CandidateDashboard = () => {
             <Card className="hover:shadow-lg transition-shadow">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-green-600" />
-                  Profile & Resume
+                  <User className="w-5 h-5 text-green-600" />
+                  My Profile
                 </CardTitle>
                 <CardDescription>
                   Update your profile and upload your latest resume
@@ -123,10 +123,11 @@ const CandidateDashboard = () => {
               <CardContent>
                 <div className="space-y-3">
                   <Button variant="outline" className="w-full">
-                    <FileText className="w-4 h-4 mr-2" />
+                    <User className="w-4 h-4 mr-2" />
                     Update Profile
                   </Button>
                   <Button variant="outline" className="w-full">
+                    <FileText className="w-4 h-4 mr-2" />
                     Upload Resume
                   </Button>
                 </div>
