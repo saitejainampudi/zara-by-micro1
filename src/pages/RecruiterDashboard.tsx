@@ -4,6 +4,9 @@ import Footer from '../components/Footer';
 import RoleCard from '../components/RoleCard';
 import CandidateProfileCard from '../components/CandidateProfileCard';
 import RoleAnalytics from '../components/RoleAnalytics';
+import NotificationCenter from '../components/NotificationCenter';
+import ContextualHelp from '../components/ContextualHelp';
+import FeedbackWidget from '../components/FeedbackWidget';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -216,7 +219,7 @@ const RecruiterDashboard = () => {
       
       <main className="pt-28 pb-20 px-6 md:px-10">
         <div className="container mx-auto max-w-7xl">
-          {/* Enhanced Header */}
+          {/* Enhanced Header with new components */}
           <div className="mb-8 animate-fade-in">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
@@ -233,6 +236,8 @@ const RecruiterDashboard = () => {
               </div>
               
               <div className="flex items-center gap-3">
+                <NotificationCenter userRole="recruiter" />
+                <ContextualHelp context="dashboard" userRole="recruiter" />
                 <Link to="/job-upload">
                   <Button className="bg-zara-purple hover:bg-zara-purple-dark">
                     <Plus className="w-4 h-4 mr-2" />
@@ -485,6 +490,9 @@ const RecruiterDashboard = () => {
       </main>
       
       <Footer />
+      
+      {/* Feedback Widget */}
+      <FeedbackWidget context="recruiter-dashboard" userRole="recruiter" />
     </div>
   );
 };

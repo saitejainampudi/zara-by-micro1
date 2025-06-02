@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import AssessmentWizard from '../components/AssessmentWizard';
+import NotificationCenter from '../components/NotificationCenter';
+import ContextualHelp from '../components/ContextualHelp';
+import FeedbackWidget from '../components/FeedbackWidget';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -99,18 +102,25 @@ const CandidateDashboard = () => {
       
       <main className="pt-28 pb-20 px-6 md:px-10">
         <div className="container mx-auto max-w-7xl">
-          {/* Enhanced Welcome Header */}
+          {/* Enhanced Welcome Header with new components */}
           <div className="mb-8 animate-fade-in">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-r from-zara-purple to-zara-purple-dark flex items-center justify-center text-white text-2xl font-bold shadow-lg">
-                A
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-zara-purple to-zara-purple-dark flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                  A
+                </div>
+                <div>
+                  <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome back, Alex!</h1>
+                  <p className="text-gray-600 flex items-center gap-2">
+                    <Zap className="w-4 h-4 text-zara-purple" />
+                    Ready to showcase your skills and land your dream job
+                  </p>
+                </div>
               </div>
-              <div>
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome back, Alex!</h1>
-                <p className="text-gray-600 flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-zara-purple" />
-                  Ready to showcase your skills and land your dream job
-                </p>
+              
+              <div className="flex items-center gap-3">
+                <NotificationCenter userRole="candidate" />
+                <ContextualHelp context="dashboard" userRole="candidate" />
               </div>
             </div>
           </div>
@@ -357,6 +367,9 @@ const CandidateDashboard = () => {
           onClose={() => setShowWizard(false)}
         />
       )}
+      
+      {/* Feedback Widget */}
+      <FeedbackWidget context="candidate-dashboard" userRole="candidate" />
     </div>
   );
 };

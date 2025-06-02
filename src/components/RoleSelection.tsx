@@ -1,19 +1,30 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Users, Sparkles, ArrowRight, Target, Code, TrendingUp, Award, Video, MessageSquare, Clock } from 'lucide-react';
+import OnboardingWizard from './OnboardingWizard';
 
 const RoleSelection = () => {
   const navigate = useNavigate();
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [selectedRole, setSelectedRole] = useState<'recruiter' | 'candidate' | null>(null);
 
   const handleRoleSelection = (role: 'recruiter' | 'candidate') => {
-    sessionStorage.setItem('userRole', role);
-    if (role === 'recruiter') {
-      navigate('/recruiter-dashboard');
-    } else {
-      navigate('/candidate-dashboard');
+    setSelectedRole(role);
+    setShowOnboarding(true);
+  };
+
+  const handleOnboardingComplete = () => {
+    if (selectedRole) {
+      sessionStorage.setItem('userRole', selectedRole);
+      sessionStorage.setItem('hasSeenOnboarding', 'true');
+      if (selectedRole === 'recruiter') {
+        navigate('/recruiter-dashboard');
+      } else {
+        navigate('/candidate-dashboard');
+      }
     }
   };
 
@@ -113,6 +124,13 @@ const RoleSelection = () => {
           </p>
         </div>
       </div>
+
+      {showOnboarding && selectedRole && (
+        <OnboardingWizard
+          userRole={selectedRole}
+          onComplete={handleOnboardingComplete}
+        />
+      )}
     </div>
   );
 };
