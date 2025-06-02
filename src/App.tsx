@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Index from './pages/Index';
@@ -13,6 +14,7 @@ import CandidatesList from './pages/CandidatesList';
 import CandidateProfile from './pages/CandidateProfile';
 import StartInterviewing from './pages/StartInterviewing';
 import AIInterviewPage from './pages/AIInterviewPage';
+import AssessmentPage from './pages/AssessmentPage';
 import NotFound from './pages/NotFound';
 import CandidateProfileDetail from './pages/CandidateProfileDetail';
 
@@ -113,6 +115,14 @@ function App() {
           element={
             <ProtectedRoute requiredRole="candidate">
               <AIInterviewPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/assessment" 
+          element={
+            <ProtectedRoute requiredRole="candidate">
+              <AssessmentPage />
             </ProtectedRoute>
           } 
         />

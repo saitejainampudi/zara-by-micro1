@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -7,92 +6,141 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Video } from 'lucide-react';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   
-  // Enhanced candidate data with more realistic numbers
+  // Enhanced candidate data with job descriptions and AI interview recording status
   const candidates = [
     {
       id: 1,
       name: "Alex Johnson",
       role: "Senior Frontend Developer",
+      jobDescription: "Lead frontend development using React and TypeScript. Mentor junior developers and architect scalable solutions for our e-commerce platform.",
       status: "completed",
       score: 87,
       skills: ["React", "TypeScript", "Redux"],
       date: "2 days ago",
-      highlight: "Problem Solver"
+      highlight: "Problem Solver",
+      aiInterviewRecording: {
+        completed: true,
+        duration: "14:32",
+        recordedAt: "2 days ago"
+      }
     },
     {
       id: 2,
       name: "Jordan Smith",
       role: "Backend Engineer",
+      jobDescription: "Design and implement robust backend APIs using Node.js and Python. Work with microservices architecture and ensure system scalability.",
       status: "in_progress",
       score: null,
       skills: ["Node.js", "Python", "MongoDB"],
       date: "1 day ago",
-      highlight: null
+      highlight: null,
+      aiInterviewRecording: {
+        completed: false,
+        duration: null,
+        recordedAt: null
+      }
     },
     {
       id: 3,
       name: "Taylor Williams",
       role: "Full Stack Developer",
+      jobDescription: "Build end-to-end web applications with modern technologies. Collaborate with designers and product managers to deliver user-focused solutions.",
       status: "completed",
       score: 92,
       skills: ["React", "Node.js", "PostgreSQL"],
       date: "4 days ago",
-      highlight: "Top Logic"
+      highlight: "Top Logic",
+      aiInterviewRecording: {
+        completed: true,
+        duration: "16:45",
+        recordedAt: "4 days ago"
+      }
     },
     {
       id: 4,
       name: "Casey Brown",
       role: "Frontend Developer",
+      jobDescription: "Develop responsive user interfaces using Vue.js. Focus on performance optimization and cross-browser compatibility.",
       status: "reviewed",
       score: 78,
       skills: ["Vue.js", "JavaScript", "CSS"],
       date: "5 days ago",
-      highlight: "Great Communicator"
+      highlight: "Great Communicator",
+      aiInterviewRecording: {
+        completed: true,
+        duration: "12:18",
+        recordedAt: "5 days ago"
+      }
     },
     {
       id: 5,
       name: "Riley Garcia",
       role: "Backend Engineer",
+      jobDescription: "Maintain and enhance Java-based enterprise applications. Work with Spring framework and implement secure, scalable backend services.",
       status: "completed",
       score: 65,
       skills: ["Java", "Spring", "MySQL"],
       date: "3 days ago",
-      highlight: null
+      highlight: null,
+      aiInterviewRecording: {
+        completed: true,
+        duration: "11:22",
+        recordedAt: "3 days ago"
+      }
     },
     {
       id: 6,
       name: "Morgan Davis",
       role: "Product Designer",
+      jobDescription: "Create user-centered designs for web and mobile applications. Conduct user research and create prototypes using Figma and design systems.",
       status: "completed",
       score: 89,
       skills: ["Figma", "UX Research", "Prototyping"],
       date: "1 week ago",
-      highlight: "Creative Thinker"
+      highlight: "Creative Thinker",
+      aiInterviewRecording: {
+        completed: true,
+        duration: "18:55",
+        recordedAt: "1 week ago"
+      }
     },
     {
       id: 7,
       name: "Jamie Lee",
       role: "DevOps Engineer",
+      jobDescription: "Manage cloud infrastructure and CI/CD pipelines. Implement monitoring solutions and ensure high availability of production systems.",
       status: "in_progress",
       score: null,
       skills: ["Docker", "Kubernetes", "AWS"],
       date: "3 hours ago",
-      highlight: null
+      highlight: null,
+      aiInterviewRecording: {
+        completed: false,
+        duration: null,
+        recordedAt: null
+      }
     },
     {
       id: 8,
       name: "Avery Thompson",
       role: "Data Scientist",
+      jobDescription: "Build machine learning models to drive business insights. Work with large datasets and implement predictive analytics solutions.",
       status: "completed",
       score: 94,
       skills: ["Python", "Machine Learning", "SQL"],
       date: "2 days ago",
-      highlight: "Data Expert"
+      highlight: "Data Expert",
+      aiInterviewRecording: {
+        completed: true,
+        duration: "20:13",
+        recordedAt: "2 days ago"
+      }
     }
   ];
 
@@ -210,7 +258,8 @@ const Dashboard = () => {
                 <thead>
                   <tr className="bg-violet-50 text-left">
                     <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Candidate</th>
-                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Role & Description</th>
+                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">AI Interview</th>
                     <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                     <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Score</th>
                     <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
@@ -243,7 +292,27 @@ const Dashboard = () => {
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">{candidate.role}</td>
+                        <td className="px-6 py-4">
+                          <div>
+                            <div className="font-medium text-sm">{candidate.role}</div>
+                            <div className="text-xs text-gray-600 mt-1 max-w-xs">
+                              {candidate.jobDescription.substring(0, 120)}...
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex items-center gap-2">
+                            <Video className="w-4 h-4 text-blue-600" />
+                            {candidate.aiInterviewRecording.completed ? (
+                              <div>
+                                <div className="text-sm font-medium text-green-600">Completed</div>
+                                <div className="text-xs text-gray-500">{candidate.aiInterviewRecording.duration}</div>
+                              </div>
+                            ) : (
+                              <div className="text-sm text-yellow-600">Pending</div>
+                            )}
+                          </div>
+                        </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           {getStatusBadge(candidate.status)}
                         </td>
@@ -276,7 +345,7 @@ const Dashboard = () => {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={6} className="px-6 py-8 text-center text-gray-500">
+                      <td colSpan={7} className="px-6 py-8 text-center text-gray-500">
                         No candidates found matching your criteria
                       </td>
                     </tr>
