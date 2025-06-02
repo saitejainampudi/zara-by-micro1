@@ -1,408 +1,1194 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import RoleCard from '../components/RoleCard';
+import CandidateProfileCard from '../components/CandidateProfileCard';
+import RoleAnalytics from '../components/RoleAnalytics';
+import NotificationCenter from '../components/NotificationCenter';
+import ContextualHelp from '../components/ContextualHelp';
+import FeedbackWidget from '../components/FeedbackWidget';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Video } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Users, FileText, BarChart3, Settings, Plus, Eye, TrendingUp, Clock, CheckCircle, Zap, Target, Award, Search, Filter, Calendar, Star, Video } from 'lucide-react';
 
 const RecruiterDashboard = () => {
-  const [activeTab, setActiveTab] = useState("all");
-  const [searchQuery, setSearchQuery] = useState("");
-  
-  // Enhanced candidate data with job descriptions and AI interview recording status
+  const navigate = useNavigate();
+  const [activeView, setActiveView] = useState<'overview' | 'roles' | 'candidates' | 'analytics'>('overview');
+  const [selectedRole, setSelectedRole] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [candidateFilter, setCandidateFilter] = useState<'all' | 'shortlisted' | 'interviewed' | 'pending'>('all');
+  const [roleFilter, setRoleFilter] = useState<string>('all');
+
+  // Enhanced demo data with more realistic numbers
+  const dashboardStats = {
+    totalRoles: 12,
+    activeRoles: 8,
+    totalCandidates: 203,
+    interviewsCompleted: 156,
+    candidatesShortlisted: 42,
+    hiresThisMonth: 11,
+    averageScore: 81,
+    timeToHire: 12
+  };
+
+  // Expanded roles data with more variety
+  const roles = [
+    {
+      id: '1',
+      title: 'Senior Frontend Developer',
+      department: 'Engineering',
+      status: 'active' as const,
+      deadline: 'March 20, 2024',
+      daysLeft: 8,
+      jobDescription: 'We are looking for a Senior Frontend Developer with 5+ years of experience in React, TypeScript, and modern web technologies. You will lead frontend architecture decisions and mentor junior developers.',
+      applicants: {
+        total: 28,
+        pending: 6,
+        interviewed: 18,
+        shortlisted: 5
+      },
+      completionRate: 89,
+      avgScore: 84,
+      topCandidateScore: 96
+    },
+    {
+      id: '2',
+      title: 'Product Designer',
+      department: 'Design',
+      status: 'active' as const,
+      deadline: 'March 25, 2024',
+      daysLeft: 13,
+      jobDescription: 'Join our design team as a Product Designer to create intuitive user experiences. You will work closely with product managers and engineers to design user-centered solutions.',
+      applicants: {
+        total: 22,
+        pending: 4,
+        interviewed: 14,
+        shortlisted: 4
+      },
+      completionRate: 82,
+      avgScore: 87,
+      topCandidateScore: 93
+    },
+    {
+      id: '3',
+      title: 'DevOps Engineer',
+      department: 'Engineering',
+      status: 'active' as const,
+      deadline: 'March 15, 2024',
+      daysLeft: 3,
+      jobDescription: 'We need a DevOps Engineer to manage our cloud infrastructure and CI/CD pipelines. Experience with AWS, Docker, and Kubernetes is essential.',
+      applicants: {
+        total: 18,
+        pending: 8,
+        interviewed: 8,
+        shortlisted: 2
+      },
+      completionRate: 72,
+      avgScore: 79,
+      topCandidateScore: 91
+    },
+    {
+      id: '4',
+      title: 'Full Stack Engineer',
+      department: 'Engineering',
+      status: 'active' as const,
+      deadline: 'March 28, 2024',
+      daysLeft: 16,
+      jobDescription: 'Looking for a Full Stack Engineer proficient in both frontend and backend technologies. You will build end-to-end features and contribute to our microservices architecture.',
+      applicants: {
+        total: 35,
+        pending: 15,
+        interviewed: 16,
+        shortlisted: 6
+      },
+      completionRate: 76,
+      avgScore: 82,
+      topCandidateScore: 94
+    },
+    {
+      id: '5',
+      title: 'Data Scientist',
+      department: 'Data',
+      status: 'active' as const,
+      deadline: 'April 5, 2024',
+      daysLeft: 24,
+      jobDescription: 'Join our data team to build machine learning models and extract insights from large datasets. PhD in Machine Learning or related field preferred.',
+      applicants: {
+        total: 19,
+        pending: 12,
+        interviewed: 6,
+        shortlisted: 2
+      },
+      completionRate: 58,
+      avgScore: 85,
+      topCandidateScore: 92
+    },
+    {
+      id: '6',
+      title: 'QA Engineer',
+      department: 'Engineering',
+      status: 'active' as const,
+      deadline: 'March 30, 2024',
+      daysLeft: 18,
+      jobDescription: 'We are seeking a QA Engineer to ensure the quality of our software products. Experience with automated testing frameworks and API testing is required.',
+      applicants: {
+        total: 16,
+        pending: 9,
+        interviewed: 5,
+        shortlisted: 2
+      },
+      completionRate: 69,
+      avgScore: 77,
+      topCandidateScore: 88
+    },
+    {
+      id: '7',
+      title: 'Marketing Manager',
+      department: 'Marketing',
+      status: 'active' as const,
+      deadline: 'April 10, 2024',
+      daysLeft: 29,
+      jobDescription: 'Lead our marketing initiatives and drive growth through digital campaigns. Experience in B2B marketing and analytics tools is essential.',
+      applicants: {
+        total: 24,
+        pending: 18,
+        interviewed: 4,
+        shortlisted: 2
+      },
+      completionRate: 42,
+      avgScore: 83,
+      topCandidateScore: 89
+    },
+    {
+      id: '8',
+      title: 'Backend Developer',
+      department: 'Engineering',
+      status: 'active' as const,
+      deadline: 'March 22, 2024',
+      daysLeft: 10,
+      jobDescription: 'Build scalable backend systems and APIs. Strong experience with microservices, databases, and cloud platforms is required.',
+      applicants: {
+        total: 26,
+        pending: 8,
+        interviewed: 14,
+        shortlisted: 4
+      },
+      completionRate: 85,
+      avgScore: 81,
+      topCandidateScore: 95
+    }
+  ];
+
+  // Expanded candidates data with 20 diverse profiles
   const candidates = [
     {
-      id: 1,
-      name: "Alex Johnson",
-      role: "Senior Frontend Developer",
-      jobDescription: "Lead frontend development using React and TypeScript. Mentor junior developers and architect scalable solutions for our e-commerce platform. You will work closely with the design team to implement pixel-perfect UIs and optimize performance across all devices.",
-      status: "completed",
-      score: 87,
-      skills: ["React", "TypeScript", "Redux"],
-      date: "2 days ago",
-      highlight: "Problem Solver",
+      id: '1',
+      name: 'Sarah Chen',
+      role: 'Senior Frontend Developer',
+      overallScore: 96,
+      preference: '1st' as const,
+      status: 'shortlisted' as const,
+      skills: ['React', 'TypeScript', 'Node.js', 'GraphQL', 'AWS'],
+      experience: '6+ years experience',
+      scores: {
+        coding: 98,
+        interview: 94,
+        softSkills: 96
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '2 hours ago',
+      highlights: ['Exceptional problem-solving skills', 'Strong technical leadership', 'Open source contributor'],
       aiInterviewRecording: {
         completed: true,
-        duration: "14:32",
-        recordedAt: "2 days ago"
+        duration: '12:34',
+        recordedAt: '2 hours ago'
       }
     },
     {
-      id: 2,
-      name: "Jordan Smith",
-      role: "Backend Engineer",
-      jobDescription: "Design and implement robust backend APIs using Node.js and Python. Work with microservices architecture and ensure system scalability. You will be responsible for database optimization, API security, and system monitoring.",
-      status: "in_progress",
-      score: null,
-      skills: ["Node.js", "Python", "MongoDB"],
-      date: "1 day ago",
-      highlight: null,
+      id: '2',
+      name: 'Alex Rodriguez',
+      role: 'Senior Frontend Developer',
+      overallScore: 91,
+      preference: '2nd' as const,
+      status: 'interviewed' as const,
+      skills: ['Vue.js', 'Python', 'AWS', 'Docker', 'Redis'],
+      experience: '5+ years experience',
+      scores: {
+        coding: 93,
+        interview: 89,
+        softSkills: 91
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '1 day ago',
+      highlights: ['Great team collaboration', 'Innovative thinking', 'Scalable architecture expertise'],
       aiInterviewRecording: {
         completed: true,
-        duration: "13:45",
-        recordedAt: "1 day ago"
+        duration: '15:22',
+        recordedAt: '1 day ago'
       }
     },
     {
-      id: 3,
-      name: "Taylor Williams",
-      role: "Full Stack Developer",
-      jobDescription: "Build end-to-end web applications with modern technologies. Collaborate with designers and product managers to deliver user-focused solutions. You will work on both frontend React applications and backend Node.js services.",
-      status: "completed",
-      score: 92,
-      skills: ["React", "Node.js", "PostgreSQL"],
-      date: "4 days ago",
-      highlight: "Top Logic",
+      id: '3',
+      name: 'Jordan Kim',
+      role: 'Product Designer',
+      overallScore: 93,
+      preference: '1st' as const,
+      status: 'shortlisted' as const,
+      skills: ['Figma', 'User Research', 'Prototyping', 'Design Systems', 'A/B Testing'],
+      experience: '7+ years experience',
+      scores: {
+        coding: 0,
+        interview: 95,
+        softSkills: 91
+      },
+      completedSteps: 2,
+      totalSteps: 2,
+      submittedAt: '3 hours ago',
+      highlights: ['Outstanding portfolio', 'User-centered design approach', 'Data-driven decisions'],
       aiInterviewRecording: {
         completed: true,
-        duration: "16:45",
-        recordedAt: "4 days ago"
+        duration: '18:45',
+        recordedAt: '3 hours ago'
       }
     },
     {
-      id: 4,
-      name: "Casey Brown",
-      role: "Frontend Developer",
-      jobDescription: "Develop responsive user interfaces using Vue.js. Focus on performance optimization and cross-browser compatibility. You will create reusable components and implement modern CSS frameworks to deliver exceptional user experiences.",
-      status: "reviewed",
-      score: 78,
-      skills: ["Vue.js", "JavaScript", "CSS"],
-      date: "5 days ago",
-      highlight: "Great Communicator",
+      id: '4',
+      name: 'Taylor Morgan',
+      role: 'DevOps Engineer',
+      overallScore: 88,
+      preference: '1st' as const,
+      status: 'interviewed' as const,
+      skills: ['Kubernetes', 'Terraform', 'Jenkins', 'Monitoring', 'Security'],
+      experience: '4+ years experience',
+      scores: {
+        coding: 90,
+        interview: 86,
+        softSkills: 88
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '5 hours ago',
+      highlights: ['Strong infrastructure knowledge', 'Security-first mindset'],
       aiInterviewRecording: {
         completed: true,
-        duration: "12:18",
-        recordedAt: "5 days ago"
+        duration: '14:16',
+        recordedAt: '5 hours ago'
       }
     },
     {
-      id: 5,
-      name: "Riley Garcia",
-      role: "Backend Engineer",
-      jobDescription: "Maintain and enhance Java-based enterprise applications. Work with Spring framework and implement secure, scalable backend services. You will be involved in system architecture decisions and database design.",
-      status: "completed",
-      score: 65,
-      skills: ["Java", "Spring", "MySQL"],
-      date: "3 days ago",
-      highlight: null,
+      id: '5',
+      name: 'Maya Patel',
+      role: 'Full Stack Engineer',
+      overallScore: 89,
+      preference: '1st' as const,
+      status: 'shortlisted' as const,
+      skills: ['React', 'Node.js', 'PostgreSQL', 'MongoDB', 'Microservices'],
+      experience: '5+ years experience',
+      scores: {
+        coding: 92,
+        interview: 86,
+        softSkills: 89
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '6 hours ago',
+      highlights: ['Full-stack expertise', 'Mentoring experience', 'Agile methodologies'],
       aiInterviewRecording: {
         completed: true,
-        duration: "11:22",
-        recordedAt: "3 days ago"
+        duration: '14:12',
+        recordedAt: '6 hours ago'
       }
     },
     {
-      id: 6,
-      name: "Morgan Davis",
-      role: "Product Designer",
-      jobDescription: "Create user-centered designs for web and mobile applications. Conduct user research and create prototypes using Figma and design systems. You will collaborate with product managers and engineers to translate business requirements into intuitive user experiences.",
-      status: "completed",
-      score: 89,
-      skills: ["Figma", "UX Research", "Prototyping"],
-      date: "1 week ago",
-      highlight: "Creative Thinker",
+      id: '6',
+      name: 'Chris Johnson',
+      role: 'Data Scientist',
+      overallScore: 92,
+      preference: '1st' as const,
+      status: 'interviewed' as const,
+      skills: ['Python', 'Machine Learning', 'TensorFlow', 'SQL', 'Statistics'],
+      experience: '4+ years experience',
+      scores: {
+        coding: 94,
+        interview: 90,
+        softSkills: 92
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '1 day ago',
+      highlights: ['PhD in Machine Learning', 'Published researcher', 'Industry experience'],
       aiInterviewRecording: {
         completed: true,
-        duration: "18:55",
-        recordedAt: "1 week ago"
+        duration: '16:33',
+        recordedAt: '1 day ago'
       }
     },
     {
-      id: 7,
-      name: "Jamie Lee",
-      role: "DevOps Engineer",
-      jobDescription: "Manage cloud infrastructure and CI/CD pipelines. Implement monitoring solutions and ensure high availability of production systems. You will work with containerization technologies and automate deployment processes.",
-      status: "in_progress",
-      score: null,
-      skills: ["Docker", "Kubernetes", "AWS"],
-      date: "3 hours ago",
-      highlight: null,
+      id: '7',
+      name: 'Emma Watson',
+      role: 'Backend Developer',
+      overallScore: 85,
+      preference: '2nd' as const,
+      status: 'interviewed' as const,
+      skills: ['Java', 'Spring Boot', 'MySQL', 'Redis', 'Kafka'],
+      experience: '4+ years experience',
+      scores: {
+        coding: 87,
+        interview: 83,
+        softSkills: 85
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '8 hours ago',
+      highlights: ['Strong backend architecture', 'Database optimization expert'],
       aiInterviewRecording: {
         completed: true,
-        duration: "15:30",
-        recordedAt: "3 hours ago"
+        duration: '13:28',
+        recordedAt: '8 hours ago'
       }
     },
     {
-      id: 8,
-      name: "Avery Thompson",
-      role: "Data Scientist",
-      jobDescription: "Build machine learning models to drive business insights. Work with large datasets and implement predictive analytics solutions. You will collaborate with stakeholders to identify data opportunities and create actionable recommendations.",
-      status: "completed",
-      score: 94,
-      skills: ["Python", "Machine Learning", "SQL"],
-      date: "2 days ago",
-      highlight: "Data Expert",
+      id: '8',
+      name: 'David Miller',
+      role: 'QA Engineer',
+      overallScore: 83,
+      preference: '2nd' as const,
+      status: 'shortlisted' as const,
+      skills: ['Selenium', 'Cypress', 'TestNG', 'API Testing', 'Performance Testing'],
+      experience: '3+ years experience',
+      scores: {
+        coding: 80,
+        interview: 85,
+        softSkills: 84
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '10 hours ago',
+      highlights: ['Automation expertise', 'Quality-focused approach'],
       aiInterviewRecording: {
         completed: true,
-        duration: "20:13",
-        recordedAt: "2 days ago"
+        duration: '11:45',
+        recordedAt: '10 hours ago'
+      }
+    },
+    {
+      id: '9',
+      name: 'Sophia Lee',
+      role: 'Marketing Manager',
+      overallScore: 87,
+      preference: '1st' as const,
+      status: 'interviewed' as const,
+      skills: ['Digital Marketing', 'Analytics', 'SEO', 'Content Strategy', 'Campaign Management'],
+      experience: '5+ years experience',
+      scores: {
+        coding: 0,
+        interview: 89,
+        softSkills: 85
+      },
+      completedSteps: 2,
+      totalSteps: 2,
+      submittedAt: '12 hours ago',
+      highlights: ['ROI-driven campaigns', 'Cross-channel expertise'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '17:22',
+        recordedAt: '12 hours ago'
+      }
+    },
+    {
+      id: '10',
+      name: 'Michael Brown',
+      role: 'Backend Developer',
+      overallScore: 79,
+      preference: '3rd' as const,
+      status: 'interviewed' as const,
+      skills: ['Python', 'Django', 'PostgreSQL', 'Docker', 'AWS'],
+      experience: '3+ years experience',
+      scores: {
+        coding: 82,
+        interview: 76,
+        softSkills: 79
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '14 hours ago',
+      highlights: ['Clean code advocate', 'API design skills'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '12:56',
+        recordedAt: '14 hours ago'
+      }
+    },
+    {
+      id: '11',
+      name: 'Lisa Zhang',
+      role: 'UX Designer',
+      overallScore: 91,
+      preference: '1st' as const,
+      status: 'shortlisted' as const,
+      skills: ['User Research', 'Wireframing', 'Prototyping', 'Usability Testing', 'Adobe Creative Suite'],
+      experience: '6+ years experience',
+      scores: {
+        coding: 0,
+        interview: 93,
+        softSkills: 89
+      },
+      completedSteps: 2,
+      totalSteps: 2,
+      submittedAt: '16 hours ago',
+      highlights: ['User empathy', 'Design thinking expert'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '19:14',
+        recordedAt: '16 hours ago'
+      }
+    },
+    {
+      id: '12',
+      name: 'Ryan Davis',
+      role: 'DevOps Engineer',
+      overallScore: 86,
+      preference: '2nd' as const,
+      status: 'interviewed' as const,
+      skills: ['AWS', 'Docker', 'Kubernetes', 'CI/CD', 'Monitoring'],
+      experience: '4+ years experience',
+      scores: {
+        coding: 88,
+        interview: 84,
+        softSkills: 86
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '18 hours ago',
+      highlights: ['Cloud architecture', 'Automation skills'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '13:41',
+        recordedAt: '18 hours ago'
+      }
+    },
+    {
+      id: '13',
+      name: 'Amanda Wilson',
+      role: 'Product Manager',
+      overallScore: 84,
+      preference: '2nd' as const,
+      status: 'interviewed' as const,
+      skills: ['Product Strategy', 'Agile', 'Analytics', 'User Stories', 'Roadmapping'],
+      experience: '5+ years experience',
+      scores: {
+        coding: 0,
+        interview: 86,
+        softSkills: 82
+      },
+      completedSteps: 2,
+      totalSteps: 2,
+      submittedAt: '20 hours ago',
+      highlights: ['Strategic thinking', 'Stakeholder management'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '16:08',
+        recordedAt: '20 hours ago'
+      }
+    },
+    {
+      id: '14',
+      name: 'Kevin Martinez',
+      role: 'Full Stack Engineer',
+      overallScore: 82,
+      preference: '2nd' as const,
+      status: 'pending' as const,
+      skills: ['React', 'Express', 'MongoDB', 'GraphQL', 'TypeScript'],
+      experience: '3+ years experience',
+      scores: {
+        coding: 84,
+        interview: 80,
+        softSkills: 82
+      },
+      completedSteps: 2,
+      totalSteps: 3,
+      submittedAt: '22 hours ago',
+      highlights: ['Modern tech stack', 'Learning agility'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '11:33',
+        recordedAt: '22 hours ago'
+      }
+    },
+    {
+      id: '15',
+      name: 'Rachel Green',
+      role: 'Data Analyst',
+      overallScore: 88,
+      preference: '1st' as const,
+      status: 'shortlisted' as const,
+      skills: ['SQL', 'Python', 'Tableau', 'Excel', 'Statistics'],
+      experience: '4+ years experience',
+      scores: {
+        coding: 85,
+        interview: 90,
+        softSkills: 89
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '1 day ago',
+      highlights: ['Data storytelling', 'Business insights'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '15:47',
+        recordedAt: '1 day ago'
+      }
+    },
+    {
+      id: '16',
+      name: 'James Thompson',
+      role: 'Senior Frontend Developer',
+      overallScore: 80,
+      preference: '3rd' as const,
+      status: 'pending' as const,
+      skills: ['Angular', 'TypeScript', 'RxJS', 'Jest', 'Webpack'],
+      experience: '4+ years experience',
+      scores: {
+        coding: 83,
+        interview: 77,
+        softSkills: 80
+      },
+      completedSteps: 1,
+      totalSteps: 3,
+      submittedAt: '1 day ago',
+      highlights: ['Angular expertise', 'Testing advocate'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '10:22',
+        recordedAt: '1 day ago'
+      }
+    },
+    {
+      id: '17',
+      name: 'Nicole Anderson',
+      role: 'Security Engineer',
+      overallScore: 90,
+      preference: '1st' as const,
+      status: 'shortlisted' as const,
+      skills: ['Cybersecurity', 'Penetration Testing', 'SIEM', 'Risk Assessment', 'Compliance'],
+      experience: '5+ years experience',
+      scores: {
+        coding: 87,
+        interview: 92,
+        softSkills: 91
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '2 days ago',
+      highlights: ['Security expertise', 'Compliance knowledge'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '18:15',
+        recordedAt: '2 days ago'
+      }
+    },
+    {
+      id: '18',
+      name: 'Carlos Rodriguez',
+      role: 'Mobile Developer',
+      overallScore: 85,
+      preference: '2nd' as const,
+      status: 'interviewed' as const,
+      skills: ['React Native', 'Swift', 'Kotlin', 'Firebase', 'App Store'],
+      experience: '4+ years experience',
+      scores: {
+        coding: 88,
+        interview: 82,
+        softSkills: 85
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '2 days ago',
+      highlights: ['Cross-platform expertise', 'Performance optimization'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '14:28',
+        recordedAt: '2 days ago'
+      }
+    },
+    {
+      id: '19',
+      name: 'Jennifer Clark',
+      role: 'Business Analyst',
+      overallScore: 81,
+      preference: '3rd' as const,
+      status: 'pending' as const,
+      skills: ['Requirements Analysis', 'Process Mapping', 'Stakeholder Management', 'Documentation', 'Agile'],
+      experience: '4+ years experience',
+      scores: {
+        coding: 0,
+        interview: 83,
+        softSkills: 79
+      },
+      completedSteps: 1,
+      totalSteps: 2,
+      submittedAt: '3 days ago',
+      highlights: ['Requirements expertise', 'Process improvement'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '12:04',
+        recordedAt: '3 days ago'
+      }
+    },
+    {
+      id: '20',
+      name: 'Daniel Kim',
+      role: 'Cloud Architect',
+      overallScore: 94,
+      preference: '1st' as const,
+      status: 'shortlisted' as const,
+      skills: ['AWS', 'Azure', 'Terraform', 'Microservices', 'Architecture Design'],
+      experience: '8+ years experience',
+      scores: {
+        coding: 92,
+        interview: 95,
+        softSkills: 95
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '3 days ago',
+      highlights: ['Architecture expertise', 'Cloud migration specialist'],
+      aiInterviewRecording: {
+        completed: true,
+        duration: '20:36',
+        recordedAt: '3 days ago'
       }
     }
   ];
 
-  // Filter candidates based on active tab and search query
-  const filteredCandidates = candidates.filter(candidate => {
-    const matchesTab = 
-      activeTab === "all" || 
-      (activeTab === "in_progress" && candidate.status === "in_progress") ||
-      (activeTab === "completed" && candidate.status === "completed") ||
-      (activeTab === "reviewed" && candidate.status === "reviewed");
-    
-    const matchesSearch = 
-      candidate.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      candidate.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      candidate.skills.some(skill => skill.toLowerCase().includes(searchQuery.toLowerCase()));
-    
-    return matchesTab && matchesSearch;
-  });
-
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "in_progress":
-        return <Badge variant="outline" className="bg-blue-50 text-blue-600 border-blue-200">In Progress</Badge>;
-      case "completed":
-        return <Badge variant="outline" className="bg-amber-50 text-amber-600 border-amber-200">Completed</Badge>;
-      case "reviewed":
-        return <Badge variant="outline" className="bg-green-50 text-green-600 border-green-200">Reviewed</Badge>;
-      default:
-        return null;
+  const roleAnalytics = {
+    totalApplicants: 28,
+    interviewsCompleted: 18,
+    averageScore: 84,
+    aiShortlisted: 5,
+    conversionRate: 64,
+    timeToHire: 11,
+    topSkills: ['React', 'TypeScript', 'JavaScript', 'Node.js', 'AWS'],
+    scoreDistribution: {
+      excellent: 5,
+      good: 8,
+      average: 4,
+      below: 1
+    },
+    candidatePreferences: {
+      first: 12,
+      second: 9,
+      third: 5,
+      backup: 2
+    },
+    weeklyProgress: [],
+    hiringMetrics: {
+      withZara: {
+        timeToHire: 11,
+        qualityScore: 87,
+        interviewEfficiency: 94,
+        candidateSatisfaction: 92
+      },
+      withoutZara: {
+        timeToHire: 28,
+        qualityScore: 73,
+        interviewEfficiency: 65,
+        candidateSatisfaction: 78
+      }
     }
   };
 
+  const handleViewRoleDetails = (roleId: string) => {
+    setSelectedRole(roleId);
+    setActiveView('analytics');
+  };
+
+  const handleViewCandidateProfile = (candidateId: string) => {
+    navigate('/candidate-profile', { state: { candidateId } });
+  };
+
+  const handleShortlistCandidate = (candidateId: string) => {
+    console.log('Shortlist candidate:', candidateId);
+  };
+
+  const handleRejectCandidate = (candidateId: string) => {
+    console.log('Reject candidate:', candidateId);
+  };
+
+  const handleViewRoleCandidates = (roleId: string) => {
+    setRoleFilter(roleId);
+    setActiveView('candidates');
+  };
+
+  const filteredCandidates = candidates.filter(candidate => {
+    const matchesSearch = candidate.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         candidate.role.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesFilter = candidateFilter === 'all' || candidate.status === candidateFilter;
+    const matchesRole = roleFilter === 'all' || roles.find(r => r.id === roleFilter)?.title === candidate.role;
+    return matchesSearch && matchesFilter && matchesRole;
+  });
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 to-white flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-violet-50 to-white">
       <Navbar />
       
-      <main className="flex-grow pt-24 pb-20 px-6 md:px-10">
-        <div className="container mx-auto max-w-6xl">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Recruiter Command Centre</h1>
-              <p className="text-gray-600">Manage and review your candidate interviews</p>
-            </div>
-            <div className="mt-4 md:mt-0">
-              <Button className="bg-zara-purple hover:bg-zara-purple-dark">+ New Job</Button>
-            </div>
-          </div>
-          
-          {/* Enhanced Statistics Cards */}
-          <div className="grid md:grid-cols-4 gap-6 mb-8">
-            <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 hover:shadow-xl transition-all duration-300">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-blue-100">Total Roles</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-3xl font-bold">12</p>
-                    <p className="text-sm text-blue-100">Active positions</p>
-                  </div>
-                  <div className="w-12 h-12 bg-blue-400 bg-opacity-30 rounded-full flex items-center justify-center">
-                    <span className="text-2xl">📋</span>
-                  </div>
+      <main className="pt-28 pb-20 px-6 md:px-10">
+        <div className="container mx-auto max-w-7xl">
+          <div className="mb-8 animate-fade-in">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-zara-purple to-zara-purple-dark flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                  R
                 </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-gradient-to-br from-green-500 to-green-600 text-white border-0 hover:shadow-xl transition-all duration-300">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-green-100">Total Candidates</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-3xl font-bold">247</p>
-                    <p className="text-sm text-green-100">In pipeline</p>
-                  </div>
-                  <div className="w-12 h-12 bg-green-400 bg-opacity-30 rounded-full flex items-center justify-center">
-                    <span className="text-2xl">👥</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-gradient-to-br from-purple-500 to-purple-600 text-white border-0 hover:shadow-xl transition-all duration-300">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-purple-100">Interviews Completed</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-3xl font-bold">189</p>
-                    <p className="text-sm text-purple-100">AI interviews done</p>
-                  </div>
-                  <div className="w-12 h-12 bg-purple-400 bg-opacity-30 rounded-full flex items-center justify-center">
-                    <span className="text-2xl">🎯</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-gradient-to-br from-orange-500 to-orange-600 text-white border-0 hover:shadow-xl transition-all duration-300">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-orange-100">Shortlisted</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-3xl font-bold">42</p>
-                    <p className="text-sm text-orange-100">Ready for hire</p>
-                  </div>
-                  <div className="w-12 h-12 bg-orange-400 bg-opacity-30 rounded-full flex items-center justify-center">
-                    <span className="text-2xl">⭐</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-          
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-            <div className="p-6 border-b border-gray-200">
-              <div className="flex flex-col md:flex-row justify-between md:items-center space-y-4 md:space-y-0">
-                <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full md:w-auto">
-                  <TabsList className="bg-violet-50 border border-gray-200">
-                    <TabsTrigger value="all" className="data-[state=active]:bg-white">All Candidates</TabsTrigger>
-                    <TabsTrigger value="in_progress" className="data-[state=active]:bg-white">In Progress</TabsTrigger>
-                    <TabsTrigger value="completed" className="data-[state=active]:bg-white">Completed</TabsTrigger>
-                    <TabsTrigger value="reviewed" className="data-[state=active]:bg-white">Reviewed</TabsTrigger>
-                  </TabsList>
-                </Tabs>
-                
-                <div className="w-full md:w-64">
-                  <Input 
-                    placeholder="Search candidates..." 
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="border-gray-300 focus:border-zara-purple focus:ring-zara-purple"
-                  />
+                <div>
+                  <h1 className="text-3xl font-bold text-gray-900 mb-2">Recruitment Command Center</h1>
+                  <p className="text-gray-600 flex items-center gap-2">
+                    <Zap className="w-4 h-4 text-zara-purple" />
+                    AI-powered hiring at scale - streamlined for maximum efficiency
+                  </p>
                 </div>
               </div>
-            </div>
-            
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-violet-50 text-left border-b border-gray-200">
-                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Candidate</th>
-                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Role & Description</th>
-                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">AI Interview</th>
-                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Score</th>
-                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 bg-white">
-                  {filteredCandidates.length > 0 ? (
-                    filteredCandidates.map((candidate) => (
-                      <tr key={candidate.id} className="hover:bg-violet-50 transition-colors duration-150">
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="flex items-center">
-                            <div className="w-10 h-10 rounded-full bg-zara-purple-light flex items-center justify-center text-zara-purple font-medium mr-3">
-                              {candidate.name.split(' ').map(name => name[0]).join('')}
-                            </div>
-                            <div>
-                              <div className="font-medium text-gray-900">{candidate.name}</div>
-                              <div className="flex space-x-1 mt-1">
-                                {candidate.skills.slice(0, 2).map((skill, i) => (
-                                  <span key={i} className="inline-block bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded">
-                                    {skill}
-                                  </span>
-                                ))}
-                                {candidate.skills.length > 2 && (
-                                  <span className="inline-block bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded">
-                                    +{candidate.skills.length - 2}
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div>
-                            <div className="font-medium text-sm text-gray-900">{candidate.role}</div>
-                            <div className="text-xs text-gray-600 mt-1 max-w-xs line-clamp-3">
-                              {candidate.jobDescription.substring(0, 150)}...
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="flex items-center gap-2">
-                            <Video className="w-4 h-4 text-blue-600" />
-                            {candidate.aiInterviewRecording.completed ? (
-                              <div>
-                                <div className="text-sm font-medium text-green-600">Completed</div>
-                                <div className="text-xs text-gray-500">{candidate.aiInterviewRecording.duration}</div>
-                              </div>
-                            ) : (
-                              <div className="text-sm text-yellow-600">Pending</div>
-                            )}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {getStatusBadge(candidate.status)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {candidate.score ? (
-                            <div className="flex items-center">
-                              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-medium mr-2 ${
-                                candidate.score >= 80 ? 'bg-green-500' : 
-                                candidate.score >= 70 ? 'bg-amber-500' : 'bg-red-500'
-                              }`}>
-                                {candidate.score}
-                              </div>
-                              {candidate.highlight && (
-                                <span className="bg-zara-purple-light text-zara-purple text-xs px-2 py-0.5 rounded">
-                                  {candidate.highlight}
-                                </span>
-                              )}
-                            </div>
-                          ) : (
-                            <span className="text-gray-500">Pending</span>
-                          )}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{candidate.date}</td>
-                              <td className="px-6 py-4 whitespace-nowrap">
-                                <Link to={`/candidate-profile/${candidate.id}`}>
-                                  <Button variant="ghost" size="sm" className="text-zara-purple hover:text-zara-purple-dark hover:bg-zara-purple-light">
-                                    View Profile
-                                  </Button>
-                                </Link>
-                              </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={7} className="px-6 py-8 text-center text-gray-500">
-                        No candidates found matching your criteria
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-            
-            <div className="p-4 border-t border-gray-200 bg-violet-50 text-right">
-              <Button variant="outline" size="sm" className="text-gray-600 border-gray-300 hover:bg-white">
-                Previous
-              </Button>
-              <Button variant="outline" size="sm" className="ml-2 bg-white text-gray-800 border-gray-300">
-                1
-              </Button>
-              <Button variant="outline" size="sm" className="ml-2 text-gray-600 border-gray-300 hover:bg-white">
-                Next
-              </Button>
+              
+              <div className="flex items-center gap-3">
+                <NotificationCenter userRole="recruiter" />
+                <ContextualHelp context="dashboard" userRole="recruiter" />
+                <Link to="/job-upload">
+                  <Button className="bg-zara-purple hover:bg-zara-purple-dark">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Create New Role
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-8">
+            {[
+              { title: dashboardStats.totalRoles.toString(), subtitle: "Total Roles", icon: Target, color: "purple", trend: `${dashboardStats.activeRoles} active` },
+              { title: dashboardStats.totalCandidates.toString(), subtitle: "Total Candidates", icon: Users, color: "blue", trend: "+28 this week" },
+              { title: dashboardStats.interviewsCompleted.toString(), subtitle: "Interviews Done", icon: CheckCircle, color: "green", trend: "+24 today" },
+              { title: dashboardStats.candidatesShortlisted.toString(), subtitle: "Shortlisted", icon: Star, color: "yellow", trend: "Ready for hire" },
+              { title: dashboardStats.hiresThisMonth.toString(), subtitle: "Hires This Month", icon: Award, color: "green", trend: "↗️ +57%" },
+              { title: `${dashboardStats.averageScore}`, subtitle: "Avg AI Score", icon: TrendingUp, color: "blue", trend: "Above industry" },
+              { title: `${dashboardStats.timeToHire}d`, subtitle: "Time to Hire", icon: Clock, color: "orange", trend: "30% faster" },
+              { title: "96%", subtitle: "Platform Accuracy", icon: Zap, color: "purple", trend: "AI precision" }
+            ].map((stat, index) => (
+              <Card key={index} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-white to-violet-50 border-gray-200 hover:border-gray-300">
+                <CardHeader className="pb-2">
+                  <div className="flex items-center justify-between">
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110 ${
+                      stat.color === 'purple' ? 'bg-zara-purple-light text-zara-purple' :
+                      stat.color === 'blue' ? 'bg-blue-100 text-blue-600' :
+                      stat.color === 'green' ? 'bg-green-100 text-green-600' :
+                      stat.color === 'yellow' ? 'bg-yellow-100 text-yellow-600' :
+                      'bg-orange-100 text-orange-600'
+                    }`}>
+                      <stat.icon className="w-4 h-4" />
+                    </div>
+                  </div>
+                  <CardTitle className="text-xl font-bold text-gray-900">{stat.title}</CardTitle>
+                  <CardDescription className="text-xs font-medium">{stat.subtitle}</CardDescription>
+                  <div className="text-xs text-gray-500 mt-1">{stat.trend}</div>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+
+          <Tabs value={activeView} onValueChange={(value: any) => setActiveView(value)} className="space-y-6">
+            <TabsList className="grid w-full grid-cols-4 bg-white border border-gray-200">
+              <TabsTrigger value="overview" className="flex items-center gap-2">
+                <BarChart3 className="w-4 h-4" />
+                Overview
+              </TabsTrigger>
+              <TabsTrigger value="roles" className="flex items-center gap-2">
+                <FileText className="w-4 h-4" />
+                Roles ({roles.length})
+              </TabsTrigger>
+              <TabsTrigger value="candidates" className="flex items-center gap-2">
+                <Users className="w-4 h-4" />
+                Candidates ({candidates.length})
+              </TabsTrigger>
+              <TabsTrigger value="analytics" className="flex items-center gap-2">
+                <TrendingUp className="w-4 h-4" />
+                Analytics
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="overview" className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <Card className="group relative overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-zara-purple to-zara-purple-dark text-white border-0">
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <CardHeader className="relative z-10">
+                    <CardTitle className="flex items-center gap-2 text-white">
+                      <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                        <FileText className="w-5 h-5" />
+                      </div>
+                      Role Management
+                    </CardTitle>
+                    <CardDescription className="text-white/80">
+                      Create AI-powered interview flows and manage job descriptions
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="relative z-10">
+                    <div className="space-y-3">
+                      <Button 
+                        onClick={() => setActiveView('roles')}
+                        className="w-full bg-white text-zara-purple hover:bg-white/90 hover:shadow-lg transition-all duration-200 group-hover:scale-105"
+                      >
+                        <Eye className="w-4 h-4 mr-2" />
+                        View All Roles
+                      </Button>
+                      <Link to="/job-upload">
+                        <Button className="w-full bg-white/20 text-white border border-white/30 hover:bg-white/30 transition-colors">
+                          <Plus className="w-4 h-4 mr-2" />
+                          Create New Role
+                        </Button>
+                      </Link>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-blue-200 hover:border-blue-300 bg-gradient-to-br from-white to-violet-50">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                        <Users className="w-5 h-5 text-blue-600" />
+                      </div>
+                      Candidate Pipeline
+                    </CardTitle>
+                    <CardDescription>
+                      Review AI assessments and manage your talent pipeline
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <Button 
+                        onClick={() => setActiveView('candidates')}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white transition-all duration-200 hover:shadow-lg"
+                      >
+                        <Users className="w-4 h-4 mr-2" />
+                        View All Candidates
+                      </Button>
+                      <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                        <span className="text-sm font-medium text-blue-900">Pending Reviews</span>
+                        <div className="flex items-center gap-2">
+                          <Clock className="w-4 h-4 text-blue-600" />
+                          <span className="bg-blue-200 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold">
+                            {candidates.filter(c => c.status === 'pending').length}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-green-200 hover:border-green-300 bg-gradient-to-br from-white to-violet-50">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-200 transition-colors">
+                        <BarChart3 className="w-5 h-5 text-green-600" />
+                      </div>
+                      Analytics & Insights
+                    </CardTitle>
+                    <CardDescription>
+                      Track hiring metrics and ROI from AI-powered recruitment
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <Button 
+                        onClick={() => setActiveView('analytics')}
+                        className="w-full bg-green-600 hover:bg-green-700 text-white transition-all duration-200 hover:shadow-lg"
+                      >
+                        <BarChart3 className="w-4 h-4 mr-2" />
+                        View Analytics
+                      </Button>
+                      <Button variant="outline" className="w-full border-green-200 text-green-600 hover:bg-green-50 transition-colors">
+                        Export Reports
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="roles" className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold text-gray-900">Active Roles</h2>
+                <div className="flex items-center gap-3">
+                  <Input
+                    placeholder="Search roles..."
+                    className="w-64"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                  <Button variant="outline" size="sm">
+                    <Filter className="w-4 h-4 mr-2" />
+                    Filter
+                  </Button>
+                </div>
+              </div>
+              
+              <div className="grid gap-6">
+                {roles.map((role) => (
+                  <Card key={role.id} className="hover:shadow-lg transition-all duration-300">
+                    <CardHeader>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <div className="w-12 h-12 bg-zara-purple-light rounded-lg flex items-center justify-center">
+                            <FileText className="w-6 h-6 text-zara-purple" />
+                          </div>
+                          <div>
+                            <CardTitle className="text-xl">{role.title}</CardTitle>
+                            <CardDescription>{role.department} • {role.daysLeft} days left</CardDescription>
+                          </div>
+                        </div>
+                        <Badge variant={role.status === 'active' ? 'default' : 'secondary'} className="bg-green-100 text-green-700">
+                          {role.status}
+                        </Badge>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h4 className="font-semibold mb-2">Job Description:</h4>
+                        <p className="text-sm text-gray-700">{role.jobDescription}</p>
+                      </div>
+                      
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div className="text-center p-3 bg-white rounded-lg">
+                          <div className="text-2xl font-bold text-zara-purple">{role.applicants.total}</div>
+                          <div className="text-sm text-gray-600">Total Applicants</div>
+                        </div>
+                        <div className="text-center p-3 bg-white rounded-lg">
+                          <div className="text-2xl font-bold text-zara-purple">{role.applicants.shortlisted}</div>
+                          <div className="text-sm text-gray-600">Shortlisted</div>
+                        </div>
+                        <div className="text-center p-3 bg-white rounded-lg">
+                          <div className="text-2xl font-bold text-zara-purple">{role.avgScore}%</div>
+                          <div className="text-sm text-gray-600">Avg Score</div>
+                        </div>
+                        <div className="text-center p-3 bg-white rounded-lg">
+                          <div className="text-2xl font-bold text-zara-purple">{role.completionRate}%</div>
+                          <div className="text-sm text-gray-600">Completion</div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center gap-3">
+                        <Button 
+                          onClick={() => handleViewRoleDetails(role.id)}
+                          className="bg-zara-purple hover:bg-zara-purple-dark"
+                        >
+                          <Eye className="w-4 h-4 mr-2" />
+                          View Analytics
+                        </Button>
+                        <Button 
+                          variant="outline"
+                          onClick={() => handleViewRoleCandidates(role.id)}
+                        >
+                          <Users className="w-4 h-4 mr-2" />
+                          View Candidates ({role.applicants.total})
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </TabsContent>
+
+            <TabsContent value="candidates" className="space-y-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">Candidate Pipeline</h2>
+                  {roleFilter !== 'all' && (
+                    <p className="text-gray-600">Showing candidates for: {roles.find(r => r.id === roleFilter)?.title}</p>
+                  )}
+                </div>
+                <div className="flex items-center gap-3">
+                  <Input
+                    placeholder="Search candidates..."
+                    className="w-64"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                  <Tabs value={candidateFilter} onValueChange={(value: any) => setCandidateFilter(value)}>
+                    <TabsList>
+                      <TabsTrigger value="all">All</TabsTrigger>
+                      <TabsTrigger value="shortlisted">Shortlisted</TabsTrigger>
+                      <TabsTrigger value="interviewed">Interviewed</TabsTrigger>
+                      <TabsTrigger value="pending">Pending</TabsTrigger>
+                    </TabsList>
+                  </Tabs>
+                  {roleFilter !== 'all' && (
+                    <Button variant="outline" onClick={() => setRoleFilter('all')}>
+                      Show All Roles
+                    </Button>
+                  )}
+                </div>
+              </div>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                {filteredCandidates.map((candidate) => (
+                  <CandidateProfileCard
+                    key={candidate.id}
+                    candidate={candidate}
+                    onViewProfile={handleViewCandidateProfile}
+                    onShortlist={handleShortlistCandidate}
+                    onReject={handleRejectCandidate}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+
+            <TabsContent value="analytics" className="space-y-6">
+              {selectedRole ? (
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h2 className="text-2xl font-bold text-gray-900">
+                        Analytics: {roles.find(r => r.id === selectedRole)?.title}
+                      </h2>
+                      <p className="text-gray-600">{roles.find(r => r.id === selectedRole)?.department}</p>
+                    </div>
+                    <Button variant="outline" onClick={() => setSelectedRole(null)}>
+                      Back to Overview
+                    </Button>
+                  </div>
+
+                  {/* Job Description */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Job Description</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-gray-700">{roles.find(r => r.id === selectedRole)?.jobDescription}</p>
+                    </CardContent>
+                  </Card>
+
+                  {/* Hiring Metrics Comparison */}
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <Card className="border-green-200 bg-green-50">
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2 text-green-800">
+                          <Zap className="w-5 h-5" />
+                          With Zara AI
+                        </CardTitle>
+                        <CardDescription className="text-green-700">
+                          AI-powered recruitment metrics
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="text-center p-3 bg-white rounded-lg">
+                            <div className="text-2xl font-bold text-green-600">{roleAnalytics.hiringMetrics.withZara.timeToHire}d</div>
+                            <div className="text-sm text-green-600">Time to Hire</div>
+                          </div>
+                          <div className="text-center p-3 bg-white rounded-lg">
+                            <div className="text-2xl font-bold text-green-600">{roleAnalytics.hiringMetrics.withZara.qualityScore}%</div>
+                            <div className="text-sm text-green-600">Quality Score</div>
+                          </div>
+                          <div className="text-center p-3 bg-white rounded-lg">
+                            <div className="text-2xl font-bold text-green-600">{roleAnalytics.hiringMetrics.withZara.interviewEfficiency}%</div>
+                            <div className="text-sm text-green-600">Interview Efficiency</div>
+                          </div>
+                          <div className="text-center p-3 bg-white rounded-lg">
+                            <div className="text-2xl font-bold text-green-600">{roleAnalytics.hiringMetrics.withZara.candidateSatisfaction}%</div>
+                            <div className="text-sm text-green-600">Candidate Satisfaction</div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="border-gray-200 bg-gray-50">
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2 text-gray-800">
+                          <Users className="w-5 h-5" />
+                          Without Zara AI
+                        </CardTitle>
+                        <CardDescription className="text-gray-700">
+                          Traditional recruitment metrics
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="text-center p-3 bg-white rounded-lg">
+                            <div className="text-2xl font-bold text-gray-600">{roleAnalytics.hiringMetrics.withoutZara.timeToHire}d</div>
+                            <div className="text-sm text-gray-600">Time to Hire</div>
+                          </div>
+                          <div className="text-center p-3 bg-white rounded-lg">
+                            <div className="text-2xl font-bold text-gray-600">{roleAnalytics.hiringMetrics.withoutZara.qualityScore}%</div>
+                            <div className="text-sm text-gray-600">Quality Score</div>
+                          </div>
+                          <div className="text-center p-3 bg-white rounded-lg">
+                            <div className="text-2xl font-bold text-gray-600">{roleAnalytics.hiringMetrics.withoutZara.interviewEfficiency}%</div>
+                            <div className="text-sm text-gray-600">Interview Efficiency</div>
+                          </div>
+                          <div className="text-center p-3 bg-white rounded-lg">
+                            <div className="text-2xl font-bold text-gray-600">{roleAnalytics.hiringMetrics.withoutZara.candidateSatisfaction}%</div>
+                            <div className="text-sm text-gray-600">Candidate Satisfaction</div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  {/* Improvement Metrics */}
+                  <Card className="border-zara-purple bg-zara-purple-light">
+                    <CardHeader>
+                      <CardTitle className="text-zara-purple">Zara AI Impact</CardTitle>
+                      <CardDescription>Improvement over traditional methods</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div className="text-center p-3 bg-white rounded-lg">
+                          <div className="text-2xl font-bold text-zara-purple">61%</div>
+                          <div className="text-sm text-zara-purple">Faster Hiring</div>
+                        </div>
+                        <div className="text-center p-3 bg-white rounded-lg">
+                          <div className="text-2xl font-bold text-zara-purple">19%</div>
+                          <div className="text-sm text-zara-purple">Higher Quality</div>
+                        </div>
+                        <div className="text-center p-3 bg-white rounded-lg">
+                          <div className="text-2xl font-bold text-zara-purple">45%</div>
+                          <div className="text-sm text-zara-purple">More Efficient</div>
+                        </div>
+                        <div className="text-center p-3 bg-white rounded-lg">
+                          <div className="text-2xl font-bold text-zara-purple">18%</div>
+                          <div className="text-sm text-zara-purple">Better Experience</div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <RoleAnalytics
+                    roleId={selectedRole}
+                    roleTitle={roles.find(r => r.id === selectedRole)?.title || 'Role'}
+                    analytics={roleAnalytics}
+                  />
+                </div>
+              ) : (
+                <div className="text-center py-12">
+                  <BarChart3 className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-600 mb-2">Select a Role for Detailed Analytics</h3>
+                  <p className="text-gray-500 mb-6">Choose a role from the Roles tab to view comprehensive performance metrics</p>
+                  <Button onClick={() => setActiveView('roles')} className="bg-zara-purple hover:bg-zara-purple-dark">
+                    View Roles
+                  </Button>
+                </div>
+              )}
+            </TabsContent>
+          </Tabs>
         </div>
       </main>
       
       <Footer />
+      
+      <FeedbackWidget context="recruiter-dashboard" userRole="recruiter" />
     </div>
   );
 };

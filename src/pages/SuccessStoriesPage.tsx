@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -38,11 +39,9 @@ const SuccessStoriesPage = () => {
                 </h3>
                 <div className="mb-6">
                   <div className="flex items-center mb-4">
-                    <img 
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" 
-                      alt="Brian Chen" 
-                      className="w-12 h-12 rounded-full object-cover mr-3"
-                    />
+                    <div className="w-8 h-8 rounded-full bg-gray-200 mr-3 flex items-center justify-center">
+                      <span className="text-gray-700 text-sm font-medium">BC</span>
+                    </div>
                     <div>
                       <p className="font-medium">Brian Chen</p>
                       <p className="text-gray-600 text-sm">CTO at FlowFi</p>
@@ -83,22 +82,14 @@ const SuccessStoriesPage = () => {
                 </div>
               </div>
               <div className="w-full lg:w-1/2 bg-gray-100">
-                <div className="h-full relative">
+                <div className="h-full">
                   <AspectRatio ratio={4/3}>
-                    <div className="h-full w-full relative">
-                      <img 
-                        src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop" 
-                        alt="FlowFi team working" 
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                        <div className="text-center">
-                          <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full mx-auto mb-4 flex items-center justify-center">
-                            <span className="text-2xl text-white">▶</span>
-                          </div>
-                          <p className="font-medium text-white">Watch FlowFi's Story</p>
-                          <p className="text-sm text-gray-300">See how they transformed hiring</p>
+                    <div className="h-full w-full flex items-center justify-center bg-gray-200">
+                      <div className="text-center p-6">
+                        <div className="w-16 h-16 bg-gray-300 rounded-full mx-auto mb-4 flex items-center justify-center">
+                          <span className="text-2xl">▶</span>
                         </div>
+                        <p className="font-medium text-gray-700">Watch FlowFi's Story</p>
                       </div>
                     </div>
                   </AspectRatio>
@@ -106,23 +97,16 @@ const SuccessStoriesPage = () => {
               </div>
             </div>
           </div>
-
+          
           {/* Success Stories Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {/* Story 1 */}
             <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition-transform hover:-translate-y-1 hover:shadow-lg">
               <div>
                 <AspectRatio ratio={16/9}>
-                  <div className="h-full w-full relative">
-                    <img 
-                      src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=225&fit=crop" 
-                      alt="Monday team collaboration" 
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                      <div className="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
-                        <span className="text-xl text-white">▶</span>
-                      </div>
+                  <div className="h-full w-full bg-gray-200 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+                      <span className="text-xl">▶</span>
                     </div>
                   </div>
                 </AspectRatio>
@@ -145,11 +129,9 @@ const SuccessStoriesPage = () => {
                   Zara allowed our small recruiting team to handle the volume while maintaining our high bar."
                 </p>
                 <div className="flex items-center">
-                  <img 
-                    src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face" 
-                    alt="Sara Lee" 
-                    className="w-8 h-8 rounded-full object-cover mr-3"
-                  />
+                  <div className="w-8 h-8 rounded-full bg-gray-200 mr-3 flex items-center justify-center">
+                    <span className="text-gray-700 text-sm font-medium">SL</span>
+                  </div>
                   <div>
                     <p className="font-medium">Sara Lee</p>
                     <p className="text-gray-600 text-sm">VP of Engineering</p>
@@ -162,16 +144,9 @@ const SuccessStoriesPage = () => {
             <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition-transform hover:-translate-y-1 hover:shadow-lg">
               <div>
                 <AspectRatio ratio={16/9}>
-                  <div className="h-full w-full relative">
-                    <img 
-                      src="https://images.unsplash.com/photo-1500673922987-e212871fec22?w=400&h=225&fit=crop" 
-                      alt="RunPod cloud infrastructure" 
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                      <div className="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
-                        <span className="text-xl text-white">▶</span>
-                      </div>
+                  <div className="h-full w-full bg-gray-200 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+                      <span className="text-xl">▶</span>
                     </div>
                   </div>
                 </AspectRatio>
@@ -194,11 +169,9 @@ const SuccessStoriesPage = () => {
                   and the AI provides immediate feedback. Our candidate satisfaction scores are up 48%."
                 </p>
                 <div className="flex items-center">
-                  <img 
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" 
-                    alt="Alex Johnson" 
-                    className="w-8 h-8 rounded-full object-cover mr-3"
-                  />
+                  <div className="w-8 h-8 rounded-full bg-gray-200 mr-3 flex items-center justify-center">
+                    <span className="text-gray-700 text-sm font-medium">AJ</span>
+                  </div>
                   <div>
                     <p className="font-medium">Alex Johnson</p>
                     <p className="text-gray-600 text-sm">Head of Talent</p>
@@ -211,16 +184,9 @@ const SuccessStoriesPage = () => {
             <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition-transform hover:-translate-y-1 hover:shadow-lg">
               <div>
                 <AspectRatio ratio={16/9}>
-                  <div className="h-full w-full relative">
-                    <img 
-                      src="https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=400&h=225&fit=crop" 
-                      alt="DocDraft legal tech office" 
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                      <div className="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
-                        <span className="text-xl text-white">▶</span>
-                      </div>
+                  <div className="h-full w-full bg-gray-200 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+                      <span className="text-xl">▶</span>
                     </div>
                   </div>
                 </AspectRatio>
@@ -243,11 +209,9 @@ const SuccessStoriesPage = () => {
                   respectively. Zara's objective assessments helped us build a truly diverse team."
                 </p>
                 <div className="flex items-center">
-                  <img 
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=face" 
-                    alt="Maria Patel" 
-                    className="w-8 h-8 rounded-full object-cover mr-3"
-                  />
+                  <div className="w-8 h-8 rounded-full bg-gray-200 mr-3 flex items-center justify-center">
+                    <span className="text-gray-700 text-sm font-medium">MP</span>
+                  </div>
                   <div>
                     <p className="font-medium">Maria Patel</p>
                     <p className="text-gray-600 text-sm">CTO</p>
@@ -260,16 +224,9 @@ const SuccessStoriesPage = () => {
             <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition-transform hover:-translate-y-1 hover:shadow-lg">
               <div>
                 <AspectRatio ratio={16/9}>
-                  <div className="h-full w-full relative">
-                    <img 
-                      src="https://images.unsplash.com/photo-1615795343955-592705df4986?w=400&h=225&fit=crop" 
-                      alt="Jump crypto web3 team" 
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                      <div className="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
-                        <span className="text-xl text-white">▶</span>
-                      </div>
+                  <div className="h-full w-full bg-gray-200 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+                      <span className="text-xl">▶</span>
                     </div>
                   </div>
                 </AspectRatio>
@@ -292,11 +249,9 @@ const SuccessStoriesPage = () => {
                   us to accurately assess blockchain-specific technical skills and build our team faster."
                 </p>
                 <div className="flex items-center">
-                  <img 
-                    src="https://images.unsplash.com/photo-1544006659-f0b21884cebd?w=150&h=150&fit=crop&crop=face" 
-                    alt="James Wilson" 
-                    className="w-8 h-8 rounded-full object-cover mr-3"
-                  />
+                  <div className="w-8 h-8 rounded-full bg-gray-200 mr-3 flex items-center justify-center">
+                    <span className="text-gray-700 text-sm font-medium">JW</span>
+                  </div>
                   <div>
                     <p className="font-medium">James Wilson</p>
                     <p className="text-gray-600 text-sm">Engineering Director</p>
@@ -309,16 +264,9 @@ const SuccessStoriesPage = () => {
             <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition-transform hover:-translate-y-1 hover:shadow-lg">
               <div>
                 <AspectRatio ratio={16/9}>
-                  <div className="h-full w-full relative">
-                    <img 
-                      src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=225&fit=crop" 
-                      alt="Intellux AI ML team" 
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                      <div className="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
-                        <span className="text-xl text-white">▶</span>
-                      </div>
+                  <div className="h-full w-full bg-gray-200 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+                      <span className="text-xl">▶</span>
                     </div>
                   </div>
                 </AspectRatio>
@@ -341,11 +289,9 @@ const SuccessStoriesPage = () => {
                   $27,500 to $10,200 while actually improving the quality of our engineering hires."
                 </p>
                 <div className="flex items-center">
-                  <img 
-                    src="https://images.unsplash.com/photo-1531427186611-ecfd6d936e63?w=150&h=150&fit=crop&crop=face" 
-                    alt="Rachel Greene" 
-                    className="w-8 h-8 rounded-full object-cover mr-3"
-                  />
+                  <div className="w-8 h-8 rounded-full bg-gray-200 mr-3 flex items-center justify-center">
+                    <span className="text-gray-700 text-sm font-medium">RG</span>
+                  </div>
                   <div>
                     <p className="font-medium">Rachel Greene</p>
                     <p className="text-gray-600 text-sm">COO</p>
@@ -358,16 +304,9 @@ const SuccessStoriesPage = () => {
             <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 transition-transform hover:-translate-y-1 hover:shadow-lg">
               <div>
                 <AspectRatio ratio={16/9}>
-                  <div className="h-full w-full relative">
-                    <img 
-                      src="https://images.unsplash.com/photo-1519389950473-47a04ca018e0?w=400&h=225&fit=crop" 
-                      alt="Wired media publishing office" 
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                      <div className="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
-                        <span className="text-xl text-white">▶</span>
-                      </div>
+                  <div className="h-full w-full bg-gray-200 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+                      <span className="text-xl">▶</span>
                     </div>
                   </div>
                 </AspectRatio>
@@ -390,11 +329,9 @@ const SuccessStoriesPage = () => {
                   Our hiring managers have all the data they need in one place to make quick decisions."
                 </p>
                 <div className="flex items-center">
-                  <img 
-                    src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=150&h=150&fit=crop&crop=face" 
-                    alt="Tasha Nguyen" 
-                    className="w-8 h-8 rounded-full object-cover mr-3"
-                  />
+                  <div className="w-8 h-8 rounded-full bg-gray-200 mr-3 flex items-center justify-center">
+                    <span className="text-gray-700 text-sm font-medium">TN</span>
+                  </div>
                   <div>
                     <p className="font-medium">Tasha Nguyen</p>
                     <p className="text-gray-600 text-sm">Director of People Ops</p>

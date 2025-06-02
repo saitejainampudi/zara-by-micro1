@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -7,7 +8,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Video } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("all");
@@ -339,11 +339,9 @@ const Dashboard = () => {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{candidate.date}</td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <Link to={`/candidate-profile/${candidate.id}`}>
-                            <Button variant="ghost" size="sm" className="text-zara-purple hover:text-zara-purple-dark hover:bg-zara-purple-light">
-                              View Profile
-                            </Button>
-                          </Link>
+                          <Button variant="ghost" size="sm" className="text-zara-purple hover:text-zara-purple-dark hover:bg-zara-purple-light">
+                            View Profile
+                          </Button>
                         </td>
                       </tr>
                     ))
