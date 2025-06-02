@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import AssessmentWizard from '../components/AssessmentWizard';
 import NotificationCenter from '../components/NotificationCenter';
 import ContextualHelp from '../components/ContextualHelp';
 import FeedbackWidget from '../components/FeedbackWidget';
@@ -14,17 +14,17 @@ import { Input } from "@/components/ui/input";
 import { Play, FileText, MessageSquare, Settings, Clock, CheckCircle, AlertCircle, User, Trophy, Zap, Target, Code, Video, Calendar, Award, Timer, Link as LinkIcon, TrendingUp } from 'lucide-react';
 
 const CandidateDashboard = () => {
-  const navigate = useNavigate();
+  const [showWizard, setShowWizard] = useState(false);
+  const [selectedAssignment, setSelectedAssignment] = useState(null);
   const [accessCode, setAccessCode] = useState('');
   const [directLink, setDirectLink] = useState('');
 
-  // Enhanced assignments data with job descriptions
+  // Enhanced assignments data with more variety
   const assignments = [
     {
       id: '1',
       role: 'Senior Frontend Developer',
       company: 'TechCorp Inc.',
-      jobDescription: 'Lead frontend development using React and TypeScript. Mentor junior developers and architect scalable solutions for our e-commerce platform. Work closely with design and backend teams to deliver exceptional user experiences.',
       status: 'in-progress',
       progress: 67,
       deadline: 'March 15, 2024',
@@ -39,7 +39,6 @@ const CandidateDashboard = () => {
       id: '2',
       role: 'Full Stack Engineer',
       company: 'StartupXYZ',
-      jobDescription: 'Build end-to-end web applications using modern JavaScript frameworks. Collaborate with product managers and designers to implement new features and optimize existing functionality.',
       status: 'pending',
       progress: 0,
       deadline: 'March 20, 2024',
@@ -54,7 +53,6 @@ const CandidateDashboard = () => {
       id: '3',
       role: 'React Developer',
       company: 'WebSolutions',
-      jobDescription: 'Develop responsive user interfaces using React and modern CSS frameworks. Focus on component reusability and performance optimization for high-traffic applications.',
       status: 'completed',
       progress: 100,
       deadline: 'March 5, 2024',
@@ -70,7 +68,6 @@ const CandidateDashboard = () => {
       id: '4',
       role: 'Product Designer',
       company: 'DesignCo',
-      jobDescription: 'Create user-centered designs for web and mobile applications. Conduct user research, create prototypes, and collaborate with development teams to ensure design implementation.',
       status: 'completed',
       progress: 100,
       deadline: 'February 28, 2024',
@@ -86,7 +83,6 @@ const CandidateDashboard = () => {
       id: '5',
       role: 'Backend Developer',
       company: 'CloudTech',
-      jobDescription: 'Design and implement robust backend APIs using Node.js and Python. Work with microservices architecture and ensure system scalability and reliability.',
       status: 'in-progress',
       progress: 33,
       deadline: 'March 25, 2024',
@@ -101,7 +97,6 @@ const CandidateDashboard = () => {
       id: '6',
       role: 'Data Scientist',
       company: 'AI Innovations',
-      jobDescription: 'Build machine learning models to drive business insights. Work with large datasets, implement predictive analytics solutions, and collaborate with engineering teams.',
       status: 'pending',
       progress: 0,
       deadline: 'April 1, 2024',
@@ -115,11 +110,13 @@ const CandidateDashboard = () => {
   ];
 
   const handleStartAssessment = (assignment: any) => {
-    navigate('/assessment', { state: { assignment } });
+    setSelectedAssignment(assignment);
+    setShowWizard(true);
   };
 
-  const handleViewProfile = (assignmentId: string) => {
-    navigate('/candidate-profile-detail', { state: { assignmentId } });
+  const handleWizardComplete = () => {
+    setShowWizard(false);
+    setSelectedAssignment(null);
   };
 
   const getStatusBadge = (status: string, daysLeft?: number) => {
@@ -148,7 +145,7 @@ const CandidateDashboard = () => {
       
       <main className="pt-28 pb-20 px-6 md:px-10">
         <div className="container mx-auto max-w-7xl">
-          {/* Welcome Header */}
+          {/* Enhanced Welcome Header with new components */}
           <div className="mb-8 animate-fade-in">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-4">
@@ -241,7 +238,7 @@ const CandidateDashboard = () => {
             ))}
           </div>
 
-          {/* Assignments */}
+          {/* Assignments Grid */}
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold text-gray-900">Your Assignments</h2>
@@ -255,7 +252,7 @@ const CandidateDashboard = () => {
                 <Card key={assignment.id} className="group hover:shadow-xl transition-all duration-300 border-gray-200 hover:border-gray-300 bg-gradient-to-r from-white to-violet-50">
                   <CardHeader>
                     <div className="flex items-start justify-between">
-                      <div className="space-y-3 flex-1">
+                      <div className="space-y-2">
                         <div className="flex items-center gap-3">
                           <CardTitle className="text-xl">{assignment.role}</CardTitle>
                           {getStatusBadge(assignment.status, assignment.daysLeft)}
@@ -263,13 +260,6 @@ const CandidateDashboard = () => {
                         <CardDescription className="text-lg font-medium text-gray-700">
                           {assignment.company}
                         </CardDescription>
-                        
-                        {/* Job Description */}
-                        <div className="bg-gray-50 p-4 rounded-lg">
-                          <h4 className="font-medium text-gray-900 mb-2">Job Description</h4>
-                          <p className="text-sm text-gray-600 leading-relaxed">{assignment.jobDescription}</p>
-                        </div>
-                        
                         <div className="flex items-center gap-4 text-sm text-gray-600">
                           <div className="flex items-center gap-1">
                             <Calendar className="w-4 h-4" />
@@ -349,11 +339,7 @@ const CandidateDashboard = () => {
                       {/* Action Buttons */}
                       <div className="flex items-center gap-3 pt-4 border-t">
                         {assignment.status === 'completed' ? (
-                          <Button 
-                            variant="outline" 
-                            className="flex items-center gap-2"
-                            onClick={() => handleViewProfile(assignment.id)}
-                          >
+                          <Button variant="outline" className="flex items-center gap-2">
                             <Trophy className="w-4 h-4" />
                             View Results
                           </Button>
@@ -416,6 +402,16 @@ const CandidateDashboard = () => {
       
       <Footer />
       
+      {/* Assessment Wizard Modal */}
+      {showWizard && selectedAssignment && (
+        <AssessmentWizard
+          assignment={selectedAssignment}
+          onComplete={handleWizardComplete}
+          onClose={() => setShowWizard(false)}
+        />
+      )}
+      
+      {/* Feedback Widget */}
       <FeedbackWidget context="candidate-dashboard" userRole="candidate" />
     </div>
   );
