@@ -1,12 +1,13 @@
+
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import Index from "./pages/Index";
 import SignInPage from "./pages/SignInPage";
 import StartInterviewing from "./pages/StartInterviewing";
-import HowItWorks from "./pages/HowItWorks";
+import HowItWorksPage from "./pages/HowItWorksPage";
 import SuccessStoriesPage from "./pages/SuccessStoriesPage";
 import RecruiterDashboard from "./pages/RecruiterDashboard";
 import Dashboard from "./pages/Dashboard";
@@ -25,7 +26,7 @@ function App() {
             <Route path="/" element={<Index />} />
             <Route path="/sign-in" element={<SignInPage />} />
             <Route path="/start-interviewing" element={<StartInterviewing />} />
-            <Route path="/how-it-works" element={<HowItWorks />} />
+            <Route path="/how-it-works" element={<HowItWorksPage />} />
             <Route path="/success-stories" element={<SuccessStoriesPage />} />
             <Route path="/recruiter-dashboard" element={<RecruiterDashboard />} />
             <Route path="/dashboard" element={<Dashboard />} />
