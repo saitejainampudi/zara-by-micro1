@@ -1,22 +1,34 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Eye, EyeOff } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Eye, EyeOff, Users, UserCheck } from "lucide-react";
 
 const SignInPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would handle the authentication
-    console.log('Sign in with:', { email, password, rememberMe });
+    console.log('Sign in with:', { email, password, role, rememberMe });
+    
+    // Store role in session storage for demo purposes
+    sessionStorage.setItem('userRole', role);
+    
+    // Redirect based on role
+    if (role === 'recruiter') {
+      navigate('/recruiter-dashboard');
+    } else if (role === 'candidate') {
+      navigate('/candidate-dashboard');
+    }
   };
 
   return (
@@ -30,11 +42,36 @@ const SignInPage = () => {
               <div className="text-center mb-8">
                 <h1 className="text-2xl font-bold mb-2">Sign In to Zara</h1>
                 <p className="text-gray-600">
-                  Welcome back! Sign in to access your interviews and candidates.
+                  Welcome back! Sign in to access your dashboard.
                 </p>
               </div>
               
               <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="space-y-2">
+                  <label htmlFor="role" className="block text-sm font-medium text-gray-700">
+                    I am a...
+                  </label>
+                  <Select value={role} onValueChange={setRole} required>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select your role" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="recruiter">
+                        <div className="flex items-center gap-2">
+                          <Users className="w-4 h-4" />
+                          <span>Recruiter / HR Manager</span>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="candidate">
+                        <div className="flex items-center gap-2">
+                          <UserCheck className="w-4 h-4" />
+                          <span>Candidate / Job Seeker</span>
+                        </div>
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
                 <div className="space-y-2">
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                     Email Address
@@ -93,7 +130,11 @@ const SignInPage = () => {
                   </label>
                 </div>
                 
-                <Button type="submit" className="w-full bg-zara-purple hover:bg-zara-purple-dark">
+                <Button 
+                  type="submit" 
+                  className="w-full bg-zara-purple hover:bg-zara-purple-dark"
+                  disabled={!role}
+                >
                   Sign In
                 </Button>
                 
