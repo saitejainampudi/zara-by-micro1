@@ -1,23 +1,108 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import AssessmentWizard from '../components/AssessmentWizard';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Link } from 'react-router-dom';
-import { Play, FileText, MessageSquare, Settings, Clock, CheckCircle, AlertCircle, User, Trophy, Zap, Target } from 'lucide-react';
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Play, FileText, MessageSquare, Settings, Clock, CheckCircle, AlertCircle, User, Trophy, Zap, Target, Code, Video, Calendar, Award, Timer, Link as LinkIcon } from 'lucide-react';
 
 const CandidateDashboard = () => {
+  const [showWizard, setShowWizard] = useState(false);
+  const [selectedAssignment, setSelectedAssignment] = useState(null);
+  const [accessCode, setAccessCode] = useState('');
+  const [directLink, setDirectLink] = useState('');
+
+  // Sample assignments data
+  const assignments = [
+    {
+      id: '1',
+      role: 'Senior Frontend Developer',
+      company: 'TechCorp Inc.',
+      status: 'in-progress',
+      progress: 67,
+      deadline: 'March 15, 2024',
+      daysLeft: 3,
+      steps: {
+        coding: { status: 'completed', score: 92 },
+        interview: { status: 'in-progress', score: null },
+        softSkills: { status: 'pending', score: null }
+      }
+    },
+    {
+      id: '2',
+      role: 'Full Stack Engineer',
+      company: 'StartupXYZ',
+      status: 'pending',
+      progress: 0,
+      deadline: 'March 20, 2024',
+      daysLeft: 8,
+      steps: {
+        coding: { status: 'pending', score: null },
+        interview: { status: 'pending', score: null },
+        softSkills: { status: 'pending', score: null }
+      }
+    },
+    {
+      id: '3',
+      role: 'React Developer',
+      company: 'WebSolutions',
+      status: 'completed',
+      progress: 100,
+      deadline: 'March 5, 2024',
+      daysLeft: -7,
+      steps: {
+        coding: { status: 'completed', score: 85 },
+        interview: { status: 'completed', score: 88 },
+        softSkills: { status: 'completed', score: 91 }
+      },
+      finalScore: 88
+    }
+  ];
+
+  const handleStartAssessment = (assignment: any) => {
+    setSelectedAssignment(assignment);
+    setShowWizard(true);
+  };
+
+  const handleWizardComplete = () => {
+    setShowWizard(false);
+    setSelectedAssignment(null);
+    // Update assignment status
+  };
+
+  const getStatusBadge = (status: string, daysLeft?: number) => {
+    if (status === 'completed') {
+      return <Badge className="bg-green-100 text-green-700 border-green-200">Completed</Badge>;
+    } else if (status === 'in-progress') {
+      return <Badge className="bg-blue-100 text-blue-700 border-blue-200">In Progress</Badge>;
+    } else if (daysLeft && daysLeft <= 2) {
+      return <Badge className="bg-red-100 text-red-700 border-red-200">Urgent</Badge>;
+    } else {
+      return <Badge className="bg-gray-100 text-gray-700 border-gray-200">Pending</Badge>;
+    }
+  };
+
+  const getStepIcon = (status: string) => {
+    switch (status) {
+      case 'completed': return <CheckCircle className="w-5 h-5 text-green-500" />;
+      case 'in-progress': return <Clock className="w-5 h-5 text-blue-500 animate-pulse" />;
+      default: return <AlertCircle className="w-5 h-5 text-gray-400" />;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-zara-purple/5">
       <Navbar />
       
       <main className="pt-28 pb-20 px-6 md:px-10">
-        <div className="container mx-auto max-w-6xl">
-          {/* Welcome Header with Animation */}
+        <div className="container mx-auto max-w-7xl">
+          {/* Enhanced Welcome Header */}
           <div className="mb-8 animate-fade-in">
-            <div className="flex items-center gap-4 mb-4">
+            <div className="flex items-center gap-4 mb-6">
               <div className="w-16 h-16 rounded-full bg-gradient-to-r from-zara-purple to-zara-purple-dark flex items-center justify-center text-white text-2xl font-bold shadow-lg">
                 A
               </div>
@@ -31,264 +116,248 @@ const CandidateDashboard = () => {
             </div>
           </div>
 
-          {/* Progress Overview with Enhanced Design */}
-          <Card className="mb-8 bg-gradient-to-r from-white to-zara-purple/5 border-zara-purple/20 hover:shadow-xl transition-all duration-300 animate-slide-up">
+          {/* Quick Access Panel */}
+          <Card className="mb-8 bg-gradient-to-r from-white to-zara-purple/5 border-zara-purple/20 hover:shadow-xl transition-all duration-300">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Target className="w-5 h-5 text-zara-purple" />
-                Your Interview Journey
+                <LinkIcon className="w-5 h-5 text-zara-purple" />
+                Quick Access
               </CardTitle>
-              <CardDescription>Track your progress and unlock your potential</CardDescription>
+              <CardDescription>Join an assessment using a code or direct link from recruiters</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-6">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium">Overall Progress</span>
-                  <div className="flex items-center gap-2">
-                    <Trophy className="w-4 h-4 text-yellow-500" />
-                    <span className="text-sm text-gray-600 font-medium">2 of 3 tasks completed</span>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Access Code</label>
+                  <div className="flex gap-2">
+                    <Input 
+                      placeholder="Enter 6-digit code"
+                      value={accessCode}
+                      onChange={(e) => setAccessCode(e.target.value)}
+                      className="font-mono"
+                    />
+                    <Button className="bg-zara-purple hover:bg-zara-purple-dark">
+                      Join
+                    </Button>
                   </div>
                 </div>
-                <div className="relative">
-                  <Progress value={67} className="w-full h-3 bg-gray-200" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-zara-purple/20 to-zara-purple/10 rounded-full"></div>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-                  <div className="group relative overflow-hidden p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-xl border border-green-200 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                    <div className="absolute top-2 right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                      <CheckCircle className="w-3 h-3 text-white" />
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
-                        <CheckCircle className="w-6 h-6 text-white" />
-                      </div>
-                      <div>
-                        <p className="font-semibold text-green-900">Coding Challenge</p>
-                        <p className="text-sm text-green-700">Completed with excellence</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="group relative overflow-hidden p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 ring-2 ring-blue-300 ring-opacity-50">
-                    <div className="absolute top-2 right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center animate-pulse">
-                      <Clock className="w-3 h-3 text-white" />
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
-                        <Play className="w-6 h-6 text-white" />
-                      </div>
-                      <div>
-                        <p className="font-semibold text-blue-900">Video Interview</p>
-                        <p className="text-sm text-blue-700">In Progress - 20 min left</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="group relative overflow-hidden p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                    <div className="absolute top-2 right-2 w-6 h-6 bg-gray-400 rounded-full flex items-center justify-center">
-                      <AlertCircle className="w-3 h-3 text-white" />
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-gray-400 rounded-xl flex items-center justify-center">
-                        <MessageSquare className="w-6 h-6 text-white" />
-                      </div>
-                      <div>
-                        <p className="font-semibold text-gray-900">Soft Skills Assessment</p>
-                        <p className="text-sm text-gray-700">Awaiting completion</p>
-                      </div>
-                    </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Direct Link</label>
+                  <div className="flex gap-2">
+                    <Input 
+                      placeholder="Paste interview link"
+                      value={directLink}
+                      onChange={(e) => setDirectLink(e.target.value)}
+                    />
+                    <Button variant="outline">
+                      Access
+                    </Button>
                   </div>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          {/* Main Action Cards with Enhanced Design */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="group relative overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-zara-purple to-zara-purple-dark text-white border-0">
-              <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <CardHeader className="relative z-10">
-                <CardTitle className="flex items-center gap-2 text-white">
-                  <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
-                    <Play className="w-5 h-5" />
-                  </div>
-                  Continue Interview
-                </CardTitle>
-                <CardDescription className="text-white/80">
-                  Complete your video interview - show your problem-solving skills
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="relative z-10">
-                <div className="space-y-4">
-                  <Link to="/ai-interview">
-                    <Button className="w-full bg-white text-zara-purple hover:bg-white/90 hover:shadow-lg transition-all duration-200 group-hover:scale-105">
-                      <Play className="w-4 h-4 mr-2" />
-                      Resume Interview
-                    </Button>
-                  </Link>
-                  <div className="flex items-center gap-2 text-white/70 text-sm">
-                    <CheckCircle className="w-4 h-4" />
-                    Progress automatically saved
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-blue-200 hover:border-blue-300">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors">
-                    <MessageSquare className="w-5 h-5 text-blue-600" />
-                  </div>
-                  My Results
-                </CardTitle>
-                <CardDescription>
-                  View your detailed performance analysis and AI feedback
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <Button variant="outline" className="w-full border-blue-200 text-blue-600 hover:bg-blue-50 hover:border-blue-300 transition-all duration-200">
-                    <MessageSquare className="w-4 h-4 mr-2" />
-                    View Detailed Results
-                  </Button>
-                  <Button variant="outline" className="w-full hover:bg-gray-50 transition-colors">
-                    Practice More Questions
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-green-200 hover:border-green-300">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-200 transition-colors">
-                    <User className="w-5 h-5 text-green-600" />
-                  </div>
-                  My Profile
-                </CardTitle>
-                <CardDescription>
-                  Keep your profile updated and showcase your best work
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <Button variant="outline" className="w-full border-green-200 text-green-600 hover:bg-green-50 hover:border-green-300 transition-all duration-200">
-                    <User className="w-4 h-4 mr-2" />
-                    Update Profile
-                  </Button>
-                  <Button variant="outline" className="w-full hover:bg-gray-50 transition-colors">
-                    <FileText className="w-4 h-4 mr-2" />
-                    Upload Latest Resume
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Current Assignment with Enhanced Design */}
-            <Card className="md:col-span-2 lg:col-span-3 hover:shadow-xl transition-all duration-300 bg-gradient-to-r from-white to-gray-50 border-gray-200">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <div className="w-10 h-10 bg-zara-purple-light rounded-lg flex items-center justify-center">
-                    <Trophy className="w-5 h-5 text-zara-purple" />
-                  </div>
-                  Current Assignment: Senior Frontend Developer
-                </CardTitle>
-                <CardDescription>
-                  React.js position at TechCorp - Complete all assessments to unlock opportunities
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {[
-                    {
-                      title: "Coding Challenge",
-                      description: "Build a React component with state management",
-                      status: "completed",
-                      icon: CheckCircle,
-                      color: "green"
-                    },
-                    {
-                      title: "Video Interview", 
-                      description: "Technical discussion and problem solving",
-                      status: "in-progress",
-                      icon: Clock,
-                      color: "blue"
-                    },
-                    {
-                      title: "Soft Skills Assessment",
-                      description: "Communication and teamwork evaluation", 
-                      status: "pending",
-                      icon: AlertCircle,
-                      color: "gray"
-                    }
-                  ].map((task, index) => (
-                    <div key={index} className={`group p-6 rounded-xl border-2 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
-                      task.status === 'completed' ? 'bg-green-50 border-green-200 hover:border-green-300' :
-                      task.status === 'in-progress' ? 'bg-blue-50 border-blue-200 hover:border-blue-300 ring-2 ring-blue-100' :
-                      'bg-gray-50 border-gray-200 hover:border-gray-300'
+          {/* Overview Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+            {[
+              { title: "3", subtitle: "Total Assignments", icon: Target, color: "purple", trend: "Active roles" },
+              { title: "67%", subtitle: "Average Progress", icon: TrendingUp, color: "blue", trend: "On track" },
+              { title: "88", subtitle: "Best Score", icon: Award, color: "green", trend: "Top performer" },
+              { title: "5", subtitle: "Days Until Deadline", icon: Timer, color: "orange", trend: "Stay focused" }
+            ].map((stat, index) => (
+              <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 border-gray-200 hover:border-gray-300">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 ${
+                      stat.color === 'purple' ? 'bg-zara-purple-light text-zara-purple' :
+                      stat.color === 'blue' ? 'bg-blue-100 text-blue-600' :
+                      stat.color === 'green' ? 'bg-green-100 text-green-600' :
+                      'bg-orange-100 text-orange-600'
                     }`}>
-                      <div className="flex items-start gap-4">
-                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
-                          task.status === 'completed' ? 'bg-green-500' :
-                          task.status === 'in-progress' ? 'bg-blue-500' :
-                          'bg-gray-400'
-                        }`}>
-                          <task.icon className="w-6 h-6 text-white" />
+                      <stat.icon className="w-6 h-6" />
+                    </div>
+                  </div>
+                  <CardTitle className="text-3xl font-bold text-gray-900">{stat.title}</CardTitle>
+                  <CardDescription className="font-medium">{stat.subtitle}</CardDescription>
+                  <div className="text-xs text-gray-500 mt-2">{stat.trend}</div>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+
+          {/* Assignments Grid */}
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-gray-900">Your Assignments</h2>
+              <Badge variant="outline" className="bg-blue-50 text-blue-600 border-blue-200">
+                {assignments.filter(a => a.status !== 'completed').length} Active
+              </Badge>
+            </div>
+
+            <div className="space-y-6">
+              {assignments.map((assignment) => (
+                <Card key={assignment.id} className="group hover:shadow-xl transition-all duration-300 border-gray-200 hover:border-gray-300">
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-3">
+                          <CardTitle className="text-xl">{assignment.role}</CardTitle>
+                          {getStatusBadge(assignment.status, assignment.daysLeft)}
                         </div>
-                        <div className="flex-1">
-                          <h4 className="font-semibold mb-2 text-gray-900">{task.title}</h4>
-                          <p className="text-sm text-gray-600 mb-3">{task.description}</p>
-                          <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium ${
-                            task.status === 'completed' ? 'bg-green-100 text-green-700' :
-                            task.status === 'in-progress' ? 'bg-blue-100 text-blue-700' :
-                            'bg-gray-100 text-gray-700'
-                          }`}>
-                            <task.icon className="w-3 h-3" />
-                            {task.status === 'completed' ? 'Completed' :
-                             task.status === 'in-progress' ? 'In Progress' : 'Pending'}
+                        <CardDescription className="text-lg font-medium text-gray-700">
+                          {assignment.company}
+                        </CardDescription>
+                        <div className="flex items-center gap-4 text-sm text-gray-600">
+                          <div className="flex items-center gap-1">
+                            <Calendar className="w-4 h-4" />
+                            Due: {assignment.deadline}
                           </div>
+                          {assignment.daysLeft > 0 && (
+                            <div className="flex items-center gap-1">
+                              <Timer className="w-4 h-4" />
+                              {assignment.daysLeft} days left
+                            </div>
+                          )}
                         </div>
                       </div>
+                      
+                      {assignment.status === 'completed' && assignment.finalScore && (
+                        <div className="text-center">
+                          <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                            {assignment.finalScore}
+                          </div>
+                          <div className="text-sm text-gray-600 mt-1">Final Score</div>
+                        </div>
+                      )}
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                  </CardHeader>
+                  
+                  <CardContent>
+                    <div className="space-y-6">
+                      {/* Progress Bar */}
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span className="font-medium">Overall Progress</span>
+                          <span className="text-gray-600">{assignment.progress}% Complete</span>
+                        </div>
+                        <Progress value={assignment.progress} className="h-2" />
+                      </div>
 
-            {/* Quick Actions */}
-            <Card className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-zara-purple-light to-white border-zara-purple/20">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Settings className="w-5 h-5 text-zara-purple" />
-                  Quick Actions
-                </CardTitle>
-                <CardDescription>
-                  Essential tools and resources for your success
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <Link to="/how-it-works">
-                    <Button variant="outline" className="w-full justify-start hover:bg-zara-purple/5 transition-colors">
-                      How AI Interviews Work
-                    </Button>
-                  </Link>
-                  <Button variant="outline" className="w-full justify-start hover:bg-zara-purple/5 transition-colors">
-                    Interview Preparation Guide
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start hover:bg-zara-purple/5 transition-colors">
-                    Technical Support
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+                      {/* Assessment Steps */}
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {[
+                          { key: 'coding', title: 'Coding Challenge', icon: Code, description: 'Technical assessment' },
+                          { key: 'interview', title: 'AI Interview', icon: Video, description: 'Video responses' },
+                          { key: 'softSkills', title: 'Soft Skills', icon: MessageSquare, description: 'Behavioral assessment' }
+                        ].map((step) => {
+                          const stepData = assignment.steps[step.key as keyof typeof assignment.steps];
+                          return (
+                            <div key={step.key} className={`p-4 rounded-xl border-2 transition-all duration-300 hover:shadow-lg ${
+                              stepData.status === 'completed' ? 'bg-green-50 border-green-200' :
+                              stepData.status === 'in-progress' ? 'bg-blue-50 border-blue-200' :
+                              'bg-gray-50 border-gray-200'
+                            }`}>
+                              <div className="flex items-center gap-3 mb-3">
+                                {getStepIcon(stepData.status)}
+                                <div>
+                                  <h4 className="font-semibold text-gray-900">{step.title}</h4>
+                                  <p className="text-sm text-gray-600">{step.description}</p>
+                                </div>
+                              </div>
+                              
+                              {stepData.score && (
+                                <div className="flex items-center justify-between">
+                                  <span className="text-sm font-medium">Score:</span>
+                                  <div className={`px-2 py-1 rounded text-sm font-bold ${
+                                    stepData.score >= 90 ? 'bg-green-100 text-green-700' :
+                                    stepData.score >= 80 ? 'bg-blue-100 text-blue-700' :
+                                    stepData.score >= 70 ? 'bg-yellow-100 text-yellow-700' :
+                                    'bg-red-100 text-red-700'
+                                  }`}>
+                                    {stepData.score}/100
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="flex items-center gap-3 pt-4 border-t">
+                        {assignment.status === 'completed' ? (
+                          <Button variant="outline" className="flex items-center gap-2">
+                            <Trophy className="w-4 h-4" />
+                            View Results
+                          </Button>
+                        ) : (
+                          <Button 
+                            onClick={() => handleStartAssessment(assignment)}
+                            className="bg-zara-purple hover:bg-zara-purple-dark flex items-center gap-2"
+                          >
+                            <Play className="w-4 h-4" />
+                            {assignment.status === 'in-progress' ? 'Continue Assessment' : 'Start Assessment'}
+                          </Button>
+                        )}
+                        
+                        <Button variant="outline" className="flex items-center gap-2">
+                          <FileText className="w-4 h-4" />
+                          View Details
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
+
+          {/* Quick Actions Panel */}
+          <Card className="mt-8 hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-zara-purple-light to-white border-zara-purple/20">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Settings className="w-5 h-5 text-zara-purple" />
+                Quick Actions & Resources
+              </CardTitle>
+              <CardDescription>
+                Essential tools and resources for your assessment success
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <Button variant="outline" className="h-20 flex-col gap-2 hover:bg-zara-purple/5">
+                  <User className="w-6 h-6" />
+                  <span className="text-sm">Update Profile</span>
+                </Button>
+                <Button variant="outline" className="h-20 flex-col gap-2 hover:bg-zara-purple/5">
+                  <FileText className="w-6 h-6" />
+                  <span className="text-sm">Practice Tests</span>
+                </Button>
+                <Button variant="outline" className="h-20 flex-col gap-2 hover:bg-zara-purple/5">
+                  <MessageSquare className="w-6 h-6" />
+                  <span className="text-sm">Help Center</span>
+                </Button>
+                <Button variant="outline" className="h-20 flex-col gap-2 hover:bg-zara-purple/5">
+                  <Settings className="w-6 h-6" />
+                  <span className="text-sm">Preferences</span>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </main>
       
       <Footer />
+      
+      {/* Assessment Wizard Modal */}
+      {showWizard && selectedAssignment && (
+        <AssessmentWizard
+          assignment={selectedAssignment}
+          onComplete={handleWizardComplete}
+          onClose={() => setShowWizard(false)}
+        />
+      )}
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
+import RoleSelection from "./components/RoleSelection";
 import Index from "./pages/Index";
 import JobUpload from "./pages/JobUpload";
 import Dashboard from "./pages/Dashboard";
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/success-stories" element={<SuccessStoriesPage />} />
           <Route path="/signin" element={<SignInPage />} />
+          <Route path="/role-selection" element={<RoleSelection />} />
           <Route path="/start-interviewing" element={<StartInterviewing />} />
           
           {/* Protected recruiter routes */}

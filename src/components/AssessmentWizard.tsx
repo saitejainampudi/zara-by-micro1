@@ -1,0 +1,328 @@
+
+import React, { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { Badge } from "@/components/ui/badge";
+import { Code, Video, MessageSquare, CheckCircle, Play, ArrowRight, ArrowLeft, Save, Send, Timer, Award } from 'lucide-react';
+
+interface WizardProps {
+  assignment: {
+    id: string;
+    role: string;
+    company: string;
+    deadline: string;
+  };
+  onComplete: () => void;
+  onClose: () => void;
+}
+
+const AssessmentWizard: React.FC<WizardProps> = ({ assignment, onComplete, onClose }) => {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  const [codeOutput, setCodeOutput] = useState('');
+  const [code, setCode] = useState(`function fibonacci(n) {
+  // Write your solution here
+  
+}`);
+
+  const steps = [
+    {
+      id: 1,
+      title: 'Coding Challenge',
+      description: 'Solve the programming challenge',
+      icon: Code,
+      color: 'purple',
+      duration: '45 min'
+    },
+    {
+      id: 2,
+      title: 'AI Interview',
+      description: 'Record your video responses',
+      icon: Video,
+      color: 'blue',
+      duration: '30 min'
+    },
+    {
+      id: 3,
+      title: 'Soft Skills Assessment',
+      description: 'Complete behavioral questions',
+      icon: MessageSquare,
+      color: 'green',
+      duration: '20 min'
+    }
+  ];
+
+  const handleRunCode = () => {
+    // Simulate code execution
+    setCodeOutput(`Running test cases...
+Test 1: fibonacci(5) -> Expected: 5, Got: 5 ✅
+Test 2: fibonacci(10) -> Expected: 55, Got: 55 ✅
+Test 3: fibonacci(0) -> Expected: 0, Got: 0 ✅
+
+All tests passed! Your solution is correct.`);
+  };
+
+  const handleSubmitStep = () => {
+    if (!completedSteps.includes(currentStep)) {
+      setCompletedSteps([...completedSteps, currentStep]);
+    }
+    
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(currentStep + 1);
+    } else {
+      onComplete();
+    }
+  };
+
+  const currentStepData = steps[currentStep];
+  const progress = ((completedSteps.length) / steps.length) * 100;
+
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+      <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        {/* Header */}
+        <div className="p-6 border-b bg-gradient-to-r from-zara-purple-light to-white">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">Assessment for {assignment.role}</h2>
+              <p className="text-gray-600">{assignment.company}</p>
+            </div>
+            <Badge variant="outline" className="bg-red-50 text-red-600 border-red-200">
+              <Timer className="w-3 h-3 mr-1" />
+              Due: {assignment.deadline}
+            </Badge>
+          </div>
+          
+          {/* Progress Bar */}
+          <div className="space-y-2">
+            <div className="flex justify-between text-sm text-gray-600">
+              <span>Progress</span>
+              <span>{completedSteps.length} of {steps.length} completed</span>
+            </div>
+            <Progress value={progress} className="h-2" />
+          </div>
+          
+          {/* Step Indicators */}
+          <div className="flex items-center justify-between mt-6">
+            {steps.map((step, index) => (
+              <div key={step.id} className="flex items-center">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                  completedSteps.includes(index) 
+                    ? 'bg-green-500 text-white' 
+                    : index === currentStep 
+                      ? 'bg-zara-purple text-white ring-4 ring-zara-purple/20' 
+                      : 'bg-gray-200 text-gray-500'
+                }`}>
+                  {completedSteps.includes(index) ? (
+                    <CheckCircle className="w-5 h-5" />
+                  ) : (
+                    <step.icon className="w-5 h-5" />
+                  )}
+                </div>
+                {index < steps.length - 1 && (
+                  <div className={`h-0.5 w-16 mx-2 transition-colors ${
+                    completedSteps.includes(index) ? 'bg-green-500' : 'bg-gray-200'
+                  }`} />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="p-6">
+          {currentStep === 0 && (
+            <div className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Code className="w-5 h-5 text-purple-600" />
+                    Fibonacci Sequence Challenge
+                  </CardTitle>
+                  <CardDescription>
+                    Write a function that returns the nth number in the Fibonacci sequence.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <h4 className="font-semibold mb-2">Problem Statement:</h4>
+                    <p className="text-sm text-gray-700 mb-4">
+                      The Fibonacci sequence starts with 0 and 1, and each subsequent number is the sum of the previous two numbers.
+                      Example: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34...
+                    </p>
+                    <p className="text-sm text-gray-700">
+                      <strong>Input:</strong> n (integer) <br />
+                      <strong>Output:</strong> The nth Fibonacci number <br />
+                      <strong>Example:</strong> fibonacci(5) should return 5
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Your Solution:</label>
+                    <textarea
+                      value={code}
+                      onChange={(e) => setCode(e.target.value)}
+                      className="w-full h-48 p-4 font-mono text-sm border rounded-lg bg-gray-900 text-green-400"
+                      placeholder="Write your code here..."
+                    />
+                  </div>
+                  
+                  <div className="flex gap-3">
+                    <Button onClick={handleRunCode} variant="outline" className="flex items-center gap-2">
+                      <Play className="w-4 h-4" />
+                      Run Tests
+                    </Button>
+                    <Button onClick={() => setCode('')} variant="outline">
+                      Clear
+                    </Button>
+                  </div>
+                  
+                  {codeOutput && (
+                    <div className="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm whitespace-pre-line">
+                      {codeOutput}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {currentStep === 1 && (
+            <div className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Video className="w-5 h-5 text-blue-600" />
+                    AI Video Interview
+                  </CardTitle>
+                  <CardDescription>
+                    Answer the following questions in a 2-3 minute video response.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <h4 className="font-semibold mb-2">Question 1 of 3:</h4>
+                    <p className="text-gray-700">
+                      "Tell us about a challenging technical problem you solved recently. 
+                      What was your approach and what did you learn from the experience?"
+                    </p>
+                  </div>
+                  
+                  <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
+                    <div className="text-center">
+                      <Video className="w-12 h-12 mx-auto mb-3 text-gray-400" />
+                      <p className="text-gray-600 mb-4">Click to start recording your response</p>
+                      <Button className="bg-red-500 hover:bg-red-600 text-white">
+                        <Video className="w-4 h-4 mr-2" />
+                        Start Recording
+                      </Button>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-4 text-sm text-gray-600">
+                    <div className="flex items-center gap-1">
+                      <Timer className="w-4 h-4" />
+                      Max duration: 3 minutes
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Save className="w-4 h-4" />
+                      Auto-saved every 30 seconds
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {currentStep === 2 && (
+            <div className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <MessageSquare className="w-5 h-5 text-green-600" />
+                    Soft Skills Assessment
+                  </CardTitle>
+                  <CardDescription>
+                    Complete this behavioral assessment to showcase your soft skills.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="bg-green-50 p-4 rounded-lg">
+                    <h4 className="font-semibold mb-2">Scenario-Based Question:</h4>
+                    <p className="text-gray-700 mb-4">
+                      You're working on a project with a tight deadline when a teammate asks for help 
+                      with a critical bug in their code. However, helping them would significantly delay 
+                      your own work. How would you handle this situation?
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Your Response:</label>
+                    <textarea
+                      className="w-full h-32 p-4 border rounded-lg resize-none"
+                      placeholder="Describe your approach and reasoning..."
+                    />
+                  </div>
+                  
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {['Teamwork', 'Problem Solving', 'Communication', 'Leadership'].map((skill) => (
+                      <div key={skill} className="text-center p-3 border rounded-lg">
+                        <div className="text-2xl font-bold text-green-600">8.5</div>
+                        <div className="text-sm text-gray-600">{skill}</div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="p-6 border-t bg-gray-50 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            {currentStep > 0 && (
+              <Button 
+                variant="outline" 
+                onClick={() => setCurrentStep(currentStep - 1)}
+                className="flex items-center gap-2"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Previous
+              </Button>
+            )}
+            <Button variant="outline" onClick={onClose}>
+              Save & Exit
+            </Button>
+          </div>
+          
+          <div className="flex items-center gap-3">
+            <div className="text-sm text-gray-600">
+              Step {currentStep + 1} of {steps.length}
+            </div>
+            <Button 
+              onClick={handleSubmitStep}
+              className="bg-zara-purple hover:bg-zara-purple-dark flex items-center gap-2"
+              disabled={currentStep === 0 && !codeOutput}
+            >
+              {currentStep === steps.length - 1 ? (
+                <>
+                  <Send className="w-4 h-4" />
+                  Submit Assessment
+                </>
+              ) : (
+                <>
+                  Continue
+                  <ArrowRight className="w-4 h-4" />
+                </>
+              )}
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AssessmentWizard;
