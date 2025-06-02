@@ -1,111 +1,186 @@
-
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, Star, Award, Code, MessageSquare, Video, Download, Calendar, MapPin, Mail, Phone, Globe, Github, Linkedin, Trophy, Target, TrendingUp } from 'lucide-react';
+import { ArrowLeft, Star, Award, Code, MessageSquare, Video, Download, Calendar, MapPin, Mail, Phone, Globe, Github, Linkedin, Trophy, Target, TrendingUp, Play } from 'lucide-react';
 
 const CandidateProfileDetail = () => {
-  const location = useLocation();
+  const { id } = useParams();
   const navigate = useNavigate();
-  const candidateId = location.state?.candidateId;
+  const candidateId = id;
 
-  // Enhanced candidate profile data
-  const candidateProfile = {
-    id: candidateId || '1',
-    name: 'Sarah Chen',
-    role: 'Senior Frontend Developer',
-    avatar: '/placeholder.svg',
-    email: 'sarah.chen@email.com',
-    phone: '+1 (555) 123-4567',
-    location: 'San Francisco, CA',
-    website: 'sarahchen.dev',
-    github: 'github.com/sarahchen',
-    linkedin: 'linkedin.com/in/sarahchen',
-    overallScore: 96,
-    preference: '1st' as const,
-    status: 'shortlisted' as const,
-    experience: '6+ years experience',
-    currentCompany: 'TechCorp Inc.',
-    education: 'BS Computer Science, Stanford University',
-    skills: ['React', 'TypeScript', 'Node.js', 'GraphQL', 'AWS', 'Docker', 'Jest', 'Figma'],
-    scores: {
-      coding: 98,
-      interview: 94,
-      softSkills: 96
+  // Enhanced candidate profiles data with video recordings
+  const candidateProfiles = {
+    '1': {
+      id: '1',
+      name: 'Alex Johnson',
+      role: 'Senior Frontend Developer',
+      avatar: '/placeholder.svg',
+      email: 'alex.johnson@email.com',
+      phone: '+1 (555) 123-4567',
+      location: 'San Francisco, CA',
+      website: 'alexjohnson.dev',
+      github: 'github.com/alexjohnson',
+      linkedin: 'linkedin.com/in/alexjohnson',
+      overallScore: 87,
+      preference: '1st' as const,
+      status: 'shortlisted' as const,
+      experience: '7+ years experience',
+      currentCompany: 'TechCorp Inc.',
+      education: 'BS Computer Science, Stanford University',
+      skills: ['React', 'TypeScript', 'Node.js', 'GraphQL', 'AWS', 'Docker', 'Jest', 'Figma'],
+      scores: {
+        coding: 89,
+        interview: 85,
+        softSkills: 87
+      },
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '2 days ago',
+      highlights: [
+        'Exceptional problem-solving skills',
+        'Strong technical leadership',
+        'Open source contributor',
+        'Excellent communication',
+        'Innovative thinking'
+      ],
+      videoRecording: {
+        available: true,
+        duration: '14:32',
+        thumbnail: '/placeholder.svg',
+        url: 'https://example.com/interview/alex-johnson'
+      },
+      assessmentResults: {
+        codingChallenge: {
+          score: 89,
+          timeSpent: '45 minutes',
+          language: 'JavaScript/TypeScript',
+          comments: 'Clean, efficient code with excellent test coverage. Demonstrated advanced React patterns and TypeScript usage.'
+        },
+        aiInterview: {
+          score: 85,
+          duration: '25 minutes',
+          responses: 8,
+          comments: 'Articulate responses showing deep technical knowledge and strong problem-solving approach.'
+        },
+        softSkills: {
+          score: 87,
+          communication: 85,
+          teamwork: 89,
+          leadership: 87,
+          comments: 'Strong interpersonal skills with natural leadership qualities.'
+        }
+      },
+      workHistory: [
+        {
+          company: 'TechCorp Inc.',
+          position: 'Senior Frontend Developer',
+          duration: '2022 - Present',
+          achievements: [
+            'Led frontend architecture redesign improving performance by 40%',
+            'Mentored 5 junior developers',
+            'Implemented design system used across 12 products'
+          ]
+        }
+      ],
+      projects: [
+        {
+          name: 'E-commerce Platform Redesign',
+          description: 'Complete frontend overhaul of multi-million dollar e-commerce platform',
+          technologies: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS'],
+          impact: '40% improvement in page load times, 25% increase in conversion rate'
+        }
+      ]
     },
-    completedSteps: 3,
-    totalSteps: 3,
-    submittedAt: '2 hours ago',
-    highlights: [
-      'Exceptional problem-solving skills',
-      'Strong technical leadership',
-      'Open source contributor',
-      'Excellent communication',
-      'Innovative thinking'
-    ],
-    assessmentResults: {
-      codingChallenge: {
-        score: 98,
-        timeSpent: '45 minutes',
-        language: 'JavaScript/TypeScript',
-        comments: 'Clean, efficient code with excellent test coverage. Demonstrated advanced React patterns and TypeScript usage.'
+    '2': {
+      id: '2',
+      name: 'Jordan Smith',
+      role: 'Backend Engineer',
+      avatar: '/placeholder.svg',
+      email: 'jordan.smith@email.com',
+      phone: '+1 (555) 234-5678',
+      location: 'Austin, TX',
+      website: 'jordansmith.dev',
+      github: 'github.com/jordansmith',
+      linkedin: 'linkedin.com/in/jordansmith',
+      overallScore: 92,
+      preference: '1st' as const,
+      status: 'interviewed' as const,
+      experience: '5+ years experience',
+      currentCompany: 'DataTech Solutions',
+      education: 'MS Computer Science, MIT',
+      skills: ['Node.js', 'Python', 'MongoDB', 'Docker', 'Kubernetes', 'AWS', 'GraphQL'],
+      scores: {
+        coding: 94,
+        interview: 90,
+        softSkills: 92
       },
-      aiInterview: {
-        score: 94,
-        duration: '25 minutes',
-        responses: 8,
-        comments: 'Articulate responses showing deep technical knowledge and strong problem-solving approach.'
+      completedSteps: 3,
+      totalSteps: 3,
+      submittedAt: '1 day ago',
+      highlights: [
+        'Expert in microservices architecture',
+        'Published research papers',
+        'Strong problem-solving skills',
+        'Team collaboration',
+        'Innovation mindset'
+      ],
+      videoRecording: {
+        available: true,
+        duration: '13:45',
+        thumbnail: '/placeholder.svg',
+        url: 'https://example.com/interview/jordan-smith'
       },
-      softSkills: {
-        score: 96,
-        communication: 95,
-        teamwork: 97,
-        leadership: 96,
-        comments: 'Exceptional interpersonal skills with natural leadership qualities.'
-      }
-    },
-    workHistory: [
-      {
-        company: 'TechCorp Inc.',
-        position: 'Senior Frontend Developer',
-        duration: '2022 - Present',
-        achievements: [
-          'Led frontend architecture redesign improving performance by 40%',
-          'Mentored 5 junior developers',
-          'Implemented design system used across 12 products'
-        ]
+      assessmentResults: {
+        codingChallenge: {
+          score: 94,
+          timeSpent: '38 minutes',
+          language: 'Python/Node.js',
+          comments: 'Excellent algorithm implementation with optimal time complexity. Great understanding of data structures.'
+        },
+        aiInterview: {
+          score: 90,
+          duration: '22 minutes',
+          responses: 7,
+          comments: 'Demonstrated deep backend knowledge and system design expertise.'
+        },
+        softSkills: {
+          score: 92,
+          communication: 90,
+          teamwork: 94,
+          leadership: 92,
+          comments: 'Exceptional collaboration skills and clear communication.'
+        }
       },
-      {
-        company: 'StartupXYZ',
-        position: 'Frontend Developer',
-        duration: '2020 - 2022',
-        achievements: [
-          'Built responsive web applications using React and TypeScript',
-          'Collaborated with design team to implement pixel-perfect UIs',
-          'Optimized applications for mobile and desktop platforms'
-        ]
-      }
-    ],
-    projects: [
-      {
-        name: 'E-commerce Platform Redesign',
-        description: 'Complete frontend overhaul of multi-million dollar e-commerce platform',
-        technologies: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS'],
-        impact: '40% improvement in page load times, 25% increase in conversion rate'
-      },
-      {
-        name: 'Component Library',
-        description: 'Created reusable component library adopted across organization',
-        technologies: ['React', 'Storybook', 'TypeScript', 'CSS Modules'],
-        impact: '60% reduction in development time for new features'
-      }
-    ]
+      workHistory: [
+        {
+          company: 'DataTech Solutions',
+          position: 'Senior Backend Engineer',
+          duration: '2021 - Present',
+          achievements: [
+            'Architected scalable microservices handling 1M+ requests/day',
+            'Reduced database query time by 60%',
+            'Led team of 6 backend developers'
+          ]
+        }
+      ],
+      projects: [
+        {
+          name: 'Real-time Analytics Platform',
+          description: 'Built high-performance analytics system processing millions of events',
+          technologies: ['Node.js', 'MongoDB', 'Redis', 'Docker'],
+          impact: '70% faster data processing, 50% cost reduction'
+        }
+      ]
+    }
+    // Add more profiles as needed
   };
+
+  const candidateProfile = candidateProfiles[candidateId as keyof typeof candidateProfiles] || candidateProfiles['1'];
 
   const getPreferenceColor = (preference: string) => {
     switch (preference) {
@@ -169,6 +244,39 @@ const CandidateProfileDetail = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left Column - Main Content */}
             <div className="lg:col-span-2 space-y-8">
+              {/* AI Interview Video Recording */}
+              <Card className="bg-gradient-to-r from-white to-violet-50">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Video className="w-5 h-5 text-blue-500" />
+                    AI Interview Recording
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="aspect-video bg-gray-900 rounded-lg relative overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-center">
+                        <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mb-4 mx-auto">
+                          <Play className="w-8 h-8 text-white" />
+                        </div>
+                        <p className="text-white font-medium mb-2">Interview Recording</p>
+                        <p className="text-gray-300 text-sm">Duration: {candidateProfile.videoRecording.duration}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-4 flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-gray-600">Recorded during AI interview session</p>
+                      <p className="text-xs text-gray-500">High quality • Available for review</p>
+                    </div>
+                    <Button className="bg-blue-600 hover:bg-blue-700">
+                      <Play className="w-4 h-4 mr-2" />
+                      Play Recording
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
               {/* Assessment Scores */}
               <Card className="bg-gradient-to-r from-white to-violet-50">
                 <CardHeader>
