@@ -38,8 +38,25 @@ const Hero = () => {
             <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
                 <span className="block mb-4">
+                  <span className="relative inline-block h-16 md:h-20 lg:h-24 overflow-hidden">
+                    {animatedTexts.map((text, index) => (
+                      <span
+                        key={index}
+                        className={`absolute top-0 left-0 w-full transition-all duration-500 ${
+                          currentText === index 
+                            ? 'opacity-100 transform translate-y-0' 
+                            : 'opacity-0 transform translate-y-4'
+                        }`}
+                      >
+                        {text}
+                      </span>
+                    ))}
+                  </span>
+                </span>
+                <span className="block">
+                  <span className="text-gray-900">with </span>
                   <span className="bg-gradient-to-r from-zara-purple-dark to-zara-purple bg-clip-text text-transparent font-extrabold">
-                    Smart AI Recruiting
+                    Zara
                   </span>
                 </span>
                 <span className="block text-gray-900">
