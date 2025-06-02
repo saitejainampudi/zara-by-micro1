@@ -13,22 +13,6 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles, Users, Target, Zap, Clock, TrendingUp, Code, Video, MessageSquare, Award } from 'lucide-react';
 
 const Index = () => {
-  const recruiterDemoSteps = [
-    "Upload your job description or let AI generate one",
-    "Set screening criteria and technical requirements",
-    "Watch as Zara interviews candidates automatically",
-    "Review AI-generated candidate reports and rankings",
-    "Schedule final interviews with top-rated candidates"
-  ];
-
-  const candidateDemoSteps = [
-    "Complete your profile with skills and experience",
-    "Take AI-powered coding challenges in your tech stack",
-    "Participate in conversational AI interview sessions",
-    "Receive instant feedback and improvement suggestions",
-    "Get matched with companies looking for your skills"
-  ];
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 to-white">
       <Navbar />
@@ -121,13 +105,9 @@ const Index = () => {
                 ]}
                 ctaText="Start Hiring Smarter"
                 ctaLink="/signin"
-                gradientFrom="from-zara-purple"
-                gradientTo="to-zara-purple-dark"
+                gradientFrom="from-purple-500"
+                gradientTo="to-purple-700"
                 icon={Users}
-                demoContent={{
-                  title: "Recruiter Demo Journey",
-                  steps: recruiterDemoSteps
-                }}
               />
 
               <InteractiveRoleCard
@@ -141,13 +121,9 @@ const Index = () => {
                 ]}
                 ctaText="Start Your Journey"
                 ctaLink="/signin"
-                gradientFrom="from-blue-600"
-                gradientTo="to-indigo-700"
+                gradientFrom="from-blue-500"
+                gradientTo="to-blue-700"
                 icon={Sparkles}
-                demoContent={{
-                  title: "Candidate Demo Journey",
-                  steps: candidateDemoSteps
-                }}
                 delay="200ms"
               />
             </div>
