@@ -15,7 +15,7 @@ const Footer = () => {
                 Zara
               </span>
               <span className="ml-1 text-xs text-zara-gray bg-zara-purple-light px-1.5 py-0.5 rounded-md">
-                by Micro1
+                by micro1
               </span>
             </Link>
             <p className="text-gray-600 mb-4">
@@ -50,7 +50,7 @@ const Footer = () => {
           <div>
             <h3 className="text-gray-900 font-semibold mb-4">Company</h3>
             <ul className="space-y-2">
-              <li><Link to="/about" className="text-gray-600 hover:text-zara-purple transition-colors">About Micro1</Link></li>
+              <li><Link to="/about" className="text-gray-600 hover:text-zara-purple transition-colors">About micro1</Link></li>
               <li><Link to="/careers" className="text-gray-600 hover:text-zara-purple transition-colors">Careers</Link></li>
               <li><Link to="/blog" className="text-gray-600 hover:text-zara-purple transition-colors">Blog</Link></li>
               <li><Link to="/contact" className="text-gray-600 hover:text-zara-purple transition-colors">Contact</Link></li>
@@ -70,7 +70,7 @@ const Footer = () => {
         
         <div className="mt-12 pt-6 border-t border-gray-100">
           <p className="text-gray-500 text-sm text-center">
-            © {currentYear} Micro1. All rights reserved. Zara AI Recruiter Platform.
+            © {currentYear} micro1. All rights reserved. Zara AI Recruiter Platform.
           </p>
         </div>
       </div>

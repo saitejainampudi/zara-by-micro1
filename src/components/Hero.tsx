@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -83,16 +84,6 @@ const Hero = () => {
           </div>
 
           <div className={`w-full lg:w-1/2 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            {/* Zara AI Agent Image */}
-            <div className="mb-8 text-center">
-              <img 
-                src="/lovable-uploads/98d4aedb-bbde-40c0-a497-cd0b39178bc0.png" 
-                alt="Zara AI Agent" 
-                className="w-80 h-auto mx-auto rounded-2xl shadow-2xl hover:shadow-3xl transition-shadow duration-500"
-              />
-              <p className="text-sm text-gray-600 mt-4 font-medium">Meet Zara, your AI interviewer</p>
-            </div>
-
             <div className="bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-200 hover:shadow-3xl transition-shadow duration-500 group">
               <div className="bg-gradient-to-r from-zara-gray-lightest to-gray-100 p-4 border-b border-gray-200 flex items-center">
                 <div className="flex gap-2">
