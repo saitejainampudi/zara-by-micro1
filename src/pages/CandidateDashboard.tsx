@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -18,7 +19,7 @@ const CandidateDashboard = () => {
   const [accessCode, setAccessCode] = useState('');
   const [directLink, setDirectLink] = useState('');
 
-  // Sample assignments data
+  // Enhanced assignments data with more variety
   const assignments = [
     {
       id: '1',
@@ -62,6 +63,49 @@ const CandidateDashboard = () => {
         softSkills: { status: 'completed', score: 91 }
       },
       finalScore: 88
+    },
+    {
+      id: '4',
+      role: 'Product Designer',
+      company: 'DesignCo',
+      status: 'completed',
+      progress: 100,
+      deadline: 'February 28, 2024',
+      daysLeft: -14,
+      steps: {
+        coding: { status: 'completed', score: 0 },
+        interview: { status: 'completed', score: 94 },
+        softSkills: { status: 'completed', score: 89 }
+      },
+      finalScore: 91
+    },
+    {
+      id: '5',
+      role: 'Backend Developer',
+      company: 'CloudTech',
+      status: 'in-progress',
+      progress: 33,
+      deadline: 'March 25, 2024',
+      daysLeft: 13,
+      steps: {
+        coding: { status: 'completed', score: 87 },
+        interview: { status: 'pending', score: null },
+        softSkills: { status: 'pending', score: null }
+      }
+    },
+    {
+      id: '6',
+      role: 'Data Scientist',
+      company: 'AI Innovations',
+      status: 'pending',
+      progress: 0,
+      deadline: 'April 1, 2024',
+      daysLeft: 20,
+      steps: {
+        coding: { status: 'pending', score: null },
+        interview: { status: 'pending', score: null },
+        softSkills: { status: 'pending', score: null }
+      }
     }
   ];
 
@@ -73,7 +117,6 @@ const CandidateDashboard = () => {
   const handleWizardComplete = () => {
     setShowWizard(false);
     setSelectedAssignment(null);
-    // Update assignment status
   };
 
   const getStatusBadge = (status: string, daysLeft?: number) => {
@@ -97,7 +140,7 @@ const CandidateDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-zara-purple/5">
+    <div className="min-h-screen bg-gradient-to-br from-violet-50 to-white">
       <Navbar />
       
       <main className="pt-28 pb-20 px-6 md:px-10">
@@ -126,7 +169,7 @@ const CandidateDashboard = () => {
           </div>
 
           {/* Quick Access Panel */}
-          <Card className="mb-8 bg-gradient-to-r from-white to-zara-purple/5 border-zara-purple/20 hover:shadow-xl transition-all duration-300">
+          <Card className="mb-8 bg-gradient-to-r from-white to-violet-50 border-zara-purple/20 hover:shadow-xl transition-all duration-300">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <LinkIcon className="w-5 h-5 text-zara-purple" />
@@ -170,12 +213,12 @@ const CandidateDashboard = () => {
           {/* Overview Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
             {[
-              { title: "3", subtitle: "Total Assignments", icon: Target, color: "purple", trend: "Active roles" },
-              { title: "67%", subtitle: "Average Progress", icon: TrendingUp, color: "blue", trend: "On track" },
-              { title: "88", subtitle: "Best Score", icon: Award, color: "green", trend: "Top performer" },
-              { title: "5", subtitle: "Days Until Deadline", icon: Timer, color: "orange", trend: "Stay focused" }
+              { title: "6", subtitle: "Total Assignments", icon: Target, color: "purple", trend: "Active roles" },
+              { title: "72%", subtitle: "Average Progress", icon: TrendingUp, color: "blue", trend: "On track" },
+              { title: "91", subtitle: "Best Score", icon: Award, color: "green", trend: "Top performer" },
+              { title: "3", subtitle: "Days Until Deadline", icon: Timer, color: "orange", trend: "Stay focused" }
             ].map((stat, index) => (
-              <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 border-gray-200 hover:border-gray-300">
+              <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-white to-violet-50 border-gray-200 hover:border-gray-300">
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 ${
@@ -206,7 +249,7 @@ const CandidateDashboard = () => {
 
             <div className="space-y-6">
               {assignments.map((assignment) => (
-                <Card key={assignment.id} className="group hover:shadow-xl transition-all duration-300 border-gray-200 hover:border-gray-300">
+                <Card key={assignment.id} className="group hover:shadow-xl transition-all duration-300 border-gray-200 hover:border-gray-300 bg-gradient-to-r from-white to-violet-50">
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <div className="space-y-2">
@@ -275,7 +318,7 @@ const CandidateDashboard = () => {
                                 </div>
                               </div>
                               
-                              {stepData.score && (
+                              {stepData.score && stepData.score > 0 && (
                                 <div className="flex items-center justify-between">
                                   <span className="text-sm font-medium">Score:</span>
                                   <div className={`px-2 py-1 rounded text-sm font-bold ${

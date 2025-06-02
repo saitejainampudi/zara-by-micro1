@@ -12,7 +12,7 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   
-  // Simulated candidate data
+  // Enhanced candidate data with more realistic numbers
   const candidates = [
     {
       id: 1,
@@ -63,6 +63,36 @@ const Dashboard = () => {
       skills: ["Java", "Spring", "MySQL"],
       date: "3 days ago",
       highlight: null
+    },
+    {
+      id: 6,
+      name: "Morgan Davis",
+      role: "Product Designer",
+      status: "completed",
+      score: 89,
+      skills: ["Figma", "UX Research", "Prototyping"],
+      date: "1 week ago",
+      highlight: "Creative Thinker"
+    },
+    {
+      id: 7,
+      name: "Jamie Lee",
+      role: "DevOps Engineer",
+      status: "in_progress",
+      score: null,
+      skills: ["Docker", "Kubernetes", "AWS"],
+      date: "3 hours ago",
+      highlight: null
+    },
+    {
+      id: 8,
+      name: "Avery Thompson",
+      role: "Data Scientist",
+      status: "completed",
+      score: 94,
+      skills: ["Python", "Machine Learning", "SQL"],
+      date: "2 days ago",
+      highlight: "Data Expert"
     }
   ];
 
@@ -96,7 +126,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-violet-50 to-white flex flex-col">
       <Navbar />
       
       <main className="flex-grow pt-24 pb-20 px-6 md:px-10">
@@ -112,42 +142,42 @@ const Dashboard = () => {
           </div>
           
           <div className="grid md:grid-cols-4 gap-6 mb-8">
-            <Card>
+            <Card className="bg-gradient-to-br from-white to-violet-50">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-gray-500">Total Interviews</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold">48</p>
-                <p className="text-sm text-gray-500">+12 this week</p>
+                <p className="text-3xl font-bold">32</p>
+                <p className="text-sm text-gray-500">+8 this week</p>
               </CardContent>
             </Card>
             
-            <Card>
+            <Card className="bg-gradient-to-br from-white to-violet-50">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-gray-500">In Progress</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold">7</p>
-                <p className="text-sm text-gray-500">3 due today</p>
+                <p className="text-3xl font-bold">5</p>
+                <p className="text-sm text-gray-500">2 due today</p>
               </CardContent>
             </Card>
             
-            <Card>
+            <Card className="bg-gradient-to-br from-white to-violet-50">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-gray-500">Completed</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold">28</p>
+                <p className="text-3xl font-bold">21</p>
                 <p className="text-sm text-gray-500">Need review</p>
               </CardContent>
             </Card>
             
-            <Card>
+            <Card className="bg-gradient-to-br from-white to-violet-50">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-gray-500">Time Saved</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold">86h</p>
+                <p className="text-3xl font-bold">64h</p>
                 <p className="text-sm text-gray-500">This month</p>
               </CardContent>
             </Card>
@@ -178,7 +208,7 @@ const Dashboard = () => {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="bg-gray-50 text-left">
+                  <tr className="bg-violet-50 text-left">
                     <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Candidate</th>
                     <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
                     <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
@@ -190,7 +220,7 @@ const Dashboard = () => {
                 <tbody className="divide-y divide-gray-200">
                   {filteredCandidates.length > 0 ? (
                     filteredCandidates.map((candidate) => (
-                      <tr key={candidate.id} className="hover:bg-gray-50">
+                      <tr key={candidate.id} className="hover:bg-violet-50">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
                             <div className="w-10 h-10 rounded-full bg-zara-purple-light flex items-center justify-center text-zara-purple font-medium mr-3">
@@ -255,7 +285,7 @@ const Dashboard = () => {
               </table>
             </div>
             
-            <div className="p-4 border-t border-gray-200 bg-gray-50 text-right">
+            <div className="p-4 border-t border-gray-200 bg-violet-50 text-right">
               <Button variant="outline" size="sm" className="text-gray-600">
                 Previous
               </Button>
