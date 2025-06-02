@@ -30,7 +30,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-violet-50 to-white">
       <Navbar />
       <main>
         <Hero />
@@ -100,7 +100,7 @@ const Index = () => {
         </section>
 
         {/* Enhanced Role-Based CTAs with Interactive Cards */}
-        <section className="py-20 px-6 md:px-10 bg-gradient-to-br from-white to-gray-50">
+        <section className="py-20 px-6 md:px-10 bg-gradient-to-br from-violet-100/50 to-gray-50">
           <div className="container mx-auto max-w-6xl">
             <div className="text-center mb-12 animate-fade-in">
               <h2 className="text-4xl font-bold mb-4 text-gray-900">Choose Your Journey</h2>
