@@ -1,462 +1,665 @@
-
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { Button } from "@/components/ui/button";
+import { Link } from 'react-router-dom';
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, Filter, Download, Star, MapPin, Calendar, Video } from 'lucide-react';
+import { Search, Filter, ChevronDown } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
-// Expanded candidate data with 20+ candidates
+// Mock candidate data
 const candidatesData = [
   {
     id: 1,
-    name: "Sarah Chen",
-    photo: "SC",
-    role: "Senior Frontend Developer",
-    experience: "6+ years",
-    location: "San Francisco, CA",
-    email: "sarah.chen@email.com",
-    skills: ["React", "TypeScript", "Node.js", "GraphQL"],
-    rating: 96,
-    status: "shortlisted",
-    submittedAt: "2 hours ago",
-    hasVideoInterview: true
-  },
-  {
-    id: 2,
     name: "Alex Johnson",
     photo: "AJ",
     role: "Senior Frontend Developer",
-    experience: "7+ years",
+    experience: "7 years",
     location: "San Francisco, CA",
-    email: "alex.johnson@example.com",
-    skills: ["React", "TypeScript", "Redux", "Next.js"],
+    locationType: "On-site",
+    skills: ["React", "TypeScript", "Redux", "People Management"],
+    category: "Technical",
+    salary: {
+      monthly: "$12,500",
+      hourly: "$72"
+    },
+    note: "Enhanced AI start-ups at EndlessLabs, boosted investor interest by 25%. Master's in Computer Science.",
+    education: "Stanford University",
+    highlights: ["AI Engineering", "Top Company Experience"],
     rating: 87,
-    status: "interviewed",
-    submittedAt: "1 day ago",
-    hasVideoInterview: true
+    interviewDate: "2023-05-12"
   },
   {
-    id: 3,
+    id: 2,
     name: "Maya Rodriguez",
     photo: "MR",
     role: "Machine Learning Engineer",
-    experience: "4+ years",
-    location: "Austin, TX",
-    email: "maya.rodriguez@example.com",
-    skills: ["Python", "TensorFlow", "PyTorch", "SQL"],
+    experience: "4 years",
+    location: "Remote",
+    locationType: "Remote",
+    skills: ["Python", "TensorFlow", "Data Structures", "Algorithm Optimization"],
+    category: "Technical",
+    salary: {
+      monthly: "$14,200",
+      hourly: "$82"
+    },
+    note: "Led team that improved recommendation algorithms by 37%. PhD in Machine Learning.",
+    education: "MIT",
+    highlights: ["Research Publication", "Patent Holder"],
     rating: 92,
-    status: "shortlisted",
-    submittedAt: "3 hours ago",
-    hasVideoInterview: true
+    interviewDate: "2023-05-15"
   },
   {
-    id: 4,
+    id: 3,
     name: "David Kim",
     photo: "DK",
     role: "Full Stack Developer",
-    experience: "5+ years",
+    experience: "5 years",
     location: "New York, NY",
-    email: "david.kim@example.com",
+    locationType: "Hybrid",
     skills: ["JavaScript", "Node.js", "React", "MongoDB"],
+    category: "Technical",
+    salary: {
+      monthly: "$11,800",
+      hourly: "$68"
+    },
+    note: "Architected scalable solutions for fintech startups. Bachelor's in Computer Engineering.",
+    education: "Cornell University",
+    highlights: ["System Architecture", "Startup Experience"],
     rating: 81,
-    status: "pending",
-    submittedAt: "5 hours ago",
-    hasVideoInterview: true
+    interviewDate: "2023-05-14"
+  },
+  {
+    id: 4,
+    name: "Sophia Chang",
+    photo: "SC",
+    role: "UI/UX Designer & Developer",
+    experience: "6 years",
+    location: "Seattle, WA",
+    locationType: "On-site",
+    skills: ["UI Design", "User Research", "React Native", "Adobe Suite"],
+    category: "Technical",
+    salary: {
+      monthly: "$10,500",
+      hourly: "$61"
+    },
+    note: "Created award-winning interfaces for health tech applications. Master's in HCI.",
+    education: "University of Washington",
+    highlights: ["Award-winning Design", "Mobile Expertise"],
+    rating: 89,
+    interviewDate: "2023-05-10"
   },
   {
     id: 5,
-    name: "Emma Wilson",
-    photo: "EW",
-    role: "DevOps Engineer",
-    experience: "4+ years",
-    location: "Chicago, IL",
-    email: "emma.wilson@example.com",
-    skills: ["Docker", "Kubernetes", "AWS", "Terraform"],
-    rating: 83,
-    status: "interviewed",
-    submittedAt: "1 day ago",
-    hasVideoInterview: true
-  },
-  {
-    id: 6,
     name: "Rajiv Patel",
     photo: "RP",
     role: "Backend Engineer",
-    experience: "8+ years",
+    experience: "8 years",
     location: "Remote (India)",
-    email: "rajiv.patel@example.com",
+    locationType: "Remote",
     skills: ["Java", "Spring Boot", "AWS", "Microservices"],
+    category: "Technical",
+    salary: {
+      monthly: "$9,200",
+      hourly: "$53"
+    },
+    note: "Scaled systems to handle 10M+ daily users. Bachelor's in Computer Science.",
+    education: "Indian Institute of Technology",
+    highlights: ["System Scaling", "Cloud Architecture"],
     rating: 85,
-    status: "shortlisted",
-    submittedAt: "6 hours ago",
-    hasVideoInterview: true
+    interviewDate: "2023-05-16"
+  },
+  {
+    id: 6,
+    name: "Emma Wilson",
+    photo: "EW",
+    role: "DevOps Engineer",
+    experience: "4 years",
+    location: "Chicago, IL",
+    locationType: "Hybrid",
+    skills: ["Docker", "Kubernetes", "CI/CD", "Terraform"],
+    category: "Technical",
+    salary: {
+      monthly: "$11,000",
+      hourly: "$63"
+    },
+    note: "Reduced deployment times by 78% and infrastructure costs by 35%.",
+    education: "University of Illinois",
+    highlights: ["Infrastructure Optimization", "Cost Reduction"],
+    rating: 83,
+    interviewDate: "2023-05-18"
   },
   {
     id: 7,
-    name: "Sophie Laurent",
-    photo: "SL",
-    role: "UI/UX Designer",
-    experience: "5+ years",
-    location: "Paris, France",
-    email: "sophie.laurent@example.com",
-    skills: ["Figma", "Adobe XD", "Prototyping", "User Research"],
-    rating: 89,
-    status: "interviewed",
-    submittedAt: "2 days ago",
-    hasVideoInterview: true
+    name: "Sarah Miller",
+    photo: "SM",
+    role: "Technical Project Manager",
+    experience: "9 years",
+    location: "Boston, MA",
+    locationType: "On-site",
+    skills: ["Agile", "Scrum", "Project Planning", "Team Leadership"],
+    category: "Non-Technical",
+    salary: {
+      monthly: "$12,800",
+      hourly: "$74"
+    },
+    note: "Successfully delivered 25+ enterprise projects with average 15% under budget.",
+    education: "Boston University",
+    highlights: ["Team Leadership", "Budget Management"],
+    rating: 90,
+    interviewDate: "2023-05-20"
   },
   {
     id: 8,
-    name: "Michael Brown",
-    photo: "MB",
-    role: "Data Scientist",
-    experience: "6+ years",
-    location: "Boston, MA",
-    email: "michael.brown@example.com",
-    skills: ["Python", "R", "Machine Learning", "Statistics"],
+    name: "Akash Sharma",
+    photo: "AS",
+    role: "iOS Developer",
+    experience: "6 years",
+    location: "Remote (India)",
+    locationType: "Remote",
+    skills: ["Swift", "SwiftUI", "Objective-C", "Mobile Architecture"],
+    category: "Technical",
+    salary: {
+      monthly: "$10,000",
+      hourly: "$58"
+    },
+    note: "Created top-rated finance app with 4.8/5 rating. Bachelor's in Mobile Computing.",
+    education: "Delhi Technological University",
+    highlights: ["Mobile Development", "App Store Success"],
     rating: 88,
-    status: "shortlisted",
-    submittedAt: "4 hours ago",
-    hasVideoInterview: true
+    interviewDate: "2023-05-22"
   },
   {
     id: 9,
-    name: "Lisa Garcia",
-    photo: "LG",
-    role: "Product Manager",
-    experience: "7+ years",
-    location: "Los Angeles, CA",
-    email: "lisa.garcia@example.com",
-    skills: ["Product Strategy", "Agile", "Analytics", "Leadership"],
+    name: "Miguel Gonzalez",
+    photo: "MG",
+    role: "Data Scientist",
+    experience: "5 years",
+    location: "Remote (Spain)",
+    locationType: "Remote",
+    skills: ["Python", "R", "Machine Learning", "Statistical Analysis"],
+    category: "Technical",
+    salary: {
+      monthly: "$11,500",
+      hourly: "$66"
+    },
+    note: "Implemented predictive models that increased conversion rates by 42%. PhD in Statistics.",
+    education: "University of Barcelona",
+    highlights: ["Predictive Modeling", "NLP Specialist"],
     rating: 91,
-    status: "interviewed",
-    submittedAt: "1 day ago",
-    hasVideoInterview: true
+    interviewDate: "2023-05-25"
   },
   {
     id: 10,
-    name: "James Wright",
-    photo: "JW",
-    role: "Senior Backend Developer",
-    experience: "8+ years",
-    location: "Seattle, WA",
-    email: "james.wright@example.com",
-    skills: ["Python", "Django", "PostgreSQL", "Redis"],
-    rating: 86,
-    status: "pending",
-    submittedAt: "8 hours ago",
-    hasVideoInterview: true
+    name: "Priya Desai",
+    photo: "PD",
+    role: "Product Manager",
+    experience: "7 years",
+    location: "London, UK",
+    locationType: "Hybrid",
+    skills: ["Product Strategy", "User Research", "Agile", "Roadmap Planning"],
+    category: "Non-Technical",
+    salary: {
+      monthly: "$13,800",
+      hourly: "$80"
+    },
+    note: "Led product teams at two successful fintech startups. MBA from London Business School.",
+    education: "London Business School",
+    highlights: ["Product Strategy", "Fintech Expertise"],
+    rating: 89,
+    interviewDate: "2023-05-27"
   },
   {
     id: 11,
-    name: "Anna Kowalski",
-    photo: "AK",
-    role: "Frontend Developer",
-    experience: "4+ years",
-    location: "Warsaw, Poland",
-    email: "anna.kowalski@example.com",
-    skills: ["Vue.js", "JavaScript", "CSS", "Webpack"],
-    rating: 84,
-    status: "shortlisted",
-    submittedAt: "3 hours ago",
-    hasVideoInterview: true
+    name: "Jamal Williams",
+    photo: "JW",
+    role: "Security Engineer",
+    experience: "8 years",
+    location: "Austin, TX",
+    locationType: "On-site",
+    skills: ["Penetration Testing", "Security Auditing", "Encryption", "Compliance"],
+    category: "Technical",
+    salary: {
+      monthly: "$14,500",
+      hourly: "$84"
+    },
+    note: "Protected enterprise systems from advanced threats. CISSP certified.",
+    education: "Georgia Tech",
+    highlights: ["Security Specialist", "Compliance Expert"],
+    rating: 94,
+    interviewDate: "2023-06-01"
   },
   {
     id: 12,
-    name: "Carlos Silva",
-    photo: "CS",
-    role: "Mobile Developer",
-    experience: "5+ years",
-    location: "São Paulo, Brazil",
-    email: "carlos.silva@example.com",
-    skills: ["React Native", "Swift", "Kotlin", "Firebase"],
-    rating: 87,
-    status: "interviewed",
-    submittedAt: "2 days ago",
-    hasVideoInterview: true
+    name: "Olivia Chen",
+    photo: "OC",
+    role: "Android Developer",
+    experience: "4 years",
+    location: "Toronto, Canada",
+    locationType: "Remote",
+    skills: ["Kotlin", "Java", "Android SDK", "Material Design"],
+    category: "Technical",
+    salary: {
+      monthly: "$10,800",
+      hourly: "$62"
+    },
+    note: "Rebuilt legacy app, increasing user retention by 65%. Master's in Computer Engineering.",
+    education: "University of Toronto",
+    highlights: ["Android Expert", "Performance Optimization"],
+    rating: 86,
+    interviewDate: "2023-06-03"
   },
   {
     id: 13,
-    name: "Priya Sharma",
-    photo: "PS",
-    role: "QA Engineer",
-    experience: "6+ years",
-    location: "Bangalore, India",
-    email: "priya.sharma@example.com",
-    skills: ["Selenium", "Cypress", "Jest", "API Testing"],
-    rating: 82,
-    status: "pending",
-    submittedAt: "7 hours ago",
-    hasVideoInterview: true
+    name: "Lars Nielsen",
+    photo: "LN",
+    role: "Cloud Architect",
+    experience: "9 years",
+    location: "Copenhagen, Denmark",
+    locationType: "Remote",
+    skills: ["AWS", "Azure", "GCP", "Serverless Architecture"],
+    category: "Technical",
+    salary: {
+      monthly: "$15,200",
+      hourly: "$88"
+    },
+    note: "Designed cloud infrastructure that reduced costs by 40%. Multiple AWS certifications.",
+    education: "Technical University of Denmark",
+    highlights: ["Multi-cloud Expert", "Cost Optimization"],
+    rating: 93,
+    interviewDate: "2023-06-05"
   },
   {
     id: 14,
-    name: "Thomas Anderson",
-    photo: "TA",
-    role: "Cloud Architect",
-    experience: "9+ years",
-    location: "London, UK",
-    email: "thomas.anderson@example.com",
-    skills: ["AWS", "Azure", "Terraform", "Kubernetes"],
-    rating: 93,
-    status: "shortlisted",
-    submittedAt: "1 hour ago",
-    hasVideoInterview: true
-  },
-  {
-    id: 15,
-    name: "Yuki Tanaka",
-    photo: "YT",
-    role: "AI Engineer",
-    experience: "5+ years",
-    location: "Tokyo, Japan",
-    email: "yuki.tanaka@example.com",
-    skills: ["TensorFlow", "PyTorch", "Python", "Computer Vision"],
-    rating: 90,
-    status: "interviewed",
-    submittedAt: "1 day ago",
-    hasVideoInterview: true
-  },
-  {
-    id: 16,
-    name: "Elena Petrov",
-    photo: "EP",
-    role: "Cybersecurity Specialist",
-    experience: "7+ years",
-    location: "Moscow, Russia",
-    email: "elena.petrov@example.com",
-    skills: ["Penetration Testing", "CISSP", "Python", "Network Security"],
-    rating: 85,
-    status: "pending",
-    submittedAt: "5 hours ago",
-    hasVideoInterview: true
-  },
-  {
-    id: 17,
-    name: "Oliver Schmidt",
-    photo: "OS",
-    role: "Blockchain Developer",
-    experience: "4+ years",
-    location: "Berlin, Germany",
-    email: "oliver.schmidt@example.com",
-    skills: ["Solidity", "Web3", "Ethereum", "Smart Contracts"],
-    rating: 88,
-    status: "shortlisted",
-    submittedAt: "2 hours ago",
-    hasVideoInterview: true
-  },
-  {
-    id: 18,
-    name: "Isabella Rodriguez",
-    photo: "IR",
-    role: "Data Engineer",
-    experience: "6+ years",
-    location: "Madrid, Spain",
-    email: "isabella.rodriguez@example.com",
-    skills: ["Apache Spark", "Kafka", "Python", "SQL"],
-    rating: 86,
-    status: "interviewed",
-    submittedAt: "2 days ago",
-    hasVideoInterview: true
-  },
-  {
-    id: 19,
-    name: "Kevin O'Connor",
-    photo: "KO",
-    role: "Site Reliability Engineer",
-    experience: "7+ years",
-    location: "Dublin, Ireland",
-    email: "kevin.oconnor@example.com",
-    skills: ["Monitoring", "Incident Response", "Go", "Prometheus"],
+    name: "Neha Kapoor",
+    photo: "NK",
+    role: "QA Automation Engineer",
+    experience: "6 years",
+    location: "Bangalore, India",
+    locationType: "Remote",
+    skills: ["Selenium", "Cypress", "Testing Frameworks", "CI/CD"],
+    category: "Technical",
+    salary: {
+      monthly: "$8,800",
+      hourly: "$51"
+    },
+    note: "Implemented test automation that reduced QA time by 70%. Bachelor's in Computer Science.",
+    education: "Bangalore Institute of Technology",
+    highlights: ["Test Automation", "Quality Processes"],
     rating: 84,
-    status: "pending",
-    submittedAt: "6 hours ago",
-    hasVideoInterview: true
-  },
-  {
-    id: 20,
-    name: "Fatima Al-Zahra",
-    photo: "FZ",
-    role: "Technical Writer",
-    experience: "5+ years",
-    location: "Dubai, UAE",
-    email: "fatima.alzahra@example.com",
-    skills: ["Technical Documentation", "API Docs", "Markdown", "Git"],
-    rating: 83,
-    status: "shortlisted",
-    submittedAt: "4 hours ago",
-    hasVideoInterview: true
+    interviewDate: "2023-06-07"
   }
 ];
 
 const CandidatesList = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState('all');
-  const [roleFilter, setRoleFilter] = useState('all');
-
-  const filteredCandidates = candidatesData.filter(candidate => {
-    const matchesSearch = candidate.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         candidate.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         candidate.skills.some(skill => skill.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesStatus = statusFilter === 'all' || candidate.status === statusFilter;
-    const matchesRole = roleFilter === 'all' || candidate.role.includes(roleFilter);
-    return matchesSearch && matchesStatus && matchesRole;
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredCandidates, setFilteredCandidates] = useState(candidatesData);
+  const [filters, setFilters] = useState({
+    location: {
+      remote: false,
+      onsite: false,
+      hybrid: false
+    },
+    category: {
+      technical: false,
+      nonTechnical: false
+    },
+    experience: {
+      junior: false,
+      mid: false,
+      senior: false
+    }
   });
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'shortlisted': return 'bg-green-100 text-green-700 border-green-200';
-      case 'interviewed': return 'bg-blue-100 text-blue-700 border-blue-200';
-      case 'pending': return 'bg-yellow-100 text-yellow-700 border-yellow-200';
-      default: return 'bg-gray-100 text-gray-700 border-gray-200';
+  useEffect(() => {
+    filterCandidates();
+  }, [searchQuery, filters]);
+
+  const filterCandidates = () => {
+    let results = candidatesData;
+    
+    // Apply search query
+    if (searchQuery.trim()) {
+      const lowercaseQuery = searchQuery.toLowerCase();
+      results = results.filter(candidate => {
+        return (
+          candidate.name.toLowerCase().includes(lowercaseQuery) ||
+          candidate.role.toLowerCase().includes(lowercaseQuery) ||
+          candidate.experience.toLowerCase().includes(lowercaseQuery) ||
+          candidate.location.toLowerCase().includes(lowercaseQuery) ||
+          candidate.skills.some(skill => skill.toLowerCase().includes(lowercaseQuery)) ||
+          candidate.note.toLowerCase().includes(lowercaseQuery)
+        );
+      });
     }
+    
+    // Apply location filters
+    if (filters.location.remote || filters.location.onsite || filters.location.hybrid) {
+      results = results.filter(candidate => {
+        if (filters.location.remote && candidate.locationType === "Remote") return true;
+        if (filters.location.onsite && candidate.locationType === "On-site") return true;
+        if (filters.location.hybrid && candidate.locationType === "Hybrid") return true;
+        return false;
+      });
+    }
+    
+    // Apply category filters
+    if (filters.category.technical || filters.category.nonTechnical) {
+      results = results.filter(candidate => {
+        if (filters.category.technical && candidate.category === "Technical") return true;
+        if (filters.category.nonTechnical && candidate.category === "Non-Technical") return true;
+        return false;
+      });
+    }
+    
+    // Apply experience filters
+    if (filters.experience.junior || filters.experience.mid || filters.experience.senior) {
+      results = results.filter(candidate => {
+        const years = parseInt(candidate.experience);
+        if (filters.experience.junior && years < 3) return true;
+        if (filters.experience.mid && years >= 3 && years < 6) return true;
+        if (filters.experience.senior && years >= 6) return true;
+        return false;
+      });
+    }
+    
+    setFilteredCandidates(results);
   };
 
-  const getRatingColor = (rating: number) => {
-    if (rating >= 90) return 'bg-green-500';
-    if (rating >= 80) return 'bg-blue-500';
-    if (rating >= 70) return 'bg-yellow-500';
-    return 'bg-red-500';
+  const handleFilterChange = (category, key) => {
+    setFilters(prev => ({
+      ...prev,
+      [category]: {
+        ...prev[category],
+        [key]: !prev[category][key]
+      }
+    }));
+  };
+
+  const clearFilters = () => {
+    setFilters({
+      location: {
+        remote: false,
+        onsite: false,
+        hybrid: false
+      },
+      category: {
+        technical: false,
+        nonTechnical: false
+      },
+      experience: {
+        junior: false,
+        mid: false,
+        senior: false
+      }
+    });
+  };
+
+  const isAnyFilterActive = () => {
+    return Object.values(filters).some(category => 
+      Object.values(category).some(value => value === true)
+    );
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 to-white">
+    <div className="min-h-screen bg-[#DBDAF5]">
       <Navbar />
       
       <main className="pt-28 pb-20 px-6 md:px-10">
-        <div className="container mx-auto max-w-7xl">
-          {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Candidates</h1>
-            <p className="text-gray-600">Review and manage candidate applications</p>
-          </div>
-
-          {/* Filters and Search */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6 mb-6">
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex-1">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                  <Input
-                    placeholder="Search candidates by name, role, or skills..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
-                  />
-                </div>
-              </div>
-              <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger className="w-48">
-                  <SelectValue placeholder="Filter by status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Status</SelectItem>
-                  <SelectItem value="shortlisted">Shortlisted</SelectItem>
-                  <SelectItem value="interviewed">Interviewed</SelectItem>
-                  <SelectItem value="pending">Pending</SelectItem>
-                </SelectContent>
-              </Select>
-              <Select value={roleFilter} onValueChange={setRoleFilter}>
-                <SelectTrigger className="w-48">
-                  <SelectValue placeholder="Filter by role" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Roles</SelectItem>
-                  <SelectItem value="Frontend">Frontend</SelectItem>
-                  <SelectItem value="Backend">Backend</SelectItem>
-                  <SelectItem value="Full Stack">Full Stack</SelectItem>
-                  <SelectItem value="DevOps">DevOps</SelectItem>
-                  <SelectItem value="Data">Data</SelectItem>
-                </SelectContent>
-              </Select>
+        <div className="container mx-auto max-w-6xl">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">Available Candidates</h1>
+              <p className="text-gray-600">Pre-qualified candidates for your open positions</p>
+            </div>
+            <div className="mt-4 md:mt-0">
+              <Link to="/dashboard">
+                <Button className="bg-zara-purple hover:bg-zara-purple-dark">View Dashboard</Button>
+              </Link>
             </div>
           </div>
-
-          {/* Results Summary */}
-          <div className="mb-6 flex items-center justify-between">
-            <p className="text-gray-600">
-              Showing {filteredCandidates.length} of {candidatesData.length} candidates
-            </p>
-            <Button variant="outline" className="flex items-center gap-2">
-              <Download className="w-4 h-4" />
-              Export Results
-            </Button>
+          
+          {/* Search and Filter Bar */}
+          <div className="mb-8 flex flex-col md:flex-row gap-4">
+            <div className="relative flex-grow">
+              <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                <Search className="text-gray-400" />
+              </div>
+              <Input
+                className="pl-10 py-6 bg-white rounded-xl shadow-sm text-base"
+                placeholder="Search by skills, role, experience or traits (e.g., 'React Developer with 4 years startup experience')"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+            
+            <div className="flex items-center">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="outline" className="flex items-center space-x-2 bg-white">
+                    <Filter size={16} />
+                    <span>Filter</span>
+                    <ChevronDown size={16} />
+                    {isAnyFilterActive() && (
+                      <Badge className="ml-1 bg-zara-purple py-0 px-1.5 text-xs">
+                        {Object.values(filters).reduce((acc, category) => 
+                          acc + Object.values(category).filter(Boolean).length, 0
+                        )}
+                      </Badge>
+                    )}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-80 p-4">
+                  <div className="space-y-4">
+                    <div>
+                      <h3 className="font-medium mb-2">Location Type</h3>
+                      <div className="space-y-2">
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="remote" 
+                            checked={filters.location.remote} 
+                            onCheckedChange={() => handleFilterChange('location', 'remote')} 
+                          />
+                          <Label htmlFor="remote">Remote</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="onsite" 
+                            checked={filters.location.onsite} 
+                            onCheckedChange={() => handleFilterChange('location', 'onsite')} 
+                          />
+                          <Label htmlFor="onsite">On-site</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="hybrid" 
+                            checked={filters.location.hybrid} 
+                            onCheckedChange={() => handleFilterChange('location', 'hybrid')} 
+                          />
+                          <Label htmlFor="hybrid">Hybrid</Label>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <h3 className="font-medium mb-2">Category</h3>
+                      <div className="space-y-2">
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="technical" 
+                            checked={filters.category.technical} 
+                            onCheckedChange={() => handleFilterChange('category', 'technical')} 
+                          />
+                          <Label htmlFor="technical">Technical</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="non-technical" 
+                            checked={filters.category.nonTechnical} 
+                            onCheckedChange={() => handleFilterChange('category', 'nonTechnical')} 
+                          />
+                          <Label htmlFor="non-technical">Non-Technical</Label>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <h3 className="font-medium mb-2">Experience Level</h3>
+                      <div className="space-y-2">
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="junior" 
+                            checked={filters.experience.junior} 
+                            onCheckedChange={() => handleFilterChange('experience', 'junior')} 
+                          />
+                          <Label htmlFor="junior">Junior (0-2 years)</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="mid" 
+                            checked={filters.experience.mid} 
+                            onCheckedChange={() => handleFilterChange('experience', 'mid')} 
+                          />
+                          <Label htmlFor="mid">Mid-level (3-5 years)</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="senior" 
+                            checked={filters.experience.senior} 
+                            onCheckedChange={() => handleFilterChange('experience', 'senior')} 
+                          />
+                          <Label htmlFor="senior">Senior (6+ years)</Label>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="pt-2 border-t">
+                      <Button variant="outline" className="w-full" onClick={clearFilters}>
+                        Clear Filters
+                      </Button>
+                    </div>
+                  </div>
+                </PopoverContent>
+              </Popover>
+            </div>
           </div>
-
+          
+          {/* Active Filters Display */}
+          {isAnyFilterActive() && (
+            <div className="mb-6 flex flex-wrap gap-2">
+              {Object.entries(filters).map(([category, values]) => 
+                Object.entries(values).map(([key, isActive]) => 
+                  isActive && (
+                    <Badge 
+                      key={`${category}-${key}`} 
+                      variant="secondary" 
+                      className="px-3 py-1 flex items-center gap-1 bg-white"
+                    >
+                      {key === 'nonTechnical' ? 'Non-Technical' : key.charAt(0).toUpperCase() + key.slice(1)}
+                      <button 
+                        onClick={() => handleFilterChange(category, key)}
+                        className="ml-1 text-gray-500 hover:text-gray-700"
+                      >
+                        ×
+                      </button>
+                    </Badge>
+                  )
+                )
+              )}
+              <Button 
+                variant="ghost" 
+                className="text-sm h-7 px-2 text-gray-500" 
+                onClick={clearFilters}
+              >
+                Clear all
+              </Button>
+            </div>
+          )}
+          
           {/* Candidates Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredCandidates.map((candidate) => (
-              <Card key={candidate.id} className="hover:shadow-lg transition-shadow duration-200">
-                <CardHeader className="pb-4">
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-r from-zara-purple to-zara-purple-dark flex items-center justify-center text-white font-bold">
+              <Link to={`/candidate/${candidate.id}`} key={candidate.id}>
+                <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-gray-200">
+                  <div className="p-6">
+                    <div className="flex items-start">
+                      <div className="w-14 h-14 rounded-full bg-zara-purple-light flex items-center justify-center text-zara-purple font-bold text-xl mr-4">
                         {candidate.photo}
                       </div>
                       <div>
-                        <h3 className="font-semibold text-lg">{candidate.name}</h3>
-                        <p className="text-gray-600 text-sm">{candidate.role}</p>
+                        <h3 className="font-medium text-lg">{candidate.name}</h3>
+                        <p className="text-zara-purple font-medium">{candidate.role}</p>
+                        <div className="flex items-center mt-1 text-sm text-gray-600">
+                          <span>{candidate.experience}</span>
+                          <span className="mx-2">•</span>
+                          <span>{candidate.location}</span>
+                        </div>
                       </div>
                     </div>
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm ${getRatingColor(candidate.rating)}`}>
-                      {candidate.rating}
+                    
+                    <div className="mt-4">
+                      <div className="flex flex-wrap gap-2">
+                        {candidate.skills.slice(0, 3).map((skill, i) => (
+                          <Badge key={i} variant="outline" className="bg-zara-purple-light text-zara-purple-dark border-0">
+                            {skill}
+                          </Badge>
+                        ))}
+                        {candidate.skills.length > 3 && (
+                          <Badge variant="outline" className="bg-gray-100 text-gray-600 border-0">
+                            +{candidate.skills.length - 3} more
+                          </Badge>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center gap-2 text-gray-600 text-sm">
-                    <MapPin className="w-4 h-4" />
-                    {candidate.location}
-                  </div>
-                  
-                  <div className="flex items-center gap-2 text-gray-600 text-sm">
-                    <Calendar className="w-4 h-4" />
-                    Submitted {candidate.submittedAt}
-                  </div>
-
-                  {candidate.hasVideoInterview && (
-                    <div className="flex items-center gap-2 text-blue-600 text-sm">
-                      <Video className="w-4 h-4" />
-                      Video interview available
+                    
+                    <div className="mt-4 pt-4 border-t border-gray-100">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <p className="text-sm text-gray-500">Monthly</p>
+                          <p className="font-medium">{candidate.salary.monthly}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-sm text-gray-500">Hourly</p>
+                          <p className="font-medium">{candidate.salary.hourly}</p>
+                        </div>
+                      </div>
                     </div>
-                  )}
-                  
-                  <div className="flex flex-wrap gap-1">
-                    {candidate.skills.slice(0, 3).map((skill, index) => (
-                      <Badge key={index} variant="outline" className="text-xs">
-                        {skill}
-                      </Badge>
-                    ))}
-                    {candidate.skills.length > 3 && (
-                      <Badge variant="outline" className="text-xs">
-                        +{candidate.skills.length - 3} more
-                      </Badge>
-                    )}
-                  </div>
-                  
-                  <div className="flex items-center justify-between pt-2">
-                    <Badge className={getStatusColor(candidate.status)}>
-                      {candidate.status.charAt(0).toUpperCase() + candidate.status.slice(1)}
-                    </Badge>
-                    <Link to={`/candidate-profile/${candidate.id}`}>
-                      <Button size="sm" className="bg-zara-purple hover:bg-zara-purple-dark">
+                    
+                    <div className="mt-4">
+                      <p className="text-sm text-gray-600 line-clamp-2">{candidate.note}</p>
+                    </div>
+                    
+                    <div className="mt-4 flex items-center justify-between">
+                      <div className="flex items-center">
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-medium ${
+                          candidate.rating >= 85 ? 'bg-green-500' : 
+                          candidate.rating >= 70 ? 'bg-amber-500' : 'bg-red-500'
+                        }`}>
+                          {candidate.rating}
+                        </div>
+                        <span className="ml-2 text-sm text-gray-600">AI Rating</span>
+                      </div>
+                      <Button variant="ghost" size="sm" className="text-zara-purple hover:bg-zara-purple-light">
                         View Profile
                       </Button>
-                    </Link>
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </Link>
             ))}
           </div>
-
+          
           {filteredCandidates.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-gray-500 text-lg">No candidates found matching your criteria.</p>
+            <div className="text-center py-12 bg-white rounded-xl shadow-sm">
+              <p className="text-lg text-gray-600">No candidates found matching your search criteria.</p>
+              <p className="mt-2 text-gray-500">Try adjusting your search terms or filters.</p>
             </div>
           )}
         </div>
