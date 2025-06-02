@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Button } from "@/components/ui/button";
@@ -6,13 +7,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Video } from 'lucide-react';
+import { Video, Users, Briefcase, TrendingUp, Clock, Award } from 'lucide-react';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   
-  // Enhanced candidate data with job descriptions and AI interview recording status
+  // Enhanced candidate data with 20+ candidates
   const candidates = [
     {
       id: 1,
@@ -24,11 +26,7 @@ const Dashboard = () => {
       skills: ["React", "TypeScript", "Redux"],
       date: "2 days ago",
       highlight: "Problem Solver",
-      aiInterviewRecording: {
-        completed: true,
-        duration: "14:32",
-        recordedAt: "2 days ago"
-      }
+      aiInterviewRecording: { completed: true, duration: "14:32", recordedAt: "2 days ago" }
     },
     {
       id: 2,
@@ -40,11 +38,7 @@ const Dashboard = () => {
       skills: ["Node.js", "Python", "MongoDB"],
       date: "1 day ago",
       highlight: null,
-      aiInterviewRecording: {
-        completed: false,
-        duration: null,
-        recordedAt: null
-      }
+      aiInterviewRecording: { completed: false, duration: null, recordedAt: null }
     },
     {
       id: 3,
@@ -56,11 +50,7 @@ const Dashboard = () => {
       skills: ["React", "Node.js", "PostgreSQL"],
       date: "4 days ago",
       highlight: "Top Logic",
-      aiInterviewRecording: {
-        completed: true,
-        duration: "16:45",
-        recordedAt: "4 days ago"
-      }
+      aiInterviewRecording: { completed: true, duration: "16:45", recordedAt: "4 days ago" }
     },
     {
       id: 4,
@@ -72,11 +62,7 @@ const Dashboard = () => {
       skills: ["Vue.js", "JavaScript", "CSS"],
       date: "5 days ago",
       highlight: "Great Communicator",
-      aiInterviewRecording: {
-        completed: true,
-        duration: "12:18",
-        recordedAt: "5 days ago"
-      }
+      aiInterviewRecording: { completed: true, duration: "12:18", recordedAt: "5 days ago" }
     },
     {
       id: 5,
@@ -88,11 +74,7 @@ const Dashboard = () => {
       skills: ["Java", "Spring", "MySQL"],
       date: "3 days ago",
       highlight: null,
-      aiInterviewRecording: {
-        completed: true,
-        duration: "11:22",
-        recordedAt: "3 days ago"
-      }
+      aiInterviewRecording: { completed: true, duration: "11:22", recordedAt: "3 days ago" }
     },
     {
       id: 6,
@@ -104,11 +86,7 @@ const Dashboard = () => {
       skills: ["Figma", "UX Research", "Prototyping"],
       date: "1 week ago",
       highlight: "Creative Thinker",
-      aiInterviewRecording: {
-        completed: true,
-        duration: "18:55",
-        recordedAt: "1 week ago"
-      }
+      aiInterviewRecording: { completed: true, duration: "18:55", recordedAt: "1 week ago" }
     },
     {
       id: 7,
@@ -120,11 +98,7 @@ const Dashboard = () => {
       skills: ["Docker", "Kubernetes", "AWS"],
       date: "3 hours ago",
       highlight: null,
-      aiInterviewRecording: {
-        completed: false,
-        duration: null,
-        recordedAt: null
-      }
+      aiInterviewRecording: { completed: false, duration: null, recordedAt: null }
     },
     {
       id: 8,
@@ -136,11 +110,163 @@ const Dashboard = () => {
       skills: ["Python", "Machine Learning", "SQL"],
       date: "2 days ago",
       highlight: "Data Expert",
-      aiInterviewRecording: {
-        completed: true,
-        duration: "20:13",
-        recordedAt: "2 days ago"
-      }
+      aiInterviewRecording: { completed: true, duration: "20:13", recordedAt: "2 days ago" }
+    },
+    {
+      id: 9,
+      name: "Quinn Rodriguez",
+      role: "Mobile Developer",
+      jobDescription: "Develop native iOS and Android applications. Implement cross-platform solutions using React Native and Flutter.",
+      status: "completed",
+      score: 86,
+      skills: ["React Native", "Swift", "Kotlin"],
+      date: "3 days ago",
+      highlight: "Mobile Expert",
+      aiInterviewRecording: { completed: true, duration: "15:42", recordedAt: "3 days ago" }
+    },
+    {
+      id: 10,
+      name: "Sam Parker",
+      role: "QA Engineer",
+      jobDescription: "Design and execute comprehensive testing strategies. Implement automated testing frameworks and ensure product quality.",
+      status: "reviewed",
+      score: 82,
+      skills: ["Selenium", "Jest", "Cypress"],
+      date: "4 days ago",
+      highlight: "Quality Focus",
+      aiInterviewRecording: { completed: true, duration: "13:28", recordedAt: "4 days ago" }
+    },
+    {
+      id: 11,
+      name: "Charlie Kim",
+      role: "Security Engineer",
+      jobDescription: "Implement security protocols and conduct vulnerability assessments. Ensure compliance with industry security standards.",
+      status: "completed",
+      score: 91,
+      skills: ["Cybersecurity", "Penetration Testing", "OWASP"],
+      date: "2 days ago",
+      highlight: "Security Expert",
+      aiInterviewRecording: { completed: true, duration: "17:35", recordedAt: "2 days ago" }
+    },
+    {
+      id: 12,
+      name: "Blake Wilson",
+      role: "UI/UX Designer",
+      jobDescription: "Create intuitive user interfaces and exceptional user experiences. Conduct user research and prototype solutions.",
+      status: "in_progress",
+      score: null,
+      skills: ["Figma", "Adobe XD", "User Research"],
+      date: "1 day ago",
+      highlight: null,
+      aiInterviewRecording: { completed: false, duration: null, recordedAt: null }
+    },
+    {
+      id: 13,
+      name: "Drew Martinez",
+      role: "Machine Learning Engineer",
+      jobDescription: "Develop and deploy ML models at scale. Work with big data technologies and implement AI solutions.",
+      status: "completed",
+      score: 95,
+      skills: ["TensorFlow", "PyTorch", "Kubernetes"],
+      date: "1 day ago",
+      highlight: "AI Innovator",
+      aiInterviewRecording: { completed: true, duration: "22:18", recordedAt: "1 day ago" }
+    },
+    {
+      id: 14,
+      name: "Sage Anderson",
+      role: "Cloud Architect",
+      jobDescription: "Design scalable cloud infrastructure solutions. Lead cloud migration projects and optimize cost efficiency.",
+      status: "completed",
+      score: 88,
+      skills: ["AWS", "Azure", "Terraform"],
+      date: "3 days ago",
+      highlight: "Cloud Expert",
+      aiInterviewRecording: { completed: true, duration: "19:24", recordedAt: "3 days ago" }
+    },
+    {
+      id: 15,
+      name: "River Chen",
+      role: "Blockchain Developer",
+      jobDescription: "Develop smart contracts and decentralized applications. Implement blockchain solutions for various industries.",
+      status: "reviewed",
+      score: 84,
+      skills: ["Solidity", "Web3", "Ethereum"],
+      date: "5 days ago",
+      highlight: "Blockchain Pioneer",
+      aiInterviewRecording: { completed: true, duration: "16:52", recordedAt: "5 days ago" }
+    },
+    {
+      id: 16,
+      name: "Phoenix Taylor",
+      role: "Technical Writer",
+      jobDescription: "Create comprehensive technical documentation. Collaborate with engineering teams to produce clear user guides.",
+      status: "completed",
+      score: 79,
+      skills: ["Technical Writing", "Documentation", "API Docs"],
+      date: "4 days ago",
+      highlight: "Clear Communicator",
+      aiInterviewRecording: { completed: true, duration: "14:16", recordedAt: "4 days ago" }
+    },
+    {
+      id: 17,
+      name: "Rowan Jackson",
+      role: "Game Developer",
+      jobDescription: "Develop engaging video games using Unity and Unreal Engine. Create immersive gaming experiences.",
+      status: "in_progress",
+      score: null,
+      skills: ["Unity", "C#", "Game Design"],
+      date: "2 hours ago",
+      highlight: null,
+      aiInterviewRecording: { completed: false, duration: null, recordedAt: null }
+    },
+    {
+      id: 18,
+      name: "Skyler White",
+      role: "Site Reliability Engineer",
+      jobDescription: "Ensure system reliability and performance. Implement monitoring solutions and incident response procedures.",
+      status: "completed",
+      score: 90,
+      skills: ["Monitoring", "Incident Response", "Performance"],
+      date: "2 days ago",
+      highlight: "Reliability Expert",
+      aiInterviewRecording: { completed: true, duration: "18:43", recordedAt: "2 days ago" }
+    },
+    {
+      id: 19,
+      name: "Emery Brown",
+      role: "Platform Engineer",
+      jobDescription: "Build and maintain internal developer platforms. Implement tools and workflows to improve developer productivity.",
+      status: "completed",
+      score: 87,
+      skills: ["Platform Engineering", "Developer Tools", "CI/CD"],
+      date: "3 days ago",
+      highlight: "Platform Builder",
+      aiInterviewRecording: { completed: true, duration: "15:29", recordedAt: "3 days ago" }
+    },
+    {
+      id: 20,
+      name: "Sage Cooper",
+      role: "Research Scientist",
+      jobDescription: "Conduct advanced research in computer science and AI. Publish findings and contribute to open-source projects.",
+      status: "reviewed",
+      score: 93,
+      skills: ["Research", "AI", "Publications"],
+      date: "1 week ago",
+      highlight: "Research Leader",
+      aiInterviewRecording: { completed: true, duration: "21:37", recordedAt: "1 week ago" }
+    },
+    {
+      id: 21,
+      name: "Dakota Green",
+      role: "Embedded Systems Engineer",
+      jobDescription: "Develop software for embedded systems and IoT devices. Work with microcontrollers and real-time systems.",
+      status: "completed",
+      score: 85,
+      skills: ["C/C++", "Embedded Systems", "IoT"],
+      date: "4 days ago",
+      highlight: "Hardware Expert",
+      aiInterviewRecording: { completed: true, duration: "17:08", recordedAt: "4 days ago" }
     }
   ];
 
@@ -160,6 +286,10 @@ const Dashboard = () => {
     return matchesTab && matchesSearch;
   });
 
+  const handleViewProfile = (candidateId: number) => {
+    navigate('/candidate-profile-detail', { state: { candidateId } });
+  };
+
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "in_progress":
@@ -173,6 +303,11 @@ const Dashboard = () => {
     }
   };
 
+  const totalRoles = 15;
+  const totalInterviews = candidates.length;
+  const completedInterviews = candidates.filter(c => c.status === 'completed').length;
+  const averageScore = Math.round(candidates.filter(c => c.score).reduce((sum, c) => sum + (c.score || 0), 0) / candidates.filter(c => c.score).length);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 to-white flex flex-col">
       <Navbar />
@@ -181,7 +316,7 @@ const Dashboard = () => {
         <div className="container mx-auto max-w-6xl">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
             <div>
-              <h1 className="text-3xl font-bold">Candidate Dashboard</h1>
+              <h1 className="text-3xl font-bold">Recruiter Command Centre</h1>
               <p className="text-gray-600">Manage and review your candidate interviews</p>
             </div>
             <div className="mt-4 md:mt-0">
@@ -189,47 +324,74 @@ const Dashboard = () => {
             </div>
           </div>
           
-          <div className="grid md:grid-cols-4 gap-6 mb-8">
-            <Card className="bg-gradient-to-br from-white to-violet-50">
+          <div className="grid md:grid-cols-5 gap-6 mb-8">
+            <Card className="bg-gradient-to-br from-white to-violet-50 hover:shadow-lg transition-all duration-300">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-gray-500">Total Interviews</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
+                  <Briefcase className="w-4 h-4" />
+                  Total Roles
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold">32</p>
-                <p className="text-sm text-gray-500">+8 this week</p>
+                <p className="text-3xl font-bold text-zara-purple">{totalRoles}</p>
+                <p className="text-sm text-gray-500">Active positions</p>
               </CardContent>
             </Card>
             
-            <Card className="bg-gradient-to-br from-white to-violet-50">
+            <Card className="bg-gradient-to-br from-white to-violet-50 hover:shadow-lg transition-all duration-300">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-gray-500">In Progress</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
+                  <Users className="w-4 h-4" />
+                  Total Interviews
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold">5</p>
-                <p className="text-sm text-gray-500">2 due today</p>
+                <p className="text-3xl font-bold text-blue-600">{totalInterviews}</p>
+                <p className="text-sm text-gray-500">Candidates assessed</p>
               </CardContent>
             </Card>
             
-            <Card className="bg-gradient-to-br from-white to-violet-50">
+            <Card className="bg-gradient-to-br from-white to-violet-50 hover:shadow-lg transition-all duration-300">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-gray-500">Completed</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
+                  <Clock className="w-4 h-4" />
+                  Completed
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold">21</p>
-                <p className="text-sm text-gray-500">Need review</p>
+                <p className="text-3xl font-bold text-green-600">{completedInterviews}</p>
+                <p className="text-sm text-gray-500">Interviews done</p>
               </CardContent>
             </Card>
             
-            <Card className="bg-gradient-to-br from-white to-violet-50">
+            <Card className="bg-gradient-to-br from-white to-violet-50 hover:shadow-lg transition-all duration-300">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-gray-500">Time Saved</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
+                  <Award className="w-4 h-4" />
+                  Average Score
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold">64h</p>
+                <p className="text-3xl font-bold text-amber-600">{averageScore}</p>
+                <p className="text-sm text-gray-500">Quality metric</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-gradient-to-br from-white to-violet-50 hover:shadow-lg transition-all duration-300">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4" />
+                  Time Saved
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-3xl font-bold text-purple-600">164h</p>
                 <p className="text-sm text-gray-500">This month</p>
               </CardContent>
             </Card>
           </div>
+          
+          
           
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
             <div className="p-6 border-b border-gray-200">
@@ -337,7 +499,12 @@ const Dashboard = () => {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-gray-500">{candidate.date}</td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <Button variant="ghost" size="sm" className="text-zara-purple hover:text-zara-purple-dark hover:bg-zara-purple-light">
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="text-zara-purple hover:text-zara-purple-dark hover:bg-zara-purple-light"
+                            onClick={() => handleViewProfile(candidate.id)}
+                          >
                             View Profile
                           </Button>
                         </td>

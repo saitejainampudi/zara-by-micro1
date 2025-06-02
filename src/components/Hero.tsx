@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -41,7 +40,7 @@ const Hero = () => {
                 <span className="block mb-2 text-gray-900">
                   Smart AI Recruiting
                 </span>
-                <span className="block text-gray-900">
+                <span className="block text-zara-purple">
                   on Autopilot
                 </span>
               </h1>
