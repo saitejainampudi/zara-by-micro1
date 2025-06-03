@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Code, Video, MessageSquare, Clock, CheckCircle, ArrowLeft, ArrowRight, Save } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Textarea } from "@/components/ui/textarea";
@@ -69,7 +68,6 @@ const FullAssessmentPage = () => {
   };
 
   const handleSubmitAssessment = () => {
-    // Submit logic here
     navigate('/candidate-dashboard', { 
       state: { message: 'Assessment submitted successfully!' }
     });
@@ -184,7 +182,6 @@ const FullAssessmentPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 to-white">
-      {/* Header */}
       <div className="bg-white border-b shadow-sm">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
@@ -220,10 +217,8 @@ const FullAssessmentPage = () => {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="container mx-auto px-6 py-8">
         <div className="grid lg:grid-cols-4 gap-8">
-          {/* Steps Sidebar */}
           <div className="lg:col-span-1">
             <Card>
               <CardHeader>
@@ -239,7 +234,7 @@ const FullAssessmentPage = () => {
                     <div
                       key={step.id}
                       className={`p-4 rounded-lg border-2 transition-all ${
-                        isCurrent ? 'border-zara-purple bg-zara-purple-light' :
+                        isCurrent ? 'border-purple-500 bg-purple-50' :
                         isCompleted ? 'border-green-300 bg-green-50' :
                         'border-gray-200 bg-gray-50'
                       }`}
@@ -247,7 +242,7 @@ const FullAssessmentPage = () => {
                       <div className="flex items-center gap-3 mb-2">
                         <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
                           isCompleted ? 'bg-green-500 text-white' :
-                          isCurrent ? 'bg-zara-purple text-white' :
+                          isCurrent ? 'bg-purple-500 text-white' :
                           'bg-gray-300 text-gray-600'
                         }`}>
                           {isCompleted ? <CheckCircle className="w-4 h-4" /> : <StepIcon className="w-4 h-4" />}
@@ -268,14 +263,13 @@ const FullAssessmentPage = () => {
             </Card>
           </div>
 
-          {/* Main Content Area */}
           <div className="lg:col-span-3">
             <Card>
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
                     <CardTitle className="flex items-center gap-2">
-                      <steps[currentStep].icon className="w-5 h-5" />
+                      {React.createElement(steps[currentStep].icon, { className: "w-5 h-5" })}
                       {steps[currentStep].title}
                     </CardTitle>
                     <div className="flex items-center gap-2 mt-2">
@@ -304,14 +298,14 @@ const FullAssessmentPage = () => {
                   {currentStep === steps.length - 1 ? (
                     <Button
                       onClick={handleSubmitAssessment}
-                      className="bg-zara-purple hover:bg-zara-purple-dark"
+                      className="bg-purple-600 hover:bg-purple-700"
                     >
                       Submit Assessment
                     </Button>
                   ) : (
                     <Button
                       onClick={handleStepComplete}
-                      className="bg-zara-purple hover:bg-zara-purple-dark"
+                      className="bg-purple-600 hover:bg-purple-700"
                     >
                       Next Step
                       <ArrowRight className="w-4 h-4 ml-2" />
