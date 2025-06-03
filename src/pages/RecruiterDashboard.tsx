@@ -644,7 +644,13 @@ const RecruiterDashboard = () => {
                           <Eye className="w-4 h-4 mr-2" />
                           View Analytics
                         </Button>
-                        <Button variant="outline">
+                        <Button 
+                          variant="outline"
+                          onClick={() => {
+                            setActiveView('candidates');
+                            // Filter candidates by role if needed
+                          }}
+                        >
                           <Users className="w-4 h-4 mr-2" />
                           View Candidates ({role.applicants.total})
                         </Button>
@@ -904,13 +910,14 @@ const RecruiterDashboard = () => {
                   />
                 </div>
               ) : (
-                <div className="text-center py-12">
-                  <BarChart3 className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-600 mb-2">Select a Role for Detailed Analytics</h3>
-                  <p className="text-gray-500 mb-6">Choose a role from the Roles tab to view comprehensive performance metrics</p>
-                  <Button onClick={() => setActiveView('roles')} className="bg-zara-purple hover:bg-zara-purple-dark">
-                    View Roles
-                  </Button>
+                <div className="space-y-6">
+                  <div className="text-center py-8">
+                    <BarChart3 className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-gray-600 mb-2">Overall Hiring Analytics</h3>
+                    <p className="text-gray-500 mb-6">Comprehensive insights into your recruitment performance</p>
+                  </div>
+                  
+                  <HiringMetricsDashboard data={dashboardStats} />
                 </div>
               )}
             </TabsContent>

@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import AssessmentWizard from '../components/AssessmentWizard';
@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Play, FileText, MessageSquare, Settings, Clock, CheckCircle, AlertCircle, User, Trophy, Zap, Target, Code, Video, Calendar, Award, Timer, Link as LinkIcon, TrendingUp } from 'lucide-react';
 
 const CandidateDashboard = () => {
+  const navigate = useNavigate();
   const [showWizard, setShowWizard] = useState(false);
   const [selectedAssignment, setSelectedAssignment] = useState(null);
   const [accessCode, setAccessCode] = useState('');
@@ -110,8 +111,11 @@ const CandidateDashboard = () => {
   ];
 
   const handleStartAssessment = (assignment: any) => {
-    setSelectedAssignment(assignment);
-    setShowWizard(true);
+    navigate('/full-assessment', { state: { assignment } });
+  };
+
+  const handleViewDetails = (assignment: any) => {
+    navigate('/assignment-details', { state: { assignment } });
   };
 
   const handleWizardComplete = () => {
@@ -353,7 +357,11 @@ const CandidateDashboard = () => {
                           </Button>
                         )}
                         
-                        <Button variant="outline" className="flex items-center gap-2">
+                        <Button 
+                          variant="outline" 
+                          className="flex items-center gap-2"
+                          onClick={() => handleViewDetails(assignment)}
+                        >
                           <FileText className="w-4 h-4" />
                           View Details
                         </Button>

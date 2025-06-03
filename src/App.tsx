@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Index from './pages/Index';
@@ -17,6 +16,8 @@ import AIInterviewPage from './pages/AIInterviewPage';
 import AssessmentPage from './pages/AssessmentPage';
 import NotFound from './pages/NotFound';
 import CandidateProfileDetail from './pages/CandidateProfileDetail';
+import AssignmentDetailsPage from './pages/AssignmentDetailsPage';
+import FullAssessmentPage from './pages/FullAssessmentPage';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -59,6 +60,22 @@ function App() {
           element={
             <ProtectedRoute requiredRole="candidate">
               <CandidateDashboard />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/assignment-details" 
+          element={
+            <ProtectedRoute requiredRole="candidate">
+              <AssignmentDetailsPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/full-assessment" 
+          element={
+            <ProtectedRoute requiredRole="candidate">
+              <FullAssessmentPage />
             </ProtectedRoute>
           } 
         />
