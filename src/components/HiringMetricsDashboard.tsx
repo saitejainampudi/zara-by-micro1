@@ -138,7 +138,7 @@ const HiringMetricsDashboard: React.FC<HiringMetricsDashboardProps> = ({ data })
           </CardContent>
         </Card>
 
-        {/* Performance Comparison */}
+        {/* Performance Comparison - Fixed horizontal bar chart */}
         <Card>
           <CardHeader>
             <CardTitle>Zara AI vs Traditional Hiring</CardTitle>
@@ -147,8 +147,8 @@ const HiringMetricsDashboard: React.FC<HiringMetricsDashboardProps> = ({ data })
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={performanceComparisonData} layout="horizontal">
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis type="number" />
-                <YAxis dataKey="metric" type="category" width={120} />
+                <XAxis type="number" domain={[0, 100]} />
+                <YAxis dataKey="metric" type="category" width={120} fontSize={12} />
                 <Tooltip />
                 <Bar dataKey="withZara" fill="#8b5cf6" name="With Zara AI" />
                 <Bar dataKey="traditional" fill="#e5e7eb" name="Traditional" />
