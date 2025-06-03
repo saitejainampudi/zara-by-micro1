@@ -11,12 +11,16 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Play, FileText, MessageSquare, Settings, Clock, CheckCircle, AlertCircle, User, Trophy, Zap, Target, Code, Video, Calendar, Award, Timer, Link as LinkIcon, TrendingUp } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Play, FileText, MessageSquare, Clock, CheckCircle, AlertCircle, Trophy, Zap, Target, Code, Video, Calendar, Award, Timer, Link as LinkIcon, TrendingUp, BarChart3, Users } from 'lucide-react';
 
 const CandidateDashboard = () => {
   const navigate = useNavigate();
   const [accessCode, setAccessCode] = useState('');
   const [directLink, setDirectLink] = useState('');
+  const [activeTab, setActiveTab] = useState('all');
+  const [showResults, setShowResults] = useState(false);
+  const [selectedAssignment, setSelectedAssignment] = useState<any>(null);
 
   // Enhanced assignments data with more variety
   const assignments = [
@@ -116,6 +120,11 @@ const CandidateDashboard = () => {
     navigate('/assignment-details', { state: { assignment } });
   };
 
+  const handleViewResults = (assignment: any) => {
+    setSelectedAssignment(assignment);
+    setShowResults(true);
+  };
+
   const getStatusBadge = (status: string, daysLeft?: number) => {
     if (status === 'completed') {
       return <Badge className="bg-green-100 text-green-700 border-green-200">Completed</Badge>;
@@ -135,6 +144,140 @@ const CandidateDashboard = () => {
       default: return <AlertCircle className="w-5 h-5 text-gray-400" />;
     }
   };
+
+  const getFilteredAssignments = () => {
+    switch (activeTab) {
+      case 'in-progress':
+        return assignments.filter(a => a.status === 'in-progress');
+      case 'pending':
+        return assignments.filter(a => a.status === 'pending');
+      case 'completed':
+        return assignments.filter(a => a.status === 'completed');
+      default:
+        return assignments;
+    }
+  };
+
+  const getCounts = () => {
+    return {
+      all: assignments.length,
+      inProgress: assignments.filter(a => a.status === 'in-progress').length,
+      pending: assignments.filter(a => a.status === 'pending').length,
+      completed: assignments.filter(a => a.status === 'completed').length
+    };
+  };
+
+  const counts = getCounts();
+  const filteredAssignments = getFilteredAssignments();
+
+  if (showResults && selectedAssignment) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-violet-50 to-white">
+        <Navbar />
+        
+        <main className="pt-28 pb-20 px-6 md:px-10">
+          <div className="container mx-auto max-w-6xl">
+            <div className="mb-8">
+              <Button 
+                variant="outline" 
+                onClick={() => setShowResults(false)}
+                className="mb-4"
+              >
+                ← Back to Dashboard
+              </Button>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Assessment Results</h1>
+              <p className="text-gray-600">{selectedAssignment.role} at {selectedAssignment.company}</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Overall Score */}
+              <Card className="bg-gradient-to-br from-green-50 to-white border-green-200">
+                <CardHeader className="text-center">
+                  <div className="w-24 h-24 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-3xl font-bold text-white">{selectedAssignment.finalScore}</span>
+                  </div>
+                  <CardTitle className="text-2xl text-green-800">Final Score</CardTitle>
+                  <CardDescription>Outstanding performance across all assessments</CardDescription>
+                </CardHeader>
+              </Card>
+
+              {/* Performance Breakdown */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <BarChart3 className="w-5 h-5 text-zara-purple" />
+                    Performance Breakdown
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {Object.entries(selectedAssignment.steps).map(([key, step]: [string, any]) => {
+                    if (step.score > 0) {
+                      return (
+                        <div key={key} className="space-y-2">
+                          <div className="flex justify-between">
+                            <span className="font-medium capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
+                            <span className="font-bold">{step.score}/100</span>
+                          </div>
+                          <Progress value={step.score} className="h-2" />
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+                </CardContent>
+              </Card>
+
+              {/* Detailed Analytics */}
+              <Card className="md:col-span-2">
+                <CardHeader>
+                  <CardTitle>Detailed Performance Analytics</CardTitle>
+                  <CardDescription>Comprehensive breakdown of your assessment performance</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid md:grid-cols-3 gap-6">
+                    <div className="text-center p-4 bg-blue-50 rounded-lg">
+                      <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                        <Code className="w-6 h-6 text-blue-600" />
+                      </div>
+                      <h3 className="font-semibold mb-2">Technical Skills</h3>
+                      <div className="text-2xl font-bold text-blue-600 mb-1">
+                        {selectedAssignment.steps.coding.score || 'N/A'}
+                      </div>
+                      <p className="text-sm text-gray-600">Above average performance</p>
+                    </div>
+
+                    <div className="text-center p-4 bg-purple-50 rounded-lg">
+                      <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                        <Video className="w-6 h-6 text-purple-600" />
+                      </div>
+                      <h3 className="font-semibold mb-2">Communication</h3>
+                      <div className="text-2xl font-bold text-purple-600 mb-1">
+                        {selectedAssignment.steps.interview.score || 'N/A'}
+                      </div>
+                      <p className="text-sm text-gray-600">Excellent presentation skills</p>
+                    </div>
+
+                    <div className="text-center p-4 bg-green-50 rounded-lg">
+                      <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                        <Users className="w-6 h-6 text-green-600" />
+                      </div>
+                      <h3 className="font-semibold mb-2">Soft Skills</h3>
+                      <div className="text-2xl font-bold text-green-600 mb-1">
+                        {selectedAssignment.steps.softSkills.score || 'N/A'}
+                      </div>
+                      <p className="text-sm text-gray-600">Strong team player</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </main>
+        
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 to-white">
@@ -210,8 +353,8 @@ const CandidateDashboard = () => {
           {/* Overview Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
             {[
-              { title: "6", subtitle: "Total Assignments", icon: Target, color: "purple", trend: "Active roles" },
-              { title: "72%", subtitle: "Average Progress", icon: TrendingUp, color: "blue", trend: "On track" },
+              { title: counts.all.toString(), subtitle: "Total Assignments", icon: Target, color: "purple", trend: "Active roles" },
+              { title: `${Math.round((counts.inProgress / counts.all) * 100)}%`, subtitle: "In Progress", icon: TrendingUp, color: "blue", trend: "Keep going" },
               { title: "91", subtitle: "Best Score", icon: Award, color: "green", trend: "Top performer" },
               { title: "3", subtitle: "Days Until Deadline", icon: Timer, color: "orange", trend: "Stay focused" }
             ].map((stat, index) => (
@@ -235,169 +378,153 @@ const CandidateDashboard = () => {
             ))}
           </div>
 
-          {/* Assignments Grid */}
+          {/* Assignment Filter Tabs */}
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold text-gray-900">Your Assignments</h2>
-              <Badge variant="outline" className="bg-blue-50 text-blue-600 border-blue-200">
-                {assignments.filter(a => a.status !== 'completed').length} Active
-              </Badge>
             </div>
 
-            <div className="space-y-6">
-              {assignments.map((assignment) => (
-                <Card key={assignment.id} className="group hover:shadow-xl transition-all duration-300 border-gray-200 hover:border-gray-300 bg-gradient-to-r from-white to-violet-50">
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-3">
-                          <CardTitle className="text-xl">{assignment.role}</CardTitle>
-                          {getStatusBadge(assignment.status, assignment.daysLeft)}
-                        </div>
-                        <CardDescription className="text-lg font-medium text-gray-700">
-                          {assignment.company}
-                        </CardDescription>
-                        <div className="flex items-center gap-4 text-sm text-gray-600">
-                          <div className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            Due: {assignment.deadline}
-                          </div>
-                          {assignment.daysLeft > 0 && (
-                            <div className="flex items-center gap-1">
-                              <Timer className="w-4 h-4" />
-                              {assignment.daysLeft} days left
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      
-                      {assignment.status === 'completed' && assignment.finalScore && (
-                        <div className="text-center">
-                          <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
-                            {assignment.finalScore}
-                          </div>
-                          <div className="text-sm text-gray-600 mt-1">Final Score</div>
-                        </div>
-                      )}
-                    </div>
-                  </CardHeader>
-                  
-                  <CardContent>
-                    <div className="space-y-6">
-                      {/* Progress Bar */}
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-sm">
-                          <span className="font-medium">Overall Progress</span>
-                          <span className="text-gray-600">{assignment.progress}% Complete</span>
-                        </div>
-                        <Progress value={assignment.progress} className="h-2" />
-                      </div>
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <TabsList className="grid w-full grid-cols-4">
+                <TabsTrigger value="all" className="flex items-center gap-2">
+                  All ({counts.all})
+                </TabsTrigger>
+                <TabsTrigger value="in-progress" className="flex items-center gap-2">
+                  In Progress ({counts.inProgress})
+                </TabsTrigger>
+                <TabsTrigger value="pending" className="flex items-center gap-2">
+                  Pending ({counts.pending})
+                </TabsTrigger>
+                <TabsTrigger value="completed" className="flex items-center gap-2">
+                  Completed ({counts.completed})
+                </TabsTrigger>
+              </TabsList>
 
-                      {/* Assessment Steps */}
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        {[
-                          { key: 'coding', title: 'Coding Challenge', icon: Code, description: 'Technical assessment' },
-                          { key: 'interview', title: 'AI Interview', icon: Video, description: 'Video responses' },
-                          { key: 'softSkills', title: 'Soft Skills', icon: MessageSquare, description: 'Behavioral assessment' }
-                        ].map((step) => {
-                          const stepData = assignment.steps[step.key as keyof typeof assignment.steps];
-                          return (
-                            <div key={step.key} className={`p-4 rounded-xl border-2 transition-all duration-300 hover:shadow-lg ${
-                              stepData.status === 'completed' ? 'bg-green-50 border-green-200' :
-                              stepData.status === 'in-progress' ? 'bg-blue-50 border-blue-200' :
-                              'bg-gray-50 border-gray-200'
-                            }`}>
-                              <div className="flex items-center gap-3 mb-3">
-                                {getStepIcon(stepData.status)}
-                                <div>
-                                  <h4 className="font-semibold text-gray-900">{step.title}</h4>
-                                  <p className="text-sm text-gray-600">{step.description}</p>
-                                </div>
+              <TabsContent value={activeTab} className="space-y-6 mt-6">
+                {filteredAssignments.map((assignment) => (
+                  <Card key={assignment.id} className="group hover:shadow-xl transition-all duration-300 border-gray-200 hover:border-gray-300 bg-gradient-to-r from-white to-violet-50">
+                    <CardHeader>
+                      <div className="flex items-start justify-between">
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-3">
+                            <CardTitle className="text-xl">{assignment.role}</CardTitle>
+                            {getStatusBadge(assignment.status, assignment.daysLeft)}
+                          </div>
+                          <CardDescription className="text-lg font-medium text-gray-700">
+                            {assignment.company}
+                          </CardDescription>
+                          <div className="flex items-center gap-4 text-sm text-gray-600">
+                            <div className="flex items-center gap-1">
+                              <Calendar className="w-4 h-4" />
+                              Due: {assignment.deadline}
+                            </div>
+                            {assignment.daysLeft > 0 && (
+                              <div className="flex items-center gap-1">
+                                <Timer className="w-4 h-4" />
+                                {assignment.daysLeft} days left
                               </div>
-                              
-                              {stepData.score && stepData.score > 0 && (
-                                <div className="flex items-center justify-between">
-                                  <span className="text-sm font-medium">Score:</span>
-                                  <div className={`px-2 py-1 rounded text-sm font-bold ${
-                                    stepData.score >= 90 ? 'bg-green-100 text-green-700' :
-                                    stepData.score >= 80 ? 'bg-blue-100 text-blue-700' :
-                                    stepData.score >= 70 ? 'bg-yellow-100 text-yellow-700' :
-                                    'bg-red-100 text-red-700'
-                                  }`}>
-                                    {stepData.score}/100
+                            )}
+                          </div>
+                        </div>
+                        
+                        {assignment.status === 'completed' && assignment.finalScore && (
+                          <div className="text-center">
+                            <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                              {assignment.finalScore}
+                            </div>
+                            <div className="text-sm text-gray-600 mt-1">Final Score</div>
+                          </div>
+                        )}
+                      </div>
+                    </CardHeader>
+                    
+                    <CardContent>
+                      <div className="space-y-6">
+                        {/* Progress Bar */}
+                        <div className="space-y-2">
+                          <div className="flex justify-between text-sm">
+                            <span className="font-medium">Overall Progress</span>
+                            <span className="text-gray-600">{assignment.progress}% Complete</span>
+                          </div>
+                          <Progress value={assignment.progress} className="h-2" />
+                        </div>
+
+                        {/* Assessment Steps */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          {[
+                            { key: 'coding', title: 'Coding Challenge', icon: Code, description: 'Technical assessment' },
+                            { key: 'interview', title: 'AI Interview', icon: Video, description: 'Video responses' },
+                            { key: 'softSkills', title: 'Soft Skills', icon: MessageSquare, description: 'Behavioral assessment' }
+                          ].map((step) => {
+                            const stepData = assignment.steps[step.key as keyof typeof assignment.steps];
+                            return (
+                              <div key={step.key} className={`p-4 rounded-xl border-2 transition-all duration-300 hover:shadow-lg ${
+                                stepData.status === 'completed' ? 'bg-green-50 border-green-200' :
+                                stepData.status === 'in-progress' ? 'bg-blue-50 border-blue-200' :
+                                'bg-gray-50 border-gray-200'
+                              }`}>
+                                <div className="flex items-center gap-3 mb-3">
+                                  {getStepIcon(stepData.status)}
+                                  <div>
+                                    <h4 className="font-semibold text-gray-900">{step.title}</h4>
+                                    <p className="text-sm text-gray-600">{step.description}</p>
                                   </div>
                                 </div>
-                              )}
-                            </div>
-                          );
-                        })}
-                      </div>
+                                
+                                {stepData.score && stepData.score > 0 && (
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-sm font-medium">Score:</span>
+                                    <div className={`px-2 py-1 rounded text-sm font-bold ${
+                                      stepData.score >= 90 ? 'bg-green-100 text-green-700' :
+                                      stepData.score >= 80 ? 'bg-blue-100 text-blue-700' :
+                                      stepData.score >= 70 ? 'bg-yellow-100 text-yellow-700' :
+                                      'bg-red-100 text-red-700'
+                                    }`}>
+                                      {stepData.score}/100
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
 
-                      {/* Action Buttons */}
-                      <div className="flex items-center gap-3 pt-4 border-t">
-                        {assignment.status === 'completed' ? (
-                          <Button variant="outline" className="flex items-center gap-2">
-                            <Trophy className="w-4 h-4" />
-                            View Results
-                          </Button>
-                        ) : (
+                        {/* Action Buttons */}
+                        <div className="flex items-center gap-3 pt-4 border-t">
+                          {assignment.status === 'completed' ? (
+                            <Button 
+                              onClick={() => handleViewResults(assignment)}
+                              className="bg-green-600 hover:bg-green-700 flex items-center gap-2"
+                            >
+                              <Trophy className="w-4 h-4" />
+                              View Results
+                            </Button>
+                          ) : (
+                            <Button 
+                              onClick={() => handleStartAssessment(assignment)}
+                              className="bg-zara-purple hover:bg-zara-purple-dark flex items-center gap-2"
+                            >
+                              <Play className="w-4 h-4" />
+                              {assignment.status === 'in-progress' ? 'Continue Assessment' : 'Start Assessment'}
+                            </Button>
+                          )}
+                          
                           <Button 
-                            onClick={() => handleStartAssessment(assignment)}
-                            className="bg-zara-purple hover:bg-zara-purple-dark flex items-center gap-2"
+                            variant="outline" 
+                            className="flex items-center gap-2"
+                            onClick={() => handleViewDetails(assignment)}
                           >
-                            <Play className="w-4 h-4" />
-                            {assignment.status === 'in-progress' ? 'Continue Assessment' : 'Start Assessment'}
+                            <FileText className="w-4 h-4" />
+                            View Details
                           </Button>
-                        )}
-                        
-                        <Button 
-                          variant="outline" 
-                          className="flex items-center gap-2"
-                          onClick={() => handleViewDetails(assignment)}
-                        >
-                          <FileText className="w-4 h-4" />
-                          View Details
-                        </Button>
+                        </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </TabsContent>
+            </Tabs>
           </div>
-
-          {/* Quick Actions Panel */}
-          <Card className="mt-8 hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-zara-purple-light to-white border-zara-purple/20">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Settings className="w-5 h-5 text-zara-purple" />
-                Quick Actions & Resources
-              </CardTitle>
-              <CardDescription>
-                Essential tools and resources for your assessment success
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <Button variant="outline" className="h-20 flex-col gap-2 hover:bg-zara-purple/5">
-                  <User className="w-6 h-6" />
-                  <span className="text-sm">Update Profile</span>
-                </Button>
-                <Button variant="outline" className="h-20 flex-col gap-2 hover:bg-zara-purple/5">
-                  <FileText className="w-6 h-6" />
-                  <span className="text-sm">Practice Tests</span>
-                </Button>
-                <Button variant="outline" className="h-20 flex-col gap-2 hover:bg-zara-purple/5">
-                  <MessageSquare className="w-6 h-6" />
-                  <span className="text-sm">Help Center</span>
-                </Button>
-                <Button variant="outline" className="h-20 flex-col gap-2 hover:bg-zara-purple/5">
-                  <Settings className="w-6 h-6" />
-                  <span className="text-sm">Preferences</span>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </main>
       
