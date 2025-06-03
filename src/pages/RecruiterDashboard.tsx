@@ -7,6 +7,7 @@ import RoleAnalytics from '../components/RoleAnalytics';
 import NotificationCenter from '../components/NotificationCenter';
 import ContextualHelp from '../components/ContextualHelp';
 import FeedbackWidget from '../components/FeedbackWidget';
+import HiringMetricsDashboard from '../components/HiringMetricsDashboard';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
