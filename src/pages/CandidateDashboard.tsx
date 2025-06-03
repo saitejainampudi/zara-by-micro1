@@ -1,8 +1,8 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import AssessmentWizard from '../components/AssessmentWizard';
 import NotificationCenter from '../components/NotificationCenter';
 import ContextualHelp from '../components/ContextualHelp';
 import FeedbackWidget from '../components/FeedbackWidget';
@@ -15,8 +15,6 @@ import { Play, FileText, MessageSquare, Settings, Clock, CheckCircle, AlertCircl
 
 const CandidateDashboard = () => {
   const navigate = useNavigate();
-  const [showWizard, setShowWizard] = useState(false);
-  const [selectedAssignment, setSelectedAssignment] = useState(null);
   const [accessCode, setAccessCode] = useState('');
   const [directLink, setDirectLink] = useState('');
 
@@ -116,11 +114,6 @@ const CandidateDashboard = () => {
 
   const handleViewDetails = (assignment: any) => {
     navigate('/assignment-details', { state: { assignment } });
-  };
-
-  const handleWizardComplete = () => {
-    setShowWizard(false);
-    setSelectedAssignment(null);
   };
 
   const getStatusBadge = (status: string, daysLeft?: number) => {
@@ -409,15 +402,6 @@ const CandidateDashboard = () => {
       </main>
       
       <Footer />
-      
-      {/* Assessment Wizard Modal */}
-      {showWizard && selectedAssignment && (
-        <AssessmentWizard
-          assignment={selectedAssignment}
-          onComplete={handleWizardComplete}
-          onClose={() => setShowWizard(false)}
-        />
-      )}
       
       {/* Feedback Widget */}
       <FeedbackWidget context="candidate-dashboard" userRole="candidate" />
