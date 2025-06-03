@@ -42,7 +42,7 @@ const WhiteLabelTheme = ({
     setTheme(currentTheme);
   }, [currentTheme]);
 
-  const handleColorChange = (property: keyof ThemeConfig, value: string) => {
+  const handleColorChange = (property: keyof ThemeConfig, value: string | number) => {
     const updatedTheme = { ...theme, [property]: value };
     setTheme(updatedTheme);
     onThemeChange(updatedTheme);
