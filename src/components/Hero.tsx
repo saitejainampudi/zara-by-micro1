@@ -29,7 +29,7 @@ const Hero = () => {
               
               <p className="text-xl text-gray-600 leading-relaxed max-w-xl">
                 Transform your recruitment process with intelligent candidate screening, 
-                automated assessments, and data-driven hiring decisions on <span className="text-zara-purple-dark font-semibold">auto pilot</span>.
+                automated assessments, and data-driven hiring decisions on <span className="text-zara-purple-dark font-bold">auto pilot</span>.
               </p>
             </div>
 

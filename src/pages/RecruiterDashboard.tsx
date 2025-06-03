@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link, useNavigate } from 'react-router-dom';
-import { Users, FileText, BarChart3, Plus, Zap, Target, Award, TrendingUp, Clock, CheckCircle, Star, ArrowRight } from 'lucide-react';
+import { Users, FileText, BarChart3, Plus, Zap, Target, Award, TrendingUp, Clock, CheckCircle, Star, ArrowRight, Building, UserCheck, Calendar } from 'lucide-react';
 
 const RecruiterDashboard = () => {
   const navigate = useNavigate();
@@ -25,6 +25,19 @@ const RecruiterDashboard = () => {
     hiresThisMonth: 7,
     averageScore: 81,
     timeToHire: 12
+  };
+
+  const handleRoleManagement = () => {
+    navigate('/job-upload');
+  };
+
+  const handleCandidatePipeline = () => {
+    navigate('/candidates');
+  };
+
+  const handleAnalytics = () => {
+    // Navigate to analytics page (would be created)
+    navigate('/recruiter-analytics');
   };
 
   return (
@@ -94,106 +107,67 @@ const RecruiterDashboard = () => {
             ))}
           </div>
 
-          {/* Main Navigation Cards */}
+          {/* Main Action Buttons - Large and Prominent */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <Card 
-              className="group cursor-pointer hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-zara-purple to-zara-purple-dark text-white border-0"
-              onClick={() => navigate('/recruiter-roles')}
+            <Button
+              onClick={handleRoleManagement}
+              className="h-40 bg-gradient-to-br from-zara-purple to-zara-purple-dark text-white border-0 hover:from-zara-purple-dark hover:to-purple-900 group relative overflow-hidden"
             >
-              <CardHeader className="text-center pb-4">
-                <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <FileText className="w-10 h-10 text-white" />
+              <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative z-10 flex flex-col items-center justify-center h-full text-center space-y-4">
+                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <Building className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-2xl text-white mb-2">Role Management</CardTitle>
-                <CardDescription className="text-white/80 text-lg">
-                  Create AI-powered interview flows and manage job descriptions
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="text-center">
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4 text-center">
-                    <div className="bg-white/10 p-3 rounded-lg">
-                      <div className="text-2xl font-bold">{dashboardStats.totalRoles}</div>
-                      <div className="text-sm opacity-80">Total Roles</div>
-                    </div>
-                    <div className="bg-white/10 p-3 rounded-lg">
-                      <div className="text-2xl font-bold">{dashboardStats.activeRoles}</div>
-                      <div className="text-sm opacity-80">Active</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-center gap-2 text-white/90 group-hover:text-white transition-colors">
-                    <span>Manage All Roles</span>
+                <div>
+                  <h3 className="text-xl font-bold mb-2">Role Management</h3>
+                  <p className="text-white/80 text-sm">Create and manage job positions</p>
+                  <div className="flex items-center justify-center gap-2 mt-3 text-white/90 group-hover:text-white transition-colors">
+                    <span className="text-sm">Manage Roles</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </Button>
 
-            <Card 
-              className="group cursor-pointer hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-blue-600 to-blue-800 text-white border-0"
-              onClick={() => navigate('/recruiter-candidates')}
+            <Button
+              onClick={handleCandidatePipeline}
+              className="h-40 bg-gradient-to-br from-blue-600 to-blue-800 text-white border-0 hover:from-blue-700 hover:to-blue-900 group relative overflow-hidden"
             >
-              <CardHeader className="text-center pb-4">
-                <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <Users className="w-10 h-10 text-white" />
+              <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative z-10 flex flex-col items-center justify-center h-full text-center space-y-4">
+                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <UserCheck className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-2xl text-white mb-2">Candidate Pipeline</CardTitle>
-                <CardDescription className="text-white/80 text-lg">
-                  Review AI assessments and manage your talent pipeline
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="text-center">
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4 text-center">
-                    <div className="bg-white/10 p-3 rounded-lg">
-                      <div className="text-2xl font-bold">{dashboardStats.totalCandidates}</div>
-                      <div className="text-sm opacity-80">Total</div>
-                    </div>
-                    <div className="bg-white/10 p-3 rounded-lg">
-                      <div className="text-2xl font-bold">{dashboardStats.candidatesShortlisted}</div>
-                      <div className="text-sm opacity-80">Shortlisted</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-center gap-2 text-white/90 group-hover:text-white transition-colors">
-                    <span>View All Candidates</span>
+                <div>
+                  <h3 className="text-xl font-bold mb-2">Candidate Pipeline</h3>
+                  <p className="text-white/80 text-sm">Review and manage candidates</p>
+                  <div className="flex items-center justify-center gap-2 mt-3 text-white/90 group-hover:text-white transition-colors">
+                    <span className="text-sm">View Candidates</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </Button>
 
-            <Card 
-              className="group cursor-pointer hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-green-600 to-green-800 text-white border-0"
-              onClick={() => navigate('/recruiter-analytics')}
+            <Button
+              onClick={handleAnalytics}
+              className="h-40 bg-gradient-to-br from-green-600 to-green-800 text-white border-0 hover:from-green-700 hover:to-green-900 group relative overflow-hidden"
             >
-              <CardHeader className="text-center pb-4">
-                <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <BarChart3 className="w-10 h-10 text-white" />
+              <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative z-10 flex flex-col items-center justify-center h-full text-center space-y-4">
+                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <BarChart3 className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-2xl text-white mb-2">Analytics & Insights</CardTitle>
-                <CardDescription className="text-white/80 text-lg">
-                  Track hiring metrics and ROI from AI-powered recruitment
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="text-center">
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4 text-center">
-                    <div className="bg-white/10 p-3 rounded-lg">
-                      <div className="text-2xl font-bold">{dashboardStats.averageScore}%</div>
-                      <div className="text-sm opacity-80">Avg Score</div>
-                    </div>
-                    <div className="bg-white/10 p-3 rounded-lg">
-                      <div className="text-2xl font-bold">{dashboardStats.timeToHire}d</div>
-                      <div className="text-sm opacity-80">Time to Hire</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-center gap-2 text-white/90 group-hover:text-white transition-colors">
-                    <span>View Analytics</span>
+                <div>
+                  <h3 className="text-xl font-bold mb-2">Analytics & Insights</h3>
+                  <p className="text-white/80 text-sm">Track performance metrics</p>
+                  <div className="flex items-center justify-center gap-2 mt-3 text-white/90 group-hover:text-white transition-colors">
+                    <span className="text-sm">View Analytics</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </Button>
           </div>
 
           {/* Recent Activity Overview */}

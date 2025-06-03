@@ -12,7 +12,8 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Play, FileText, MessageSquare, Clock, CheckCircle, AlertCircle, Trophy, Zap, Target, Code, Video, Calendar, Award, Timer, Link as LinkIcon, TrendingUp, BarChart3, Users } from 'lucide-react';
+import { Play, FileText, MessageSquare, Clock, CheckCircle, AlertCircle, Trophy, Zap, Target, Code, Video, Calendar, Award, Timer, Link as LinkIcon, TrendingUp, BarChart3, Users, ArrowLeft } from 'lucide-react';
+import { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 const CandidateDashboard = () => {
   const navigate = useNavigate();
@@ -112,6 +113,30 @@ const CandidateDashboard = () => {
     }
   ];
 
+  // Chart data for results view
+  const performanceData = [
+    { month: 'Jan', score: 75 },
+    { month: 'Feb', score: 82 },
+    { month: 'Mar', score: 88 },
+    { month: 'Apr', score: 91 },
+    { month: 'May', score: 85 },
+    { month: 'Jun', score: 89 }
+  ];
+
+  const skillsData = [
+    { skill: 'Technical', score: 92, color: '#8b5cf6' },
+    { skill: 'Communication', score: 88, color: '#06b6d4' },
+    { skill: 'Problem Solving', score: 91, color: '#10b981' },
+    { skill: 'Leadership', score: 85, color: '#f59e0b' }
+  ];
+
+  const comparisonData = [
+    { category: 'Technical Skills', yourScore: 92, average: 78 },
+    { category: 'Communication', yourScore: 88, average: 82 },
+    { category: 'Problem Solving', yourScore: 91, average: 75 },
+    { category: 'Cultural Fit', yourScore: 85, average: 80 }
+  ];
+
   const handleStartAssessment = (assignment: any) => {
     navigate('/full-assessment', { state: { assignment } });
   };
@@ -181,15 +206,16 @@ const CandidateDashboard = () => {
               <Button 
                 variant="outline" 
                 onClick={() => setShowResults(false)}
-                className="mb-4"
+                className="mb-4 hover:bg-violet-50"
               >
-                ← Back to Dashboard
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Dashboard
               </Button>
               <h1 className="text-3xl font-bold text-gray-900 mb-2">Assessment Results</h1>
               <p className="text-gray-600">{selectedAssignment.role} at {selectedAssignment.company}</p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
               {/* Overall Score */}
               <Card className="bg-gradient-to-br from-green-50 to-white border-green-200">
                 <CardHeader className="text-center">
@@ -226,48 +252,63 @@ const CandidateDashboard = () => {
                   })}
                 </CardContent>
               </Card>
+            </div>
 
-              {/* Detailed Analytics */}
-              <Card className="md:col-span-2">
+            {/* Performance Trend Chart */}
+            <Card className="mb-8">
+              <CardHeader>
+                <CardTitle>Performance Trend Over Time</CardTitle>
+                <CardDescription>Your assessment scores across different time periods</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={300}>
+                  <LineChart data={performanceData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="month" />
+                    <YAxis domain={[60, 100]} />
+                    <Tooltip />
+                    <Line type="monotone" dataKey="score" stroke="#8b5cf6" strokeWidth={3} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+
+            {/* Skills Comparison */}
+            <div className="grid md:grid-cols-2 gap-8">
+              <Card>
                 <CardHeader>
-                  <CardTitle>Detailed Performance Analytics</CardTitle>
-                  <CardDescription>Comprehensive breakdown of your assessment performance</CardDescription>
+                  <CardTitle>Skills Assessment</CardTitle>
+                  <CardDescription>Detailed breakdown of your skill performance</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid md:grid-cols-3 gap-6">
-                    <div className="text-center p-4 bg-blue-50 rounded-lg">
-                      <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3">
-                        <Code className="w-6 h-6 text-blue-600" />
-                      </div>
-                      <h3 className="font-semibold mb-2">Technical Skills</h3>
-                      <div className="text-2xl font-bold text-blue-600 mb-1">
-                        {selectedAssignment.steps.coding.score || 'N/A'}
-                      </div>
-                      <p className="text-sm text-gray-600">Above average performance</p>
-                    </div>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={skillsData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="skill" />
+                      <YAxis domain={[0, 100]} />
+                      <Tooltip />
+                      <Bar dataKey="score" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
 
-                    <div className="text-center p-4 bg-purple-50 rounded-lg">
-                      <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-3">
-                        <Video className="w-6 h-6 text-purple-600" />
-                      </div>
-                      <h3 className="font-semibold mb-2">Communication</h3>
-                      <div className="text-2xl font-bold text-purple-600 mb-1">
-                        {selectedAssignment.steps.interview.score || 'N/A'}
-                      </div>
-                      <p className="text-sm text-gray-600">Excellent presentation skills</p>
-                    </div>
-
-                    <div className="text-center p-4 bg-green-50 rounded-lg">
-                      <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-3">
-                        <Users className="w-6 h-6 text-green-600" />
-                      </div>
-                      <h3 className="font-semibold mb-2">Soft Skills</h3>
-                      <div className="text-2xl font-bold text-green-600 mb-1">
-                        {selectedAssignment.steps.softSkills.score || 'N/A'}
-                      </div>
-                      <p className="text-sm text-gray-600">Strong team player</p>
-                    </div>
-                  </div>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Industry Comparison</CardTitle>
+                  <CardDescription>How you compare to other candidates</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={comparisonData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="category" />
+                      <YAxis domain={[0, 100]} />
+                      <Tooltip />
+                      <Bar dataKey="yourScore" fill="#8b5cf6" name="Your Score" />
+                      <Bar dataKey="average" fill="#e5e7eb" name="Industry Average" />
+                    </BarChart>
+                  </ResponsiveContainer>
                 </CardContent>
               </Card>
             </div>
@@ -349,6 +390,48 @@ const CandidateDashboard = () => {
               </div>
             </CardContent>
           </Card>
+
+          {/* Three Action Buttons */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <Button
+              onClick={() => setActiveTab('in-progress')}
+              className="h-20 bg-gradient-to-br from-blue-600 to-blue-800 text-white border-0 hover:from-blue-700 hover:to-blue-900 group"
+            >
+              <div className="flex items-center justify-center gap-4">
+                <Clock className="w-8 h-8" />
+                <div className="text-left">
+                  <div className="text-lg font-bold">In Progress</div>
+                  <div className="text-sm opacity-80">{counts.inProgress} assignments</div>
+                </div>
+              </div>
+            </Button>
+
+            <Button
+              onClick={() => setActiveTab('pending')}
+              className="h-20 bg-gradient-to-br from-yellow-600 to-orange-600 text-white border-0 hover:from-yellow-700 hover:to-orange-700 group"
+            >
+              <div className="flex items-center justify-center gap-4">
+                <AlertCircle className="w-8 h-8" />
+                <div className="text-left">
+                  <div className="text-lg font-bold">Pending</div>
+                  <div className="text-sm opacity-80">{counts.pending} assignments</div>
+                </div>
+              </div>
+            </Button>
+
+            <Button
+              onClick={() => setActiveTab('completed')}
+              className="h-20 bg-gradient-to-br from-green-600 to-green-800 text-white border-0 hover:from-green-700 hover:to-green-900 group"
+            >
+              <div className="flex items-center justify-center gap-4">
+                <Trophy className="w-8 h-8" />
+                <div className="text-left">
+                  <div className="text-lg font-bold">Completed</div>
+                  <div className="text-sm opacity-80">{counts.completed} assignments</div>
+                </div>
+              </div>
+            </Button>
+          </div>
 
           {/* Overview Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
