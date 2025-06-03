@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -12,8 +11,8 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Play, FileText, MessageSquare, Clock, CheckCircle, AlertCircle, Trophy, Zap, Target, Code, Video, Calendar, Award, Timer, Link as LinkIcon, TrendingUp, BarChart3, Users, ArrowLeft } from 'lucide-react';
-import { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { Play, FileText, MessageSquare, Clock, CheckCircle, AlertCircle, Trophy, Zap, Target, Code, Video, Calendar, Award, Timer, Link as LinkIcon, TrendingUp, BarChart3, Users, ArrowLeft, Activity } from 'lucide-react';
+import { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
 
 const CandidateDashboard = () => {
   const navigate = useNavigate();
@@ -21,6 +20,7 @@ const CandidateDashboard = () => {
   const [directLink, setDirectLink] = useState('');
   const [activeTab, setActiveTab] = useState('all');
   const [showResults, setShowResults] = useState(false);
+  const [showPerformance, setShowPerformance] = useState(false);
   const [selectedAssignment, setSelectedAssignment] = useState<any>(null);
 
   // Enhanced assignments data with more variety
@@ -113,6 +113,40 @@ const CandidateDashboard = () => {
     }
   ];
 
+  // Performance analytics data
+  const performanceOverviewData = [
+    { month: 'Jan', score: 75, applications: 5, interviews: 3 },
+    { month: 'Feb', score: 82, applications: 7, interviews: 5 },
+    { month: 'Mar', score: 88, applications: 8, interviews: 6 },
+    { month: 'Apr', score: 91, applications: 6, interviews: 4 },
+    { month: 'May', score: 85, applications: 9, interviews: 7 },
+    { month: 'Jun', score: 89, applications: 4, interviews: 3 }
+  ];
+
+  const skillsRadarData = [
+    { skill: 'Technical', score: 92, fullMark: 100 },
+    { skill: 'Communication', score: 88, fullMark: 100 },
+    { skill: 'Problem Solving', score: 91, fullMark: 100 },
+    { skill: 'Leadership', score: 85, fullMark: 100 },
+    { skill: 'Creativity', score: 87, fullMark: 100 },
+    { skill: 'Teamwork', score: 93, fullMark: 100 }
+  ];
+
+  const industryComparisonData = [
+    { category: 'Technical Skills', yourScore: 92, industryAvg: 78, topPerformers: 95 },
+    { category: 'Communication', yourScore: 88, industryAvg: 82, topPerformers: 94 },
+    { category: 'Problem Solving', yourScore: 91, industryAvg: 75, topPerformers: 96 },
+    { category: 'Cultural Fit', yourScore: 85, industryAvg: 80, topPerformers: 92 }
+  ];
+
+  const applicationFunnelData = [
+    { name: 'Applications', value: 42, color: '#8b5cf6' },
+    { name: 'Screening', value: 28, color: '#06b6d4' },
+    { name: 'Interviews', value: 18, color: '#10b981' },
+    { name: 'Final Round', value: 8, color: '#f59e0b' },
+    { name: 'Offers', value: 4, color: '#ef4444' }
+  ];
+
   // Chart data for results view
   const performanceData = [
     { month: 'Jan', score: 75 },
@@ -195,6 +229,141 @@ const CandidateDashboard = () => {
   const counts = getCounts();
   const filteredAssignments = getFilteredAssignments();
 
+  // Performance Dashboard View
+  if (showPerformance) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-violet-50 to-white">
+        <Navbar />
+        
+        <main className="pt-28 pb-20 px-6 md:px-10">
+          <div className="container mx-auto max-w-6xl">
+            <div className="mb-8">
+              <Button 
+                variant="outline" 
+                onClick={() => setShowPerformance(false)}
+                className="mb-4 hover:bg-violet-50"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Dashboard
+              </Button>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Your Performance Analytics</h1>
+              <p className="text-gray-600">Comprehensive analysis of your assessment performance and career progress</p>
+            </div>
+
+            {/* Key Performance Metrics */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+              {[
+                { title: "89", subtitle: "Average Score", icon: Trophy, color: "green", trend: "+5 this month" },
+                { title: "42", subtitle: "Total Applications", icon: Target, color: "blue", trend: "8 this month" },
+                { title: "18", subtitle: "Interviews", icon: Users, color: "purple", trend: "43% success rate" },
+                { title: "4", subtitle: "Job Offers", icon: Award, color: "orange", trend: "22% offer rate" }
+              ].map((stat, index) => (
+                <Card key={index} className="hover:shadow-lg transition-all duration-300">
+                  <CardHeader className="pb-3">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-2 ${
+                      stat.color === 'green' ? 'bg-green-100 text-green-600' :
+                      stat.color === 'blue' ? 'bg-blue-100 text-blue-600' :
+                      stat.color === 'purple' ? 'bg-zara-purple-light text-zara-purple' :
+                      'bg-orange-100 text-orange-600'
+                    }`}>
+                      <stat.icon className="w-6 h-6" />
+                    </div>
+                    <CardTitle className="text-2xl font-bold">{stat.title}</CardTitle>
+                    <CardDescription>{stat.subtitle}</CardDescription>
+                    <div className="text-xs text-gray-500 mt-1">{stat.trend}</div>
+                  </CardHeader>
+                </Card>
+              ))}
+            </div>
+
+            {/* Performance Trend */}
+            <Card className="mb-8">
+              <CardHeader>
+                <CardTitle>Performance Trend Over Time</CardTitle>
+                <CardDescription>Your assessment scores and application activity</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={300}>
+                  <LineChart data={performanceOverviewData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="month" />
+                    <YAxis />
+                    <Tooltip />
+                    <Line type="monotone" dataKey="score" stroke="#8b5cf6" strokeWidth={3} name="Average Score" />
+                    <Line type="monotone" dataKey="applications" stroke="#06b6d4" strokeWidth={2} name="Applications" />
+                    <Line type="monotone" dataKey="interviews" stroke="#10b981" strokeWidth={2} name="Interviews" />
+                  </LineChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+
+            {/* Skills Analysis and Industry Comparison */}
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Skills Radar Analysis</CardTitle>
+                  <CardDescription>Your competency across different skill areas</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <RadarChart data={skillsRadarData}>
+                      <PolarGrid />
+                      <PolarAngleAxis dataKey="skill" />
+                      <PolarRadiusAxis angle={90} domain={[0, 100]} />
+                      <Radar name="Your Score" dataKey="score" stroke="#8b5cf6" fill="#8b5cf6" fillOpacity={0.3} />
+                    </RadarChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Industry Benchmark Comparison</CardTitle>
+                  <CardDescription>How you stack up against industry standards</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={industryComparisonData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="category" />
+                      <YAxis domain={[0, 100]} />
+                      <Tooltip />
+                      <Bar dataKey="yourScore" fill="#8b5cf6" name="Your Score" />
+                      <Bar dataKey="industryAvg" fill="#e5e7eb" name="Industry Average" />
+                      <Bar dataKey="topPerformers" fill="#10b981" name="Top 10%" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Application Funnel */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Application Success Funnel</CardTitle>
+                <CardDescription>Your progression through the hiring process</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={applicationFunnelData} layout="horizontal">
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis type="number" />
+                    <YAxis dataKey="name" type="category" />
+                    <Tooltip />
+                    <Bar dataKey="value" fill="#8b5cf6" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </div>
+        </main>
+        
+        <Footer />
+      </div>
+    );
+  }
+
+  // Results view
   if (showResults && selectedAssignment) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-violet-50 to-white">
@@ -326,7 +495,7 @@ const CandidateDashboard = () => {
       
       <main className="pt-28 pb-20 px-6 md:px-10">
         <div className="container mx-auto max-w-7xl">
-          {/* Enhanced Welcome Header with new components */}
+          {/* Enhanced Welcome Header */}
           <div className="mb-8 animate-fade-in">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-4">
@@ -391,8 +560,8 @@ const CandidateDashboard = () => {
             </CardContent>
           </Card>
 
-          {/* Three Action Buttons */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {/* Four Action Buttons (including Your Performance) */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <Button
               onClick={() => setActiveTab('in-progress')}
               className="h-20 bg-gradient-to-br from-blue-600 to-blue-800 text-white border-0 hover:from-blue-700 hover:to-blue-900 group"
@@ -428,6 +597,19 @@ const CandidateDashboard = () => {
                 <div className="text-left">
                   <div className="text-lg font-bold">Completed</div>
                   <div className="text-sm opacity-80">{counts.completed} assignments</div>
+                </div>
+              </div>
+            </Button>
+
+            <Button
+              onClick={() => setShowPerformance(true)}
+              className="h-20 bg-gradient-to-br from-purple-600 to-purple-800 text-white border-0 hover:from-purple-700 hover:to-purple-900 group"
+            >
+              <div className="flex items-center justify-center gap-4">
+                <Activity className="w-8 h-8" />
+                <div className="text-left">
+                  <div className="text-lg font-bold">Your Performance</div>
+                  <div className="text-sm opacity-80">Analytics & insights</div>
                 </div>
               </div>
             </Button>

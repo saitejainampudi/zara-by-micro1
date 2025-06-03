@@ -1,154 +1,190 @@
 
 import React from 'react';
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ArrowRight, Zap, Target, Clock, Users, TrendingUp, CheckCircle, Star, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Sparkles, Play, Users, Target, Zap } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 
 const Hero = () => {
+  // Data for Zara AI vs Traditional Hiring comparison
+  const comparisonData = [
+    { metric: 'Time to Hire', traditional: 45, zaraAI: 12 },
+    { metric: 'Accuracy', traditional: 65, zaraAI: 94 },
+    { metric: 'Cost per Hire', traditional: 100, zaraAI: 35 },
+    { metric: 'Candidate Satisfaction', traditional: 70, zaraAI: 92 }
+  ];
+
+  const trendData = [
+    { month: 'Jan', hires: 12, satisfaction: 85 },
+    { month: 'Feb', hires: 18, satisfaction: 88 },
+    { month: 'Mar', hires: 25, satisfaction: 91 },
+    { month: 'Apr', hires: 32, satisfaction: 94 },
+    { month: 'May', hires: 28, satisfaction: 92 },
+    { month: 'Jun', hires: 35, satisfaction: 96 }
+  ];
+
   return (
-    <section className="relative pt-32 pb-20 px-6 md:px-10 overflow-hidden">
+    <div className="relative min-h-screen bg-gradient-to-br from-violet-50 via-white to-purple-50 overflow-hidden">
       {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-violet-50 to-white"></div>
-      <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-zara-purple/20 to-transparent rounded-full blur-3xl -translate-x-48 -translate-y-48"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-transparent rounded-full blur-3xl translate-x-48 translate-y-48"></div>
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239333ea" fill-opacity="0.03"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-40"></div>
       
-      <div className="container mx-auto max-w-7xl relative z-10">
+      <div className="relative z-10 container mx-auto px-6 pt-32 pb-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-8 animate-fade-in">
             <div className="space-y-6">
-              <div className="inline-flex items-center px-4 py-2 bg-zara-purple-light/30 rounded-full border border-zara-purple/20">
-                <Sparkles className="w-4 h-4 text-zara-purple mr-2" />
-                <span className="text-sm font-medium text-zara-purple">AI-Powered Recruitment Platform</span>
+              <div className="inline-flex items-center px-4 py-2 bg-zara-purple/10 border border-zara-purple/20 rounded-full text-zara-purple font-medium text-sm backdrop-blur-sm">
+                <Zap className="w-4 h-4 mr-2" />
+                Revolutionizing Recruitment with AI
               </div>
               
-              <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-                Hire Smarter with 
-                <span className="bg-gradient-to-r from-zara-purple to-zara-purple-dark bg-clip-text text-transparent"> AI Interviews</span>
+              <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                Smart Hiring on{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-zara-purple to-purple-600 font-extrabold text-purple-800">
+                  Auto Pilot
+                </span>
               </h1>
               
-              <p className="text-xl text-gray-600 leading-relaxed max-w-xl">
-                Transform your recruitment process with intelligent candidate screening, 
-                automated assessments, and data-driven hiring decisions on <span className="text-zara-purple-dark font-bold">auto pilot</span>.
+              <p className="text-xl text-gray-600 leading-relaxed max-w-2xl">
+                Transform your recruitment process with AI-powered candidate assessment, 
+                real-time analytics, and seamless hiring workflows that deliver results 10x faster.
               </p>
             </div>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <Link to="/signin">
-                <Button size="lg" className="bg-zara-purple hover:bg-zara-purple-dark text-white px-8 py-4 text-lg h-auto group">
+                <Button size="lg" className="bg-zara-purple hover:bg-zara-purple-dark text-white px-8 py-4 text-lg rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group w-full sm:w-auto">
                   Start Free Trial
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               
-              <Button variant="outline" size="lg" className="border-2 border-gray-200 hover:bg-gray-50 px-8 py-4 text-lg h-auto group">
-                <Play className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-                Watch Demo
-              </Button>
+              <Link to="/how-it-works">
+                <Button variant="outline" size="lg" className="border-2 border-zara-purple text-zara-purple hover:bg-zara-purple hover:text-white px-8 py-4 text-lg rounded-xl transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto">
+                  See How It Works
+                </Button>
+              </Link>
             </div>
 
             {/* Social Proof */}
-            <div className="flex items-center gap-6 pt-4">
-              <div className="flex items-center gap-2">
-                <div className="flex -space-x-2">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div key={i} className="w-8 h-8 bg-gradient-to-r from-zara-purple to-blue-500 rounded-full border-2 border-white"></div>
-                  ))}
-                </div>
-                <span className="text-sm text-gray-600 ml-2">500+ companies trust us</span>
+            <div className="flex items-center gap-8 pt-8 border-t border-gray-200">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-zara-purple">500+</div>
+                <div className="text-sm text-gray-600">Companies</div>
               </div>
-              
-              <div className="h-6 w-px bg-gray-200"></div>
-              
-              <div className="flex items-center gap-1">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <Sparkles key={i} className="w-4 h-4 text-yellow-400 fill-current" />
-                ))}
-                <span className="text-sm text-gray-600 ml-1">4.9/5 rating</span>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-zara-purple">50K+</div>
+                <div className="text-sm text-gray-600">Assessments</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-zara-purple">96%</div>
+                <div className="text-sm text-gray-600">Accuracy</div>
               </div>
             </div>
           </div>
 
-          {/* Right Content - Interactive Demo */}
-          <div className="relative animate-fade-in" style={{ animationDelay: '200ms' }}>
-            <div className="relative">
-              {/* Main Dashboard Mockup */}
-              <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden transform rotate-2 hover:rotate-0 transition-transform duration-500">
-                <div className="bg-gradient-to-r from-zara-purple to-zara-purple-dark p-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex gap-1.5">
-                      <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                      <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                      <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                    </div>
-                    <div className="flex-1 bg-white/20 rounded-lg px-3 py-1">
-                      <span className="text-white/80 text-sm">zara-ai.com/dashboard</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="p-6 space-y-4">
-                  {/* Header */}
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-bold text-lg text-gray-900">Recruitment Dashboard</h3>
-                    <div className="flex gap-2">
-                      <div className="w-8 h-8 bg-zara-purple-light rounded-lg flex items-center justify-center">
-                        <Users className="w-4 h-4 text-zara-purple" />
-                      </div>
-                      <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <Target className="w-4 h-4 text-blue-600" />
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Stats Cards */}
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="bg-gradient-to-r from-zara-purple-light to-white p-3 rounded-lg">
-                      <div className="text-2xl font-bold text-zara-purple">156</div>
-                      <div className="text-xs text-gray-600">Candidates</div>
-                    </div>
-                    <div className="bg-gradient-to-r from-blue-50 to-white p-3 rounded-lg">
-                      <div className="text-2xl font-bold text-blue-600">94%</div>
-                      <div className="text-xs text-gray-600">AI Accuracy</div>
-                    </div>
-                  </div>
-                  
-                  {/* Candidate List */}
-                  <div className="space-y-2">
-                    {[1, 2, 3].map((i) => (
-                      <div key={i} className="flex items-center gap-3 p-2 bg-gray-50 rounded-lg">
-                        <div className="w-8 h-8 bg-gradient-to-r from-zara-purple to-blue-500 rounded-full"></div>
-                        <div className="flex-1">
-                          <div className="text-sm font-medium">Candidate {i}</div>
-                          <div className="text-xs text-gray-500">Score: 9{i}/100</div>
-                        </div>
-                        <div className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">Shortlisted</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+          {/* Right Content - Enhanced with visible charts */}
+          <div className="space-y-6 animate-fade-in-delay">
+            {/* Main Dashboard Preview */}
+            <Card className="bg-white/80 backdrop-blur-lg border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:-translate-y-2">
+              <CardHeader className="bg-gradient-to-r from-zara-purple to-purple-600 text-white rounded-t-lg">
+                <CardTitle className="flex items-center gap-2">
+                  <Target className="w-5 h-5" />
+                  Zara AI vs Traditional Hiring
+                </CardTitle>
+                <CardDescription className="text-purple-100">
+                  Performance comparison across key metrics
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-6">
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={comparisonData}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                    <XAxis 
+                      dataKey="metric" 
+                      fontSize={12}
+                      tick={{ fill: '#666' }}
+                    />
+                    <YAxis 
+                      fontSize={12}
+                      tick={{ fill: '#666' }}
+                    />
+                    <Tooltip 
+                      contentStyle={{
+                        backgroundColor: '#fff',
+                        border: '1px solid #e5e7eb',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                      }}
+                    />
+                    <Bar dataKey="traditional" fill="#e5e7eb" name="Traditional" radius={[2, 2, 0, 0]} />
+                    <Bar dataKey="zaraAI" fill="#8b5cf6" name="Zara AI" radius={[2, 2, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
 
-              {/* Floating Elements */}
-              <div className="absolute -top-4 -right-4 bg-white rounded-xl shadow-lg p-3 animate-bounce" style={{ animationDelay: '1s' }}>
-                <div className="flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-zara-purple" />
-                  <span className="text-sm font-medium">AI Processing</span>
-                </div>
-              </div>
-              
-              <div className="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-lg p-3 animate-pulse">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="text-sm font-medium">Live Updates</span>
-                </div>
-              </div>
+            {/* Performance Trend Chart */}
+            <Card className="bg-white/80 backdrop-blur-lg border-0 shadow-xl">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-gray-900">
+                  <TrendingUp className="w-5 h-5 text-zara-purple" />
+                  Hiring Success Trends
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={150}>
+                  <LineChart data={trendData}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                    <XAxis 
+                      dataKey="month" 
+                      fontSize={12}
+                      tick={{ fill: '#666' }}
+                    />
+                    <YAxis 
+                      fontSize={12}
+                      tick={{ fill: '#666' }}
+                    />
+                    <Tooltip 
+                      contentStyle={{
+                        backgroundColor: '#fff',
+                        border: '1px solid #e5e7eb',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                      }}
+                    />
+                    <Line 
+                      type="monotone" 
+                      dataKey="satisfaction" 
+                      stroke="#8b5cf6" 
+                      strokeWidth={3}
+                      dot={{ fill: '#8b5cf6', strokeWidth: 2, r: 4 }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+
+            {/* Quick Stats */}
+            <div className="grid grid-cols-3 gap-4">
+              {[
+                { icon: Users, value: "98%", label: "Match Rate" },
+                { icon: Clock, value: "12d", label: "Avg Time" },
+                { icon: Award, value: "4.9★", label: "Rating" }
+              ].map((stat, index) => (
+                <Card key={index} className="bg-white/60 backdrop-blur-sm border-0 text-center p-4 hover:bg-white/80 transition-all duration-300">
+                  <stat.icon className="w-6 h-6 text-zara-purple mx-auto mb-2" />
+                  <div className="text-lg font-bold text-gray-900">{stat.value}</div>
+                  <div className="text-xs text-gray-600">{stat.label}</div>
+                </Card>
+              ))}
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
