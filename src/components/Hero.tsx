@@ -27,14 +27,16 @@ const Hero = () => {
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-violet-50 via-white to-purple-50 overflow-hidden">
       {/* Background Elements */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%239333ea\" fill-opacity=\"0.03\"%3E%3Ccircle cx=\"30\" cy=\"30\" r=\"2\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-40"></div>
+      <div className="absolute inset-0 opacity-40" style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239333ea' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+      }}></div>
       
       <div className="relative z-10 container mx-auto px-6 pt-32 pb-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-8 animate-fade-in">
             <div className="space-y-6">
-              <div className="inline-flex items-center px-4 py-2 bg-zara-purple/10 border border-zara-purple/20 rounded-full text-zara-purple font-medium text-sm backdrop-blur-sm">
+              <div className="inline-flex items-center px-4 py-2 bg-purple-100 border border-purple-200 rounded-full text-purple-700 font-medium text-sm backdrop-blur-sm">
                 <Zap className="w-4 h-4 mr-2" />
                 Revolutionizing Recruitment with AI
               </div>
@@ -55,14 +57,14 @@ const Hero = () => {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <Link to="/signin">
-                <Button size="lg" className="bg-zara-purple hover:bg-zara-purple-dark text-white px-8 py-4 text-lg rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group w-full sm:w-auto">
+                <Button size="lg" className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 text-lg rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group w-full sm:w-auto">
                   Start Free Trial
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               
               <Link to="/how-it-works">
-                <Button variant="outline" size="lg" className="border-2 border-zara-purple text-zara-purple hover:bg-zara-purple hover:text-white px-8 py-4 text-lg rounded-xl transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto">
+                <Button variant="outline" size="lg" className="border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white px-8 py-4 text-lg rounded-xl transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto">
                   See How It Works
                 </Button>
               </Link>
@@ -71,15 +73,15 @@ const Hero = () => {
             {/* Social Proof */}
             <div className="flex items-center gap-8 pt-8 border-t border-gray-200">
               <div className="text-center">
-                <div className="text-2xl font-bold text-zara-purple">500+</div>
+                <div className="text-2xl font-bold text-purple-600">500+</div>
                 <div className="text-sm text-gray-600">Companies</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-zara-purple">50K+</div>
+                <div className="text-2xl font-bold text-purple-600">50K+</div>
                 <div className="text-sm text-gray-600">Assessments</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-zara-purple">96%</div>
+                <div className="text-2xl font-bold text-purple-600">96%</div>
                 <div className="text-sm text-gray-600">Accuracy</div>
               </div>
             </div>
@@ -89,7 +91,7 @@ const Hero = () => {
           <div className="space-y-6 animate-fade-in-delay">
             {/* Main Dashboard Preview */}
             <Card className="bg-white/80 backdrop-blur-lg border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:-translate-y-2">
-              <CardHeader className="bg-gradient-to-r from-zara-purple to-purple-600 text-white rounded-t-lg">
+              <CardHeader className="bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-t-lg">
                 <CardTitle className="flex items-center gap-2">
                   <Target className="w-5 h-5" />
                   Zara AI vs Traditional Hiring
@@ -130,7 +132,7 @@ const Hero = () => {
             <Card className="bg-white/80 backdrop-blur-lg border-0 shadow-xl">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-gray-900">
-                  <TrendingUp className="w-5 h-5 text-zara-purple" />
+                  <TrendingUp className="w-5 h-5 text-purple-600" />
                   Hiring Success Trends
                 </CardTitle>
               </CardHeader>
@@ -175,7 +177,7 @@ const Hero = () => {
                 { icon: Award, value: "4.9★", label: "Rating" }
               ].map((stat, index) => (
                 <Card key={index} className="bg-white/60 backdrop-blur-sm border-0 text-center p-4 hover:bg-white/80 transition-all duration-300">
-                  <stat.icon className="w-6 h-6 text-zara-purple mx-auto mb-2" />
+                  <stat.icon className="w-6 h-6 text-purple-600 mx-auto mb-2" />
                   <div className="text-lg font-bold text-gray-900">{stat.value}</div>
                   <div className="text-xs text-gray-600">{stat.label}</div>
                 </Card>
