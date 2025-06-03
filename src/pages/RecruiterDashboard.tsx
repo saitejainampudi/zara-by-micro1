@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -28,15 +27,14 @@ const RecruiterDashboard = () => {
   };
 
   const handleRoleManagement = () => {
-    navigate('/job-upload');
+    navigate('/role-management');
   };
 
   const handleCandidatePipeline = () => {
-    navigate('/candidates');
+    navigate('/candidate-pipeline');
   };
 
   const handleAnalytics = () => {
-    // Navigate to analytics page (would be created)
     navigate('/recruiter-analytics');
   };
 
