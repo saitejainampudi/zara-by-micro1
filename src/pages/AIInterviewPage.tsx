@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -19,7 +18,7 @@ const AIInterviewPage = () => {
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">AI-Powered Interviews</h1>
             <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-              Zara conducts comprehensive technical interviews to evaluate candidates across multiple dimensions
+              Exterview conducts comprehensive technical interviews to evaluate candidates across multiple dimensions
             </p>
           </div>
           
@@ -60,10 +59,10 @@ const AIInterviewPage = () => {
                     
                     <div className="flex items-center mb-8">
                       <div className="w-16 h-16 rounded-full bg-zara-purple flex items-center justify-center text-white text-xl font-bold mr-4">
-                        Z
+                        E
                       </div>
                       <div>
-                        <h3 className="text-2xl font-bold">Zara AI Interviewer</h3>
+                        <h3 className="text-2xl font-bold">Exterview AI Interviewer</h3>
                         <p className="text-gray-600">Natural conversations with personalized follow-ups</p>
                       </div>
                     </div>

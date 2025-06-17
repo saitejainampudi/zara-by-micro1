@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
@@ -24,7 +23,7 @@ const Index = () => {
           <div className="container mx-auto px-6 md:px-10">
             {/* Benefits Strip */}
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-6 text-gray-900">Why Choose Zara AI?</h2>
+              <h2 className="text-3xl font-bold mb-6 text-gray-900">Why Choose Exterview AI?</h2>
               <div className="grid md:grid-cols-3 gap-8 mb-8">
                 <div className="text-center group">
                   <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">

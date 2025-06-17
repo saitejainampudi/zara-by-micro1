@@ -18,6 +18,11 @@ const Navbar = () => {
       <div className="container mx-auto px-6 md:px-10">
         <div className="flex justify-between items-center h-20">
           <Link to="/" className="flex items-center">
+            <img 
+              src="/lovable-uploads/703de22c-6d09-433a-ba27-562efd08d1c6.png" 
+              alt="Exterview" 
+              className="h-8 w-auto mr-2"
+            />
             <span className="text-2xl font-bold bg-gradient-to-r from-zara-purple-dark to-zara-purple bg-clip-text text-transparent">
               Exterview
             </span>

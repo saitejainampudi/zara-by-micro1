@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -11,6 +10,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <Link to="/" className="flex items-center mb-4">
+              <img 
+                src="/lovable-uploads/703de22c-6d09-433a-ba27-562efd08d1c6.png" 
+                alt="Exterview" 
+                className="h-6 w-auto mr-2"
+              />
               <span className="text-xl font-bold bg-gradient-to-r from-zara-purple-dark to-zara-purple bg-clip-text text-transparent">
                 Exterview
               </span>

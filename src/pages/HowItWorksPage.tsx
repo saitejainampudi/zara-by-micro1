@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -14,7 +13,7 @@ const HowItWorksPage = () => {
         <div className="container mx-auto px-6 md:px-10">
           {/* Hero Section */}
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">How Zara Works</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">How Exterview Works</h1>
             <p className="text-xl text-gray-700 max-w-3xl mx-auto">
               Our AI-powered platform streamlines your technical hiring process from sourcing to assessment, 
               helping you find the best talent faster and more effectively.
@@ -30,7 +29,7 @@ const HowItWorksPage = () => {
                 </div>
                 <h3 className="text-xl font-bold mb-3">Define Your Requirements</h3>
                 <p className="text-gray-600">
-                  Upload your job description or specify skills and experience needed. Zara learns what you're looking for.
+                  Upload your job description or specify skills and experience needed. Exterview learns what you're looking for.
                 </p>
               </div>
               <div className="text-center">
@@ -39,7 +38,7 @@ const HowItWorksPage = () => {
                 </div>
                 <h3 className="text-xl font-bold mb-3">AI-Powered Interviews</h3>
                 <p className="text-gray-600">
-                  Zara conducts technical interviews, adapts questions based on responses, and evaluates candidates' skills.
+                  Exterview conducts technical interviews, adapts questions based on responses, and evaluates candidates' skills.
                 </p>
               </div>
               <div className="text-center">
@@ -61,7 +60,7 @@ const HowItWorksPage = () => {
               <div className="w-full md:w-1/2 order-2 md:order-1">
                 <h2 className="text-3xl font-bold mb-4">AI-Powered Technical Interviews</h2>
                 <p className="text-lg text-gray-700 mb-6">
-                  Zara conducts dynamic technical interviews customized to each role and candidate. Our AI adapts in real-time, diving deeper on strengths and probing areas of concern.
+                  Exterview conducts dynamic technical interviews customized to each role and candidate. Our AI adapts in real-time, diving deeper on strengths and probing areas of concern.
                 </p>
                 <ul className="space-y-3 mb-8">
                   <li className="flex items-start">
@@ -85,7 +84,7 @@ const HowItWorksPage = () => {
                 </ul>
                 <Link to="/start-interviewing">
                   <Button className="bg-zara-purple hover:bg-zara-purple-dark">
-                    Start Using Zara
+                    Start Using Exterview
                   </Button>
                 </Link>
               </div>
@@ -95,7 +94,7 @@ const HowItWorksPage = () => {
                     <p className="font-medium mb-2">Interview Transcript Excerpt:</p>
                     <div className="space-y-4">
                       <div className="flex items-start">
-                        <span className="font-bold mr-2">Zara:</span>
+                        <span className="font-bold mr-2">Exterview:</span>
                         <p>Could you explain how React's useEffect hook works, particularly regarding dependency arrays?</p>
                       </div>
                       <div className="flex items-start">
@@ -103,7 +102,7 @@ const HowItWorksPage = () => {
                         <p>The useEffect hook lets you perform side effects in functional components. The dependency array controls when the effect runs...</p>
                       </div>
                       <div className="flex items-start">
-                        <span className="font-bold mr-2">Zara:</span>
+                        <span className="font-bold mr-2">Exterview:</span>
                         <p>Great explanation. What happens if you provide an empty dependency array? And how does that differ from no dependency array at all?</p>
                       </div>
                     </div>
@@ -159,7 +158,7 @@ const HowItWorksPage = () => {
               <div className="w-full md:w-1/2">
                 <h2 className="text-3xl font-bold mb-4">Comprehensive Skill Assessment</h2>
                 <p className="text-lg text-gray-700 mb-6">
-                  Get detailed evaluations across multiple technical dimensions. Zara breaks down candidate performance into specific skill areas, giving you clear insights into strengths and areas for growth.
+                  Get detailed evaluations across multiple technical dimensions. Exterview breaks down candidate performance into specific skill areas, giving you clear insights into strengths and areas for growth.
                 </p>
                 <ul className="space-y-3 mb-8">
                   <li className="flex items-start">
@@ -194,7 +193,7 @@ const HowItWorksPage = () => {
               <div className="w-full md:w-1/2 order-2 md:order-1">
                 <h2 className="text-3xl font-bold mb-4">Anti-Cheating Technology</h2>
                 <p className="text-lg text-gray-700 mb-6">
-                  Ensure the integrity of your technical interviews with Zara's advanced proctoring system. Our AI monitors for potential cheating behaviors while remaining respectful of candidate privacy.
+                  Ensure the integrity of your technical interviews with Exterview's advanced proctoring system. Our AI monitors for potential cheating behaviors while remaining respectful of candidate privacy.
                 </p>
                 <ul className="space-y-3 mb-8">
                   <li className="flex items-start">
@@ -274,7 +273,7 @@ const HowItWorksPage = () => {
           <div className="bg-zara-purple text-white rounded-xl shadow-md p-8 md:p-12 text-center">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to transform your technical hiring?</h2>
             <p className="text-lg mb-8 max-w-2xl mx-auto">
-              Join hundreds of companies saving thousands of engineering hours with Zara's AI-powered interview platform.
+              Join hundreds of companies saving thousands of engineering hours with Exterview's AI-powered interview platform.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link to="/start-interviewing">
@@ -295,27 +294,27 @@ const HowItWorksPage = () => {
             <h2 className="text-3xl font-bold mb-10 text-center">Frequently Asked Questions</h2>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                <h3 className="font-bold text-lg mb-3">How accurate is Zara's assessment?</h3>
+                <h3 className="font-bold text-lg mb-3">How accurate is Exterview's assessment?</h3>
                 <p className="text-gray-700">
-                  Zara's assessments have been validated to be 94% consistent with expert human interviewers. We regularly benchmark our system against senior engineering managers from top tech companies.
+                  Exterview's assessments have been validated to be 94% consistent with expert human interviewers. We regularly benchmark our system against senior engineering managers from top tech companies.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                <h3 className="font-bold text-lg mb-3">What technical roles does Zara support?</h3>
+                <h3 className="font-bold text-lg mb-3">What technical roles does Exterview support?</h3>
                 <p className="text-gray-700">
-                  Zara supports interviews for software engineering, data science, ML engineering, DevOps, and other technical roles across multiple languages and frameworks.
+                  Exterview supports interviews for software engineering, data science, ML engineering, DevOps, and other technical roles across multiple languages and frameworks.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                 <h3 className="font-bold text-lg mb-3">Can I customize the interview questions?</h3>
                 <p className="text-gray-700">
-                  Yes, you can provide custom questions or use Zara's library of pre-vetted questions. You can also specify focus areas based on your job requirements.
+                  Yes, you can provide custom questions or use Exterview's library of pre-vetted questions. You can also specify focus areas based on your job requirements.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                 <h3 className="font-bold text-lg mb-3">How do candidates feel about AI interviews?</h3>
                 <p className="text-gray-700">
-                  Our surveys show 89% of candidates rate their experience with Zara as positive or very positive, appreciating the objective assessment and flexible scheduling.
+                  Our surveys show 89% of candidates rate their experience with Exterview as positive or very positive, appreciating the objective assessment and flexible scheduling.
                 </p>
               </div>
             </div>
