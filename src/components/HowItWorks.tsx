@@ -7,27 +7,27 @@ const HowItWorks = () => {
   const steps = [
     {
       number: 1,
-      title: "Upload Job Description",
-      description: "Upload your JD or use our templates. Select tech stack requirements and soft skills criteria.",
-      image: "job-upload.png" // This is a placeholder, we'll handle missing images gracefully
+      title: "Choose Your Focus Area",
+      description: "Select from algorithms, system design, behavioral questions, or specific programming languages.",
+      image: "focus-selection.png"
     },
     {
       number: 2,
-      title: "Zara Interviews Candidates 24/7",
-      description: "Our AI conducts technical assessments through coding challenges and behavioral interviews.",
+      title: "Practice with AI Interviewer",
+      description: "Experience realistic interview scenarios with our adaptive AI that adjusts to your skill level.",
       image: "ai-interview.png"
     },
     {
       number: 3,
-      title: "AI Analyzes & Summarizes",
-      description: "Get detailed insights on technical skills, code quality, problem-solving, and communication.",
-      image: "ai-analysis.png"
+      title: "Get Detailed Feedback",
+      description: "Receive comprehensive analysis of your performance, coding style, and communication skills.",
+      image: "feedback-analysis.png"
     },
     {
       number: 4,
-      title: "Review & Shortlist",
-      description: "Recruiters receive AI-generated summaries to make faster, data-driven hiring decisions.",
-      image: "shortlist.png"
+      title: "Track Your Progress",
+      description: "Monitor improvement over time with detailed analytics and personalized recommendations.",
+      image: "progress-tracking.png"
     }
   ];
 
@@ -35,9 +35,9 @@ const HowItWorks = () => {
     <div className="py-20 px-6 md:px-10 bg-gradient-to-br from-zara-gray-lightest to-white">
       <div className="container mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">How Zara Works</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">How Exterview Works</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Our AI recruiter simplifies your hiring process in four easy steps.
+            Master technical interviews with our AI-powered practice platform in four simple steps.
           </p>
         </div>
 
@@ -59,9 +59,9 @@ const HowItWorks = () => {
                     {step.description}
                   </p>
                   {index === 0 && (
-                    <Link to="/job-upload">
+                    <Link to="/signin">
                       <Button className="bg-zara-purple hover:bg-zara-purple-dark text-white">
-                        Try It Now
+                        Start Practicing
                       </Button>
                     </Link>
                   )}
@@ -70,7 +70,7 @@ const HowItWorks = () => {
               <div className={`w-full lg:w-1/2 ${index % 2 === 1 ? 'lg:pr-16' : 'lg:pl-16'}`}>
                 <div className="bg-zara-purple-light rounded-xl p-6 h-64 flex items-center justify-center text-zara-purple-dark">
                   <div className="text-center">
-                    <p className="text-lg font-medium">Step {step.number} Visualization</p>
+                    <p className="text-lg font-medium">Step {step.number} Preview</p>
                     <p className="text-sm">{step.title}</p>
                   </div>
                 </div>
@@ -80,9 +80,9 @@ const HowItWorks = () => {
         </div>
 
         <div className="mt-16 text-center">
-          <Link to="/job-upload">
+          <Link to="/signin">
             <Button size="lg" className="bg-zara-purple hover:bg-zara-purple-dark text-white">
-              Start Your First AI Interview
+              Start Your Practice Journey
             </Button>
           </Link>
         </div>

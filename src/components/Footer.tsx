@@ -12,14 +12,11 @@ const Footer = () => {
           <div>
             <Link to="/" className="flex items-center mb-4">
               <span className="text-xl font-bold bg-gradient-to-r from-zara-purple-dark to-zara-purple bg-clip-text text-transparent">
-                Zara
-              </span>
-              <span className="ml-1 text-xs text-zara-gray bg-zara-purple-light px-1.5 py-0.5 rounded-md">
-                by micro1
+                Exterview
               </span>
             </Link>
             <p className="text-gray-600 mb-4">
-              Smart AI agent that interviews, evaluates, and shortlists candidates — all on autopilot.
+              AI-powered technical interview practice platform. Master coding interviews with personalized feedback and real-time analysis.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-zara-purple transition-colors">
@@ -50,7 +47,7 @@ const Footer = () => {
           <div>
             <h3 className="text-gray-900 font-semibold mb-4">Company</h3>
             <ul className="space-y-2">
-              <li><Link to="/about" className="text-gray-600 hover:text-zara-purple transition-colors">About micro1</Link></li>
+              <li><Link to="/about" className="text-gray-600 hover:text-zara-purple transition-colors">About Us</Link></li>
               <li><Link to="/careers" className="text-gray-600 hover:text-zara-purple transition-colors">Careers</Link></li>
               <li><Link to="/blog" className="text-gray-600 hover:text-zara-purple transition-colors">Blog</Link></li>
               <li><Link to="/contact" className="text-gray-600 hover:text-zara-purple transition-colors">Contact</Link></li>
@@ -70,7 +67,7 @@ const Footer = () => {
         
         <div className="mt-12 pt-6 border-t border-gray-100">
           <p className="text-gray-500 text-sm text-center">
-            © {currentYear} micro1. All rights reserved. Zara AI Recruiter Platform.
+            © {currentYear} Exterview. All rights reserved. AI-Powered Technical Interview Platform.
           </p>
         </div>
       </div>
