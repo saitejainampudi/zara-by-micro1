@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -78,11 +77,8 @@ const SignInPage = () => {
         <Card className="shadow-xl bg-white/95 backdrop-blur-sm border-gray-200">
           <CardHeader className="text-center pb-6">
             <div className="mb-4">
-              <span className="text-3xl font-bold bg-gradient-to-r from-zara-purple-dark to-zara-purple bg-clip-text text-transparent">
-                Zara
-              </span>
-              <span className="ml-1 text-xs text-zara-gray bg-zara-purple-light px-1.5 py-0.5 rounded-md">
-                by micro1
+              <span className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">
+                Exterview
               </span>
             </div>
             <CardTitle className="text-2xl font-bold text-gray-900">Welcome Back</CardTitle>
@@ -101,7 +97,7 @@ const SignInPage = () => {
                   variant={formData.role === 'candidate' ? 'default' : 'outline'}
                   className={`w-full justify-start ${
                     formData.role === 'candidate' 
-                      ? 'bg-zara-purple hover:bg-zara-purple-dark' 
+                      ? 'bg-purple-600 hover:bg-purple-700' 
                       : 'hover:bg-violet-50'
                   }`}
                   onClick={() => handleInputChange('role', 'candidate')}
@@ -114,7 +110,7 @@ const SignInPage = () => {
                   variant={formData.role === 'recruiter' ? 'default' : 'outline'}
                   className={`w-full justify-start ${
                     formData.role === 'recruiter' 
-                      ? 'bg-zara-purple hover:bg-zara-purple-dark' 
+                      ? 'bg-purple-600 hover:bg-purple-700' 
                       : 'hover:bg-violet-50'
                   }`}
                   onClick={() => handleInputChange('role', 'recruiter')}
@@ -178,7 +174,7 @@ const SignInPage = () => {
                     placeholder="Enter your email"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
-                    className="pl-10 border-gray-300 focus:border-zara-purple focus:ring-zara-purple"
+                    className="pl-10 border-gray-300 focus:border-purple-600 focus:ring-purple-600"
                     required
                   />
                 </div>
@@ -193,7 +189,7 @@ const SignInPage = () => {
                     placeholder="Enter your password"
                     value={formData.password}
                     onChange={(e) => handleInputChange('password', e.target.value)}
-                    className="pl-10 border-gray-300 focus:border-zara-purple focus:ring-zara-purple"
+                    className="pl-10 border-gray-300 focus:border-purple-600 focus:ring-purple-600"
                     required
                   />
                 </div>
@@ -210,14 +206,14 @@ const SignInPage = () => {
                     Remember me
                   </label>
                 </div>
-                <Button variant="link" className="text-sm text-zara-purple hover:text-zara-purple-dark p-0">
+                <Button variant="link" className="text-sm text-purple-600 hover:text-purple-700 p-0">
                   Forgot password?
                 </Button>
               </div>
 
               <Button
                 type="submit"
-                className="w-full bg-zara-purple hover:bg-zara-purple-dark text-white font-medium py-2.5 transition-all duration-200 hover:shadow-lg"
+                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2.5 transition-all duration-200 hover:shadow-lg"
               >
                 Sign In
               </Button>
@@ -225,7 +221,7 @@ const SignInPage = () => {
 
             <div className="text-center">
               <span className="text-sm text-gray-600">Don't have an account? </span>
-              <Button variant="link" className="text-sm text-zara-purple hover:text-zara-purple-dark p-0">
+              <Button variant="link" className="text-sm text-purple-600 hover:text-purple-700 p-0">
                 Sign up
               </Button>
             </div>

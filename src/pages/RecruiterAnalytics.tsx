@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -303,7 +302,7 @@ const RecruiterAnalytics = () => {
                         <div className="w-32 text-sm font-medium">{stage.stage}</div>
                         <div className="flex-1 bg-gray-200 rounded-full h-6 relative">
                           <div 
-                            className="bg-gradient-to-r from-zara-purple to-zara-purple-dark h-6 rounded-full flex items-center justify-center text-white text-sm font-medium"
+                            className="bg-gradient-to-r from-purple-600 to-purple-800 h-6 rounded-full flex items-center justify-center text-white text-sm font-medium"
                             style={{ width: `${stage.percentage}%` }}
                           >
                             {stage.percentage >= 20 && `${stage.count} (${stage.percentage}%)`}
@@ -361,8 +360,8 @@ const RecruiterAnalytics = () => {
                       <div className="flex justify-between items-center">
                         <span>Quality Score</span>
                         <div className="flex items-center gap-2">
-                          <span className="text-blue-600 font-medium">84/100</span>
-                          <Badge className="bg-blue-100 text-blue-700">15% higher</Badge>
+                          <span className="text-purple-600 font-medium">84/100</span>
+                          <Badge className="bg-purple-100 text-purple-700">15% higher</Badge>
                         </div>
                       </div>
                       <div className="flex justify-between items-center">

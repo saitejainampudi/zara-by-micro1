@@ -7,7 +7,7 @@ import { X, Send, MessageCircle } from "lucide-react";
 const ChatAssistant = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { role: "system", content: "Hi there! 👋 I'm Zara, your AI recruiting assistant. How can I help you today?" }
+    { role: "system", content: "Hi there! 👋 I'm Exterview, your AI recruiting assistant. How can I help you today?" }
   ]);
   const [userInput, setUserInput] = useState("");
 
@@ -32,7 +32,7 @@ const ChatAssistant = () => {
       const assistantResponses = [
         "I'd be happy to help you find qualified candidates. What role are you hiring for?",
         "You can view our pricing plans on the pricing page. We have options for companies of all sizes.",
-        "Zara conducts AI-powered interviews in over 15 languages, evaluating technical skills, problem-solving abilities, and soft skills.",
+        "Exterview conducts AI-powered interviews in over 15 languages, evaluating technical skills, problem-solving abilities, and soft skills.",
         "Yes, you can customize the interview questions to match your specific requirements."
       ];
       
@@ -56,7 +56,7 @@ const ChatAssistant = () => {
       {/* Chat Button */}
       <Button
         onClick={toggleChat}
-        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-zara-purple hover:bg-zara-purple-dark shadow-lg flex items-center justify-center p-0 z-50"
+        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-purple-600 hover:bg-purple-700 shadow-lg flex items-center justify-center p-0 z-50"
       >
         {isOpen ? (
           <X size={24} />
@@ -69,13 +69,13 @@ const ChatAssistant = () => {
       {isOpen && (
         <div className="fixed bottom-24 right-6 w-80 md:w-96 bg-white rounded-xl shadow-xl z-50 overflow-hidden border border-gray-200">
           {/* Header */}
-          <div className="bg-zara-purple p-4">
+          <div className="bg-purple-600 p-4">
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-zara-purple font-bold mr-3">
-                Z
+              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-purple-600 font-bold mr-3">
+                E
               </div>
               <div>
-                <h3 className="font-semibold text-white">Zara Assistant</h3>
+                <h3 className="font-semibold text-white">Exterview Assistant</h3>
                 <p className="text-white text-xs opacity-80">Online | Typically responds in seconds</p>
               </div>
             </div>
@@ -91,7 +91,7 @@ const ChatAssistant = () => {
                 <div 
                   className={`max-w-[80%] p-3 rounded-lg ${
                     msg.role === "user" 
-                      ? "bg-zara-purple text-white rounded-br-none" 
+                      ? "bg-purple-600 text-white rounded-br-none" 
                       : "bg-gray-100 text-gray-800 rounded-bl-none"
                   }`}
                 >
@@ -113,7 +113,7 @@ const ChatAssistant = () => {
               />
               <Button 
                 size="icon" 
-                className="bg-zara-purple hover:bg-zara-purple-dark" 
+                className="bg-purple-600 hover:bg-purple-700" 
                 onClick={handleSendMessage}
                 disabled={!userInput.trim()}
               >

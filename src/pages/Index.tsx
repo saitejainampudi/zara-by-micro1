@@ -19,7 +19,7 @@ const Index = () => {
         <Hero />
         
         {/* Enhanced Stats Section with Animated Counters */}
-        <section className="py-16 bg-gradient-to-br from-zara-purple-light/30 to-white">
+        <section className="py-16 bg-gradient-to-br from-purple-100/30 to-white">
           <div className="container mx-auto px-6 md:px-10">
             {/* Benefits Strip */}
             <div className="text-center mb-12">

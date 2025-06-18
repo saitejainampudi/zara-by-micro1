@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -31,7 +30,7 @@ const PricingPage = () => {
           <div className="flex justify-center items-center mb-12">
             <span className={`font-medium ${!isAnnual ? 'text-gray-900' : 'text-gray-600'}`}>Monthly</span>
             <div 
-              className={`mx-4 w-12 h-6 bg-zara-purple rounded-full flex items-center px-1 cursor-pointer ${isAnnual ? 'justify-end' : 'justify-start'}`}
+              className={`mx-4 w-12 h-6 bg-purple-600 rounded-full flex items-center px-1 cursor-pointer ${isAnnual ? 'justify-end' : 'justify-start'}`}
               onClick={toggleBilling}
             >
               <div className="w-4 h-4 bg-white rounded-full"></div>
@@ -59,7 +58,7 @@ const PricingPage = () => {
                   </p>
                 )}
                 <Link to="/start-interviewing">
-                  <Button className="w-full bg-zara-purple hover:bg-zara-purple-dark">
+                  <Button className="w-full bg-purple-600 hover:bg-purple-700">
                     Get Started
                   </Button>
                 </Link>
@@ -98,8 +97,8 @@ const PricingPage = () => {
             </div>
             
             {/* Growth Plan */}
-            <div className="bg-white rounded-xl shadow-xl overflow-hidden border-2 border-zara-purple">
-              <div className="bg-zara-purple text-white py-2 text-center font-medium">
+            <div className="bg-white rounded-xl shadow-xl overflow-hidden border-2 border-purple-600">
+              <div className="bg-purple-600 text-white py-2 text-center font-medium">
                 Most Popular
               </div>
               <div className="p-6 md:p-8">
@@ -115,7 +114,7 @@ const PricingPage = () => {
                   </p>
                 )}
                 <Link to="/start-interviewing">
-                  <Button className="w-full bg-zara-purple hover:bg-zara-purple-dark">
+                  <Button className="w-full bg-purple-600 hover:bg-purple-700">
                     Get Started
                   </Button>
                 </Link>
@@ -154,7 +153,7 @@ const PricingPage = () => {
           <div className="mt-12 text-center">
             <p className="text-lg mb-4">More than 100 interviews per month?</p>
             <Link to="/contact">
-              <Button variant="outline" className="border-zara-purple text-zara-purple hover:bg-zara-purple-light">
+              <Button variant="outline" className="border-purple-600 text-purple-600 hover:bg-purple-600-light">
                 Get Custom Pricing
               </Button>
             </Link>
@@ -218,7 +217,7 @@ const PricingPage = () => {
               Start your 14-day free trial today. No credit card required.
             </p>
             <Link to="/start-interviewing">
-              <Button size="lg" className="bg-zara-purple hover:bg-zara-purple-dark">
+              <Button size="lg" className="bg-purple-600 hover:bg-purple-700">
                 Get Started
               </Button>
             </Link>

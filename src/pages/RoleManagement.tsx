@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -154,7 +153,7 @@ const RoleManagement = () => {
               </div>
               
               <Link to="/job-upload">
-                <Button className="bg-zara-purple hover:bg-zara-purple-dark">
+                <Button className="bg-purple-600 hover:bg-purple-700">
                   <Plus className="w-4 h-4 mr-2" />
                   Create New Role
                 </Button>

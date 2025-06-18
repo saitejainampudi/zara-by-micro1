@@ -5,19 +5,19 @@ import { Card, CardContent } from "@/components/ui/card";
 const Testimonials = () => {
   const testimonials = [
     {
-      quote: "micro1 makes it insanely easy to vet and hire the best talent around the world. This has been game changing for us.",
+      quote: "Exterview makes it insanely easy to vet and hire the best talent around the world. This has been game changing for us.",
       name: "Sean Rad",
       title: "Former CEO of Tinder",
       avatar: "SR"
     },
     {
-      quote: "We've been using micro1 for large-scale cohort hiring, and it's been a total game changer. The candidate experience has been exceptional, and their AI Recruiter has completely streamlined our process.",
+      quote: "We've been using Exterview for large-scale cohort hiring, and it's been a total game changer. The candidate experience has been exceptional, and their AI Recruiter has completely streamlined our process.",
       name: "Alan Price",
       title: "Head of Talent at Deel",
       avatar: "AP"
     },
     {
-      quote: "Prior to micro1, our HR department wasted a lot of time on applicants who fabricated their resumes or overlooked excellent candidates with average-looking resumes. Now that we've integrated micro1 into our hiring process, we've saved our HR and Engineering teams many hours and noticed a stark improvement in the quality of candidates entering our pipeline.",
+      quote: "Prior to Exterview, our HR department wasted a lot of time on applicants who fabricated their resumes or overlooked excellent candidates with average-looking resumes. Now that we've integrated Exterview into our hiring process, we've saved our HR and Engineering teams many hours and noticed a stark improvement in the quality of candidates entering our pipeline.",
       name: "Shane Selinger",
       title: "CEO at GameGrid",
       avatar: "SS"
@@ -28,9 +28,9 @@ const Testimonials = () => {
     <div className="py-20 px-6 md:px-10 bg-[#DBDAF5]">
       <div className="container mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Hear from Zara's clients</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Hear from Exterview's clients</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Teams of all sizes are using Zara to revolutionize their technical hiring process.
+            Teams of all sizes are using Exterview to revolutionize their technical hiring process.
           </p>
         </div>
 
@@ -45,7 +45,7 @@ const Testimonials = () => {
                 </div>
                 <p className="text-gray-700 mb-6 italic">{testimonial.quote}</p>
                 <div className="flex items-center">
-                  <div className="w-12 h-12 rounded-full bg-zara-purple flex items-center justify-center text-white font-bold mr-4">
+                  <div className="w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold mr-4">
                     {testimonial.avatar}
                   </div>
                   <div>
@@ -67,10 +67,10 @@ const Testimonials = () => {
                 </svg>
               </div>
               <p className="text-gray-700 mb-6 italic">
-                "With micro1, we reduced our interview staff from 33 to 12 while still conducting 10,000 interviews each month. Now, the team is focused on higher-impact work. Huge kudos to you guys, first really useful AI applications I've come across."
+                "With Exterview, we reduced our interview staff from 33 to 12 while still conducting 10,000 interviews each month. Now, the team is focused on higher-impact work. Huge kudos to you guys, first really useful AI applications I've come across."
               </p>
               <div className="flex items-center">
-                <div className="w-12 h-12 rounded-full bg-zara-purple flex items-center justify-center text-white font-bold mr-4">
+                <div className="w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold mr-4">
                   NS
                 </div>
                 <div>

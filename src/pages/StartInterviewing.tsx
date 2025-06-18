@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -44,7 +43,7 @@ const StartInterviewing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-zara-lavender">
+    <div className="min-h-screen bg-purple-100">
       <Navbar />
       
       <main className="pt-28 pb-20 px-6 md:px-10">
@@ -52,7 +51,7 @@ const StartInterviewing = () => {
           <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
             <div className="p-8">
               <div className="text-center mb-8">
-                <h1 className="text-2xl md:text-3xl font-bold mb-2">Start Interviewing with Zara</h1>
+                <h1 className="text-2xl md:text-3xl font-bold mb-2">Start Interviewing with Exterview</h1>
                 <p className="text-gray-600 max-w-xl mx-auto">
                   Set up your account and start conducting AI-powered technical interviews in minutes.
                 </p>
@@ -61,23 +60,23 @@ const StartInterviewing = () => {
               {/* Progress Steps */}
               <div className="mb-10">
                 <div className="flex items-center justify-center">
-                  <div className={`flex items-center ${step >= 1 ? 'text-zara-purple' : 'text-gray-400'}`}>
+                  <div className={`flex items-center ${step >= 1 ? 'text-purple-600' : 'text-gray-400'}`}>
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-2 ${
-                      step >= 1 ? 'bg-zara-purple text-white' : 'bg-gray-200 text-gray-600'
+                      step >= 1 ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-600'
                     }`}>1</div>
                     <span className="hidden sm:inline text-sm">Account</span>
                   </div>
-                  <div className={`w-12 sm:w-24 h-1 mx-2 ${step >= 2 ? 'bg-zara-purple' : 'bg-gray-200'}`}></div>
-                  <div className={`flex items-center ${step >= 2 ? 'text-zara-purple' : 'text-gray-400'}`}>
+                  <div className={`w-12 sm:w-24 h-1 mx-2 ${step >= 2 ? 'bg-purple-600' : 'bg-gray-200'}`}></div>
+                  <div className={`flex items-center ${step >= 2 ? 'text-purple-600' : 'text-gray-400'}`}>
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-2 ${
-                      step >= 2 ? 'bg-zara-purple text-white' : 'bg-gray-200 text-gray-600'
+                      step >= 2 ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-600'
                     }`}>2</div>
                     <span className="hidden sm:inline text-sm">Company</span>
                   </div>
-                  <div className={`w-12 sm:w-24 h-1 mx-2 ${step >= 3 ? 'bg-zara-purple' : 'bg-gray-200'}`}></div>
-                  <div className={`flex items-center ${step >= 3 ? 'text-zara-purple' : 'text-gray-400'}`}>
+                  <div className={`w-12 sm:w-24 h-1 mx-2 ${step >= 3 ? 'bg-purple-600' : 'bg-gray-200'}`}></div>
+                  <div className={`flex items-center ${step >= 3 ? 'text-purple-600' : 'text-gray-400'}`}>
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-2 ${
-                      step >= 3 ? 'bg-zara-purple text-white' : 'bg-gray-200 text-gray-600'
+                      step >= 3 ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-600'
                     }`}>3</div>
                     <span className="hidden sm:inline text-sm">Job Details</span>
                   </div>
@@ -137,7 +136,7 @@ const StartInterviewing = () => {
                     <div className="pt-4">
                       <Button
                         type="button"
-                        className="w-full bg-zara-purple hover:bg-zara-purple-dark"
+                        className="w-full bg-purple-600 hover:bg-purple-700"
                         onClick={() => setStep(2)}
                       >
                         Continue
@@ -147,7 +146,7 @@ const StartInterviewing = () => {
                     <div className="text-center pt-2">
                       <p className="text-sm text-gray-600">
                         Already have an account?{' '}
-                        <Link to="/signin" className="text-zara-purple hover:underline font-medium">
+                        <Link to="/signin" className="text-purple-600 hover:underline font-medium">
                           Sign in
                         </Link>
                       </p>
@@ -196,7 +195,7 @@ const StartInterviewing = () => {
                           name="teamSize"
                           value={formData.teamSize}
                           onChange={handleChange}
-                          className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-zara-purple focus:border-zara-purple sm:text-sm rounded-md"
+                          className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-purple-600 focus:border-purple-600 sm:text-sm rounded-md"
                         >
                           <option value="">Select option</option>
                           <option value="1-5">1-5 engineers</option>
@@ -215,7 +214,7 @@ const StartInterviewing = () => {
                           name="companySize"
                           value={formData.companySize}
                           onChange={handleChange}
-                          className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-zara-purple focus:border-zara-purple sm:text-sm rounded-md"
+                          className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-purple-600 focus:border-purple-600 sm:text-sm rounded-md"
                         >
                           <option value="">Select option</option>
                           <option value="1-10">1-10 employees</option>
@@ -237,7 +236,7 @@ const StartInterviewing = () => {
                         name="hearAboutUs"
                         value={formData.hearAboutUs}
                         onChange={handleChange}
-                        className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-zara-purple focus:border-zara-purple sm:text-sm rounded-md"
+                        className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-purple-600 focus:border-purple-600 sm:text-sm rounded-md"
                       >
                         <option value="">Select option</option>
                         <option value="search">Search Engine</option>
@@ -253,14 +252,14 @@ const StartInterviewing = () => {
                       <Button
                         type="button"
                         variant="outline"
-                        className="border-zara-purple text-zara-purple hover:bg-zara-purple-light"
+                        className="border-purple-600 text-purple-600 hover:bg-purple-100"
                         onClick={() => setStep(1)}
                       >
                         Back
                       </Button>
                       <Button
                         type="button"
-                        className="bg-zara-purple hover:bg-zara-purple-dark"
+                        className="bg-purple-600 hover:bg-purple-700"
                         onClick={() => setStep(3)}
                       >
                         Continue
@@ -282,7 +281,7 @@ const StartInterviewing = () => {
                         rows={6}
                         value={formData.description}
                         onChange={handleChange}
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-zara-purple focus:border-zara-purple sm:text-sm"
+                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-purple-600 focus:border-purple-600 sm:text-sm"
                         placeholder="Paste your job description here to let Zara know what you're looking for..."
                       ></textarea>
                       <p className="text-xs text-gray-500">
@@ -290,8 +289,8 @@ const StartInterviewing = () => {
                       </p>
                     </div>
                     
-                    <div className="bg-zara-purple-light p-6 rounded-lg">
-                      <h3 className="font-bold text-zara-purple-dark mb-3">What You'll Get:</h3>
+                    <div className="bg-purple-100 p-6 rounded-lg">
+                      <h3 className="font-bold text-purple-800 mb-3">What You'll Get:</h3>
                       <ul className="space-y-3">
                         <li className="flex items-start">
                           <Check size={18} className="text-green-600 mr-2 mt-0.5 flex-shrink-0" />
@@ -316,14 +315,14 @@ const StartInterviewing = () => {
                       <Button
                         type="button"
                         variant="outline"
-                        className="border-zara-purple text-zara-purple hover:bg-zara-purple-light"
+                        className="border-purple-600 text-purple-600 hover:bg-purple-100"
                         onClick={() => setStep(2)}
                       >
                         Back
                       </Button>
                       <Button
                         type="submit"
-                        className="bg-zara-purple hover:bg-zara-purple-dark"
+                        className="bg-purple-600 hover:bg-purple-700"
                       >
                         Create Account
                       </Button>

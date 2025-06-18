@@ -47,13 +47,13 @@ const RecruiterDashboard = () => {
           <div className="mb-8 animate-fade-in">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-zara-purple to-zara-purple-dark flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-purple-600 to-purple-800 flex items-center justify-center text-white text-2xl font-bold shadow-lg">
                   R
                 </div>
                 <div>
                   <h1 className="text-3xl font-bold text-gray-900 mb-2">Recruitment Command Center</h1>
                   <p className="text-gray-600 flex items-center gap-2">
-                    <Zap className="w-4 h-4 text-zara-purple" />
+                    <Zap className="w-4 h-4 text-purple-600" />
                     AI-powered hiring at scale - streamlined for maximum efficiency
                   </p>
                 </div>
@@ -63,7 +63,7 @@ const RecruiterDashboard = () => {
                 <NotificationCenter userRole="recruiter" />
                 <ContextualHelp context="dashboard" userRole="recruiter" />
                 <Link to="/job-upload">
-                  <Button className="bg-zara-purple hover:bg-zara-purple-dark">
+                  <Button className="bg-purple-600 hover:bg-purple-700">
                     <Plus className="w-4 h-4 mr-2" />
                     Create New Role
                   </Button>
@@ -88,7 +88,7 @@ const RecruiterDashboard = () => {
                 <CardHeader className="pb-2">
                   <div className="flex items-center justify-between">
                     <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110 ${
-                      stat.color === 'purple' ? 'bg-zara-purple-light text-zara-purple' :
+                      stat.color === 'purple' ? 'bg-purple-100 text-purple-600' :
                       stat.color === 'blue' ? 'bg-blue-100 text-blue-600' :
                       stat.color === 'green' ? 'bg-green-100 text-green-600' :
                       stat.color === 'yellow' ? 'bg-yellow-100 text-yellow-600' :
@@ -109,7 +109,7 @@ const RecruiterDashboard = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <Button
               onClick={handleRoleManagement}
-              className="h-40 bg-gradient-to-br from-zara-purple to-zara-purple-dark text-white border-0 hover:from-zara-purple-dark hover:to-purple-900 group relative overflow-hidden"
+              className="h-40 bg-gradient-to-br from-purple-600 to-purple-800 text-white border-0 hover:from-purple-700 hover:to-purple-900 group relative overflow-hidden"
             >
               <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative z-10 flex flex-col items-center justify-center h-full text-center space-y-4">
@@ -172,7 +172,7 @@ const RecruiterDashboard = () => {
           <Card className="hover:shadow-xl transition-all duration-300">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-zara-purple" />
+                <TrendingUp className="w-5 h-5 text-purple-600" />
                 Recent Activity & Quick Stats
               </CardTitle>
               <CardDescription>
